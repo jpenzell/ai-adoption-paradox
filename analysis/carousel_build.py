@@ -179,7 +179,7 @@ def slide_3(c):
     x0 = cx - total_w/2
     baseline = cy + 10   # lowered from cy+50 to sit at circle visual center
     c.setFont("Times-Bold",200); c.drawString(x0,baseline,"42")
-    c.setFont("Times-Bold",100); c.drawString(x0+w35,baseline,".3%")
+    c.setFont("Times-Bold",100); c.drawString(x0+w35,baseline,".9%")
 
     # label inside circle
     c.setFillColor(WHITE); c.setFont("Helvetica-Bold",24)
@@ -228,11 +228,11 @@ def slide_4(c):
 
     bar_x    = 72
     bar_w_max= W - 72 - 230
-    bar_h_hi = 44
-    bar_h_lo = 30
+    bar_h_hi = 36
+    bar_h_lo = 22
     max_pct  = 38
-    start_y  = H - 308   # was H-268 — first label was printing ON TOP of title
-    row_h    = 112
+    start_y  = H - 330   # compressed to fit all 8 features above callout
+    row_h    = 70
 
     for i,(lbl_txt,pct,hi) in enumerate(features):
         yy   = start_y - i*row_h
@@ -259,12 +259,12 @@ def slide_4(c):
     c.setFillColor(ACCENT); c.setLineWidth(2); c.setStrokeColor(ACCENT)
     c.line(72, 168, W-72, 168)
     c.setFillColor(ACCENT); c.setFont("Times-Bold", 30)
-    c.drawCentredString(W//2, 118, "Sentiment has 4\u00d7 the feature importance of trust. 15\u00d7 more than experience.")
+    c.drawCentredString(W//2, 118, "Sentiment has 4\u00d7 the feature importance of trust. ~12\u00d7 vs. years of coding.")
 
     # Source attribution on data slide (replaces generic footer)
     c.setFillColor(MID); c.setFont("Helvetica",15)
     c.drawString(60,52,"Source: 2025 Stack Overflow Developer Survey  ·  n = 33,231")
-    c.drawString(60,32,"8 model features  ·  remaining 0.3% distributed across rounding")
+    c.drawString(60,32,"8 model features  ·  importances sum to 100.3% (rounding)")
     c.drawRightString(W-60,38,"Josh Penzell · Imagination Applied")
     swipe_cue(c)
 
@@ -343,7 +343,7 @@ def slide_5(c):
     footer_strip(c); swipe_cue(c)
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# SLIDE 6 — THE 29pp FINDING
+# SLIDE 6 — THE LEARNING PATHWAY TRUST GAP
 # ═══════════════════════════════════════════════════════════════════════════════
 def slide_6(c):
     bg(c, INK); top_rules(c); bot_rules(c)
@@ -351,27 +351,27 @@ def slide_6(c):
     label(c,"THE LEARNING PATHWAY EFFECT",72,H-72,size=18,color=ACCENT,bold=True)
     label(c,"6 / 8",W-72,H-72,size=18,color=MID,align="right")
 
-    # "29" big, "-point gap" smaller — same baseline
+    # "15" big, "-point gap" smaller — sturdy online-courses vs colleague comparison
     c.setFillColor(ACCENT)
     c.setFont("Times-Bold",260)
-    w29  = c.stringWidth("29","Times-Bold",260)
+    w15  = c.stringWidth("15","Times-Bold",260)
     c.setFont("Times-Bold",96)
     wsub = c.stringWidth("-point gap","Times-Bold",96)
     x0   = 72
     base = H-430
-    c.setFont("Times-Bold",260); c.drawString(x0,base,"29")
-    c.setFont("Times-Bold",96);  c.drawString(x0+w29+10,base," point gap")
+    c.setFont("Times-Bold",260); c.drawString(x0,base,"15")
+    c.setFont("Times-Bold",96);  c.drawString(x0+w15+10,base," point gap")
 
     c.setFillColor(WHITE); c.setFont("Times-Bold",42)
-    c.drawString(72,H-482,"in trust between structured")
-    c.drawString(72,H-532,"and informal AI learners.")
+    c.drawString(72,H-482,"online courses vs. colleague training")
+    c.drawString(72,H-532,"(robust n; up to 29pp at the extremes)")
 
     c.setStrokeColor(ACCENT); c.setLineWidth(2)
     c.line(72,H-562,W-72,H-562)
 
     pairs = [
-        ("Bootcamp / online course","66.5% trust",GREEN,True),
-        ("Colleague / on the job",  "37.3% trust",RED,  False),
+        ("Online courses / certs","52.4% trust",GREEN,True),
+        ("Colleague / on the job","37.3% trust",RED,  False),
     ]
     for i,(method,trust,col,hi) in enumerate(pairs):
         y = H-610 - i*160
@@ -410,7 +410,7 @@ def slide_7(c):
     implications = [
         ("Measure sentiment before training.", "You need a baseline, not an assumption."),
         ("Design for feeling, not knowing.",   "Demos that delight build adoption. Lectures don't."),
-        ("Build structured pathways.",         "The 29-point gap is a design problem, not a people problem."),
+        ("Build structured pathways.",         "The ~15-point gap (online courses vs. colleague) is a design problem, not a people problem."),
         ("Expect the first-contact dip.",      "New users often trust AI LESS. That's not failure."),
         ("Resisters aren't ignorant.",         "They're unconvinced. Different problem, different fix."),
     ]
