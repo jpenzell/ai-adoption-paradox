@@ -18,7 +18,7 @@ This file documents every key count used in the paper alongside the correspondin
 
 | Denominator | SO Published | CSV Count | Used in Analysis | Notes |
 |---|---|---|---|---|
-| **2025 total responses** | 49,009 (methodology page) / 49,019 (results page) | 49,191 | 49,191 | Difference of 172–182 rows. Likely post-publication quality filtering applied to the results page but not yet reflected in the CSV release. The 203,812 combined headline uses CSV counts; SO published figures would yield ~203,630. |
+| **2025 total responses** | 49,009 (methodology page) | 49,191 | 49,191 | Difference of 182 rows. Likely post-publication quality filtering applied to the results page but not yet reflected in the CSV release. The 203,812 combined headline uses CSV counts; SO published figures would yield ~203,630. |
 | **2025 AISelect respondents** | 33,662 (AI page) | 33,720 | 33,720 | Difference of 58. Consistent with versioning explanation above. Analytical sample of 33,231 is derived from the CSV figure. |
 | **2025 professional developers (total)** | 37,356 (results page) | 37,467 | 37,467 (noted) | Difference of 111. Same versioning gap. |
 | **2025 professional developers who answered AISelect** | 26,004 (AI page) | 26,045 | 26,045 | Used to compute 50.6% daily rate, consistent with SO's published 51%. |
@@ -45,7 +45,7 @@ The trust question routing changed between survey years, creating a comparabilit
 
 **Conclusion:** The trust decline from 2024 to 2025 is directionally robust on both denominators, but the magnitude differs substantially. The harmonized user-only figures show a smaller — though still meaningful — decline. Non-users show dramatically lower trust, which depresses the 2025 full-denominator figures relative to prior years.
 
-Both the full-denominator and user-only 2025 figures are reported in the paper (Table 2).
+Both the full-denominator and user-only 2025 figures are reported in the paper (Table 3).
 
 ---
 

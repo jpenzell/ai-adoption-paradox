@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 
 const data = {
   features: [
-    { label: "How you FEEL about AI",          pct: 41.3, highlight: true  },
-    { label: "Whether you use AI agents",       pct: 12.9, highlight: false },
-    { label: "Learned a new AI tool this year", pct: 12.9, highlight: false },
-    { label: "How much you trust AI",           pct: 10.3, highlight: false },
-    { label: "How well AI handles complexity",  pct:  9.5, highlight: false },
-    { label: "Years in tech",                   pct:  2.7, highlight: false },
+    { label: "How you FEEL about AI",           pct: 42.9, highlight: true  },
+    { label: "Learned a new AI tool this year", pct: 16.3, highlight: false },
+    { label: "Whether you use AI agents",       pct: 13.6, highlight: false },
+    { label: "How well AI handles complexity",  pct: 10.1, highlight: false },
+    { label: "How much you trust AI",           pct:  9.2, highlight: false },
+    { label: "Years work experience",           pct:  4.0, highlight: false },
+    { label: "Years coding",                    pct:  3.6, highlight: false },
+    { label: "Job threat perception",           pct:  0.6, highlight: false },
   ],
   archetypes: [
     { name: "Daily Integrators",     sent: "Very Favorable", usage: "Daily",        i: 0 },
@@ -57,7 +59,7 @@ export default function App() {
           you use it daily.
         </div>
         <div style={{ marginTop: 14, fontSize: 15, color: MID, lineHeight: 1.55, fontStyle: "italic", maxWidth: 460 }}>
-          Not your job title. Not your years of experience.<br/>Not even how much you trust it.
+          Not how long you’ve been coding. Not how much you trust it.
         </div>
       </div>
 
@@ -74,7 +76,7 @@ export default function App() {
         </div>
         <div style={{ borderLeft: `2px solid ${ACCENT}`, paddingLeft: 26 }}>
           <div style={{ fontSize: 15, color: PAPER, lineHeight: 1.55, fontStyle: "italic" }}>
-            AI sentiment is the #1 predictor of daily adoption — outweighing trust, experience, role, and learning history combined.
+            AI sentiment is the #1 predictor of daily adoption — outweighing trust level, years of experience, and agent engagement combined.
           </div>
           <div style={{ fontSize: 10, color: MID, marginTop: 10, letterSpacing: 1.5, textTransform: "uppercase" }}>
             RF · 200 trees · 77.1% accuracy · 5-fold CV confirmed

@@ -169,16 +169,16 @@ def slide_3(c):
     label(c,"THE NUMBER",72,H-72,size=18,color=ACCENT,bold=True)
     label(c,"3 / 8",W-72,H-72,size=18,color=MID,align="right")
 
-    # "41.3%" same baseline, size-contrasted — centered in circle
+    # "42.9%" same baseline, size-contrasted — centered in circle
     c.setFillColor(ACCENT)
     c.setFont("Times-Bold",200)
-    w35   = c.stringWidth("41",  "Times-Bold",200)
+    w35   = c.stringWidth("42",  "Times-Bold",200)
     c.setFont("Times-Bold",100)
-    w_dec = c.stringWidth(".2%","Times-Bold",100)
+    w_dec = c.stringWidth(".9%","Times-Bold",100)
     total_w = w35 + w_dec
     x0 = cx - total_w/2
     baseline = cy + 10   # lowered from cy+50 to sit at circle visual center
-    c.setFont("Times-Bold",200); c.drawString(x0,baseline,"41")
+    c.setFont("Times-Bold",200); c.drawString(x0,baseline,"42")
     c.setFont("Times-Bold",100); c.drawString(x0+w35,baseline,".3%")
 
     # label inside circle
@@ -193,7 +193,7 @@ def slide_3(c):
 
     # below circle
     c.setFillColor(WHITE); c.setFont("Times-Roman",38)
-    c.drawCentredString(cx, 200, "Not your role. Not your experience. Not your trust score.")
+    c.drawCentredString(cx, 200, "Not how long you've coded. Not how much you trust it.")
 
     c.setFillColor(MID); c.setFont("Helvetica",18)
     c.drawString(72,70,"\"Sentiment\" = SO survey item: \"How favorable is your stance on using AI tools?\" · 6-point scale")
@@ -216,12 +216,14 @@ def slide_4(c):
     c.drawString(72,H-214,"daily AI use:")
 
     features = [
-        ("How you FEEL about AI",         41.3, True),
-        ("Agent use",                      12.9, False),
-        ("Learned a new AI tool this year",12.9, False),
-        ("How much you TRUST AI",          10.3, False),
-        ("How capable you think AI is",     9.5, False),
-        ("Years of experience",             2.7, False),
+        ("How you FEEL about AI",           42.9, True),
+        ("Learned a new AI tool this year", 16.3, False),
+        ("Agent use",                       13.6, False),
+        ("How capable you think AI is",     10.1, False),
+        ("How much you TRUST AI",            9.2, False),
+        ("Years of experience",              4.0, False),
+        ("Years coding",                     3.6, False),
+        ("Job threat perception",            0.6, False),
     ]
 
     bar_x    = 72
