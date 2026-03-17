@@ -55,8 +55,8 @@ export default function App() {
         </div>
         <div style={{ fontSize: 44, fontWeight: "bold", lineHeight: 1.05, color: INK, letterSpacing: -1.5 }}>
           What you <em style={{ color: ACCENT }}>feel</em> about AI<br/>
-          predicts whether<br/>
-          you use it daily.
+          is most strongly associated<br/>
+          with daily use.
         </div>
         <div style={{ marginTop: 14, fontSize: 15, color: MID, lineHeight: 1.55, fontStyle: "italic", maxWidth: 460 }}>
           Not how long you’ve been coding. Not how much you trust it.
@@ -68,15 +68,15 @@ export default function App() {
         <div style={{ position: "absolute", top: -40, right: -40, width: 180, height: 180, borderRadius: "50%", background: ACCENT, opacity: 0.1 }}/>
         <div style={{ flexShrink: 0 }}>
           <div style={{ fontSize: 88, fontWeight: "bold", lineHeight: 1, color: ACCENT, letterSpacing: -4 }}>
-            41<span style={{ fontSize: 44 }}>.3%</span>
+            42<span style={{ fontSize: 44 }}>.9%</span>
           </div>
           <div style={{ fontSize: 11, color: RULE, letterSpacing: 2, textTransform: "uppercase", marginTop: 2 }}>
-            of predictive power
+            of feature importance
           </div>
         </div>
         <div style={{ borderLeft: `2px solid ${ACCENT}`, paddingLeft: 26 }}>
           <div style={{ fontSize: 15, color: PAPER, lineHeight: 1.55, fontStyle: "italic" }}>
-            AI sentiment is the #1 predictor of daily adoption — outweighing trust level, years of experience, and agent engagement combined.
+            AI sentiment is the #1 model feature for daily adoption — outweighing trust level, years of experience, and agent engagement combined.
           </div>
           <div style={{ fontSize: 10, color: MID, marginTop: 10, letterSpacing: 1.5, textTransform: "uppercase" }}>
             RF · 200 trees · 77.1% accuracy · 5-fold CV confirmed
@@ -87,7 +87,7 @@ export default function App() {
       {/* BAR CHART */}
       <div style={{ padding: "28px 48px 0" }}>
         <div style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: MID, borderBottom: `1px solid ${RULE}`, paddingBottom: 8, marginBottom: 16 }}>
-          What actually predicts daily AI use
+          What is most strongly associated with daily AI use
         </div>
         {data.features.map((f, i) => (
           <div key={i} style={{ marginBottom: 13, display: "flex", alignItems: "center", gap: 12 }}>
@@ -147,9 +147,9 @@ export default function App() {
       {/* STAT TRIO */}
       <div style={{ padding: "22px 48px 0", display: "flex", gap: 14 }}>
         {[
-          { stat: "4×",   desc: "Sentiment outpredicts trust as a driver of daily adoption" },
-          { stat: "15×",  desc: "More predictive than years of industry experience" },
-          { stat: "29pp", desc: "Trust gap: structured vs. informal AI learners" },
+          { stat: "4×",   desc: "Sentiment has 4× the feature importance of trust" },
+          { stat: "~12×", desc: "Higher feature importance than years of coding experience" },
+          { stat: "~15pp", desc: "Structured vs. informal learning trust gap (online courses vs. colleague, robust comparison)" },
         ].map((c, i) => (
           <div key={i} style={{
             flex: 1, padding: "16px 14px",

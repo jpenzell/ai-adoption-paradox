@@ -1,6 +1,6 @@
 """
 LinkedIn carousel PDF — 8 slides, 1080x1080pt square
-Topic: What you FEEL about AI predicts whether you use it
+Topic: What you FEEL about AI is most strongly associated with whether you use it
 Aesthetic: editorial ink-and-paper, bold typographic
 """
 from reportlab.pdfgen import canvas
@@ -85,7 +85,7 @@ def slide_1(c):
 
     c.setFillColor(RULE); c.setFont("Times-Italic",30)
     c.drawString(72,H-690,"I analyzed 33,231 developer responses to find out")
-    c.drawString(72,H-730,"what actually predicts daily AI use. Swipe to see.")
+    c.drawString(72,H-730,"what is most strongly associated with daily AI use. Swipe to see.")
 
     c.setFillColor(RULE); c.setFont("Helvetica",16)
     c.drawString(72,H-800,"linkedin.com/in/josh-penzell")
@@ -183,7 +183,7 @@ def slide_3(c):
 
     # label inside circle
     c.setFillColor(WHITE); c.setFont("Helvetica-Bold",24)
-    c.drawCentredString(cx, cy-160, "OF WHAT PREDICTS DAILY AI USE")
+    c.drawCentredString(cx, cy-160, "MOST ASSOCIATED WITH DAILY AI USE")
 
     c.setStrokeColor(ACCENT); c.setLineWidth(2)
     c.line(cx-200,cy-195,cx+200,cy-195)
@@ -197,7 +197,7 @@ def slide_3(c):
 
     c.setFillColor(MID); c.setFont("Helvetica",18)
     c.drawString(72,70,"\"Sentiment\" = SO survey item: \"How favorable is your stance on using AI tools?\" · 6-point scale")
-    c.drawString(72,50,"Predictive model · 33,231 responses · 77.1% accuracy · 5-fold cross-validated")
+    c.drawString(72,50,"Classification model · 33,231 responses · 77.1% accuracy · 5-fold cross-validated")
     c.drawString(72,30,"Cross-sectional data · association is strong and consistent · causal direction requires further study")
     slide_num(c,3); swipe_cue(c)
 
@@ -211,9 +211,9 @@ def slide_4(c):
     label(c,"4 / 8",W-72,H-72,size=18,color=RULE,align="right")
 
     c.setFillColor(INK); c.setFont("Times-Bold",56)
-    c.drawString(72,H-148,"What actually predicts")
+    c.drawString(72,H-148,"What is most strongly")
     c.setFont("Times-BoldItalic",56); c.setFillColor(ACCENT)
-    c.drawString(72,H-214,"daily AI use:")
+    c.drawString(72,H-214,"associated with daily AI use:")
 
     features = [
         ("How you FEEL about AI",           42.9, True),
@@ -259,12 +259,12 @@ def slide_4(c):
     c.setFillColor(ACCENT); c.setLineWidth(2); c.setStrokeColor(ACCENT)
     c.line(72, 168, W-72, 168)
     c.setFillColor(ACCENT); c.setFont("Times-Bold", 30)
-    c.drawCentredString(W//2, 118, "Sentiment is 4\u00d7 more predictive than trust. 15\u00d7 more than experience.")
+    c.drawCentredString(W//2, 118, "Sentiment has 4\u00d7 the feature importance of trust. 15\u00d7 more than experience.")
 
     # Source attribution on data slide (replaces generic footer)
     c.setFillColor(MID); c.setFont("Helvetica",15)
     c.drawString(60,52,"Source: 2025 Stack Overflow Developer Survey  ·  n = 33,231")
-    c.drawString(60,32,"Top 6 of 13 model features shown  ·  remaining 10.4% distributed across other variables")
+    c.drawString(60,32,"8 model features  ·  remaining 0.3% distributed across rounding")
     c.drawRightString(W-60,38,"Josh Penzell · Imagination Applied")
     swipe_cue(c)
 
@@ -459,8 +459,8 @@ def slide_8(c):
     c.line(72,H-368,380,H-368)
 
     c.setFillColor(RULE); c.setFont("Times-Roman",28)
-    c.drawString(72,H-416,"Sentiment outpredicts trust 4 to 1.")
-    c.drawString(72,H-452,"It outpredicts experience 15 to 1.")
+    c.drawString(72,H-416,"Sentiment: 4× the feature importance of trust.")
+    c.drawString(72,H-452,"~12× the feature importance of years coding.")
 
     c.setStrokeColor(RULE); c.setLineWidth(1)
     c.line(72,H-540,W-72,H-540)

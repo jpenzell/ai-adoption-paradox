@@ -28,7 +28,7 @@ This report analyzes three consecutive years of the Stack Overflow Developer Sur
 │   ├── deep_dives.py         # Learning methods, frustration, job threat analyses
 │   └── carousel_build.py     # LinkedIn carousel figure generation
 ├── outputs/
-│   ├── adoption_paper_v31.docx   # Final manuscript
+│   ├── adoption_paper_v34.docx   # Final manuscript
 │   └── infographic_v2.jsx        # Interactive infographic (React)
 ├── docs/
 │   ├── CODEBOOK.md           # Variable recode documentation (all 6 cluster features
@@ -111,8 +111,9 @@ See `docs/CODEBOOK.md` for full recode documentation. Three decisions warrant pa
 If you use this analysis, please cite:
 
 ```
-Penzell, J. (2025). AI Adoption Paradox: A Repeated Cross-Sectional Analysis of the
-Stack Overflow Developer Survey, 2023–2025. Imagination Applied Research Series.
+Penzell, J. (2025). Human–AI Work Patterns in Software Development: Archetypes, Paradoxes,
+and the Decline of Trust. A Repeated Cross-Sectional Analysis of the Stack Overflow Developer
+Survey, 2023–2025. Imagination Applied Research Series.
 https://github.com/jpenzell/ai-adoption-paradox
 ```
 

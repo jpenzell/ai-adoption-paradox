@@ -604,7 +604,7 @@ fig.suptitle("Classification: What Predicts Daily AI Adoption?", fontsize=14, fo
 
 # Feature importance comparison (RF vs DT)
 ax = axes[0]
-top_n = 10
+top_n = 8  # 8-feature model
 top_feats = importances.head(top_n)
 x = np.arange(top_n)
 width = 0.35

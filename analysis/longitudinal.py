@@ -139,6 +139,21 @@ for yr, t in [('2023',t23),('2024',t24),('2025',t25)]:
     if t:
         print(f"    {yr}: {t['high']:.1%} trust  |  {t['neutral']:.1%} neutral  |  {t['low']:.1%} distrust  (n={t['n']:,})")
 
+
+# ─── METRIC 3b: HARMONIZED 2025 TRUST (user-only, routing-comparable to 2023/2024) ─────
+# Routing note: 2023/2024 routed AIAcc/AIBen to current AI users only.
+# 2025 routed to ALL AISelect respondents (including non-users → much lower trust).
+# Primary year-over-year comparison must restrict 2025 to current users.
+current_users_2025 = df25[df25['AISelect'].str.contains('Yes, I use AI', na=False)]
+n_harm = len(current_users_2025)
+t25_harm = trust_dist(current_users_2025, 'AIAcc')
+if t25_harm:
+    print(f"\n[4b] 2025 harmonized trust (current users only, n={n_harm:,} — routing-comparable):")
+    print(f"     High trust:    {t25_harm['high']:.1%}  (vs 43.0% in 2024  → primary year-over-year comparison)")
+    print(f"     High distrust: {t25_harm['low']:.1%}  (vs 30.4% in 2024)")
+    print(f"     Highly distrust: {t25_harm['highly_distrust']:.1%}")
+    print(f"     (Full-denom 2025 figures include non-users and are not directly comparable to 2023/2024)")
+
 # ─── METRIC 4: THREAT PERCEPTION (2024-2025) ──────────────────────────────────
 print("\n[5] Computing threat perception (2024-2025)...")
 
@@ -186,8 +201,11 @@ def task_pct(df, col, total_respondents):
     return (vc / total_respondents).to_dict()
 
 # 2023 and 2024 use single "currently using" column
-t23_tasks = task_pct(df23, 'AIToolCurrently Using', len(df23))
-t24_tasks = task_pct(df24, 'AIToolCurrently Using', len(df24))
+# AISelect-answered denominator (not all respondents) — matches manuscript Table 4
+n23_aiselect = df23['AISelect'].notna().sum()  # 87,973
+t23_tasks = task_pct(df23, 'AIToolCurrently Using', n23_aiselect)
+n24_aiselect = df24['AISelect'].notna().sum()  # 60,907
+t24_tasks = task_pct(df24, 'AIToolCurrently Using', n24_aiselect)
 
 # 2025: respondent-level union of "mostly AI" and "partially AI" columns
 # This avoids double-counting respondents who appear in both columns for the same task.
@@ -210,13 +228,14 @@ def task_union_2025(df, norm_map, total_n):
 
     return {task: len(indices) / total_n for task, indices in task_respondents.items()}
 
-t25_tasks = task_union_2025(df25, TASK_NORMALIZE, len(df25))
+n25_aiselect = df25['AISelect'].notna().sum()  # 33,720
+t25_tasks = task_union_2025(df25, TASK_NORMALIZE, n25_aiselect)
 
 # Documenting Code note: 2025 has two label variants:
 #   "Documenting code" (legacy, n=9,815) and
 #   "Creating or maintaining documentation" (new, n=8,523).
 # Both are normalized to "Documenting Code". Respondents selecting both: n=7,061.
-# Respondent-level union: n=11,277 = 22.9% of all respondents.
+# Respondent-level union: n=11,277 = 33.4% of AISelect respondents (87,973/60,907/33,720 denominators).
 
 CORE_TASKS = ['Writing Code','Debugging/Fixing Code','Documenting Code',
               'Testing Code','Learning Codebase','Project Planning',
@@ -349,7 +368,7 @@ ax.bar(x,     bars24, w, label='2024', color=list(YEAR_COLORS.values())[1], alph
 ax.bar(x + w, bars25, w, label='2025', color=list(YEAR_COLORS.values())[2], alpha=0.85)
 ax.set_xticks(x)
 ax.set_xticklabels([t.replace(' ','\n') for t in show_tasks], fontsize=8)
-ax.set_ylabel('% of All Respondents')
+ax.set_ylabel('% of AISelect Respondents (answered AI usage question)')
 ax.set_title('AI Task Usage: Which Tasks Are Developers Using AI For?', fontweight='bold')
 ax.legend(fontsize=9)
 ax.annotate('Note: 2025 combines "partially AI" + "mostly AI" columns;\n2023/2024 use single "currently using" column',
