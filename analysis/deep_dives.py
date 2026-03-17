@@ -160,6 +160,8 @@ ucolors = ["#C44E52","#DD8452","#e0c97e","#55A868","#1a6b3a"]
 # 2a. Complexity score by usage frequency
 ax = axes[0]
 grp_u = df25[df25['AISelect'].notna() & df25['ComplexScore'].notna()].groupby('AISelect')
+# Separate group for trust analysis — must filter on TrustScore, not ComplexScore
+grp_u_trust = df25[df25['AISelect'].notna() & df25['TrustScore'].notna()].groupby('AISelect')
 complex_means = []
 complex_cis   = []
 ns = []
@@ -190,12 +192,12 @@ for i, (m, n) in enumerate(zip(complex_means, ns)):
     ax.text(i, m + 0.12 + complex_cis[i], f'{m:.2f}\nn={n:,}',
             ha='center', fontsize=8)
 
-# 2b. Trust score by usage frequency
+# 2b. Trust score by usage frequency (use trust-eligible subset, not complexity subset)
 ax = axes[1]
 trust_means_u = []
 for cat in usage_order:
-    if cat in grp_u.groups:
-        vals = grp_u.get_group(cat)['TrustScore'].dropna()
+    if cat in grp_u_trust.groups:
+        vals = grp_u_trust.get_group(cat)['TrustScore']
         trust_means_u.append(vals.mean())
     else:
         trust_means_u.append(0)

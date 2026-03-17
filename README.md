@@ -1,8 +1,8 @@
-# AI Adoption Paradox: A Repeated Cross-Sectional Analysis of the Stack Overflow Developer Survey (2023–2025)
+# Human–AI Work Patterns in Software Development: Archetypes, Paradoxes, and the Decline of Trust
 
 **Imagination Applied Research Series**
 
-This repository contains the full analysis code, outputs, and documentation for the paper *AI Adoption Paradox: A Repeated Cross-Sectional Analysis of the Stack Overflow Developer Survey, 2023–2025*.
+This repository contains the full analysis code, outputs, and documentation for the paper *Human–AI Work Patterns in Software Development: Archetypes, Paradoxes, and the Decline of Trust: A Repeated Cross-Sectional Analysis of the Stack Overflow Developer Survey (2023–2025)*.
 
 ---
 
@@ -28,7 +28,7 @@ This report analyzes three consecutive years of the Stack Overflow Developer Sur
 │   ├── deep_dives.py         # Learning methods, frustration, job threat analyses
 │   └── carousel_build.py     # LinkedIn carousel figure generation
 ├── outputs/
-│   ├── adoption_paper_v29.docx   # Final manuscript
+│   ├── adoption_paper_v31.docx   # Final manuscript
 │   └── infographic_v2.jsx        # Interactive infographic (React)
 ├── docs/
 │   ├── CODEBOOK.md           # Variable recode documentation (all 6 cluster features

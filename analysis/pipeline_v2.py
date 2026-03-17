@@ -397,9 +397,10 @@ def bin_role(v):
     return None
 
 def bin_threat(v):
+    # ThreatScore is binary: 1=Yes, 0=No/Unsure — fix was: v>=2 never fired on binary data
     if pd.isna(v): return None
-    if v >= 2: return "Threat:Yes"
-    elif v == 0: return "Threat:No"
+    if v == 1: return "Threat:Yes"
+    if v == 0: return "Threat:No"
     return None
 
 def bin_learn(v):
