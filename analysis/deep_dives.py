@@ -221,12 +221,12 @@ plt.close()
 print("    Saved: deep2_occasional_dip.png")
 
 # ══════════════════════════════════════════════════════════════════════════════
-# CHART 3 — HOW YOU LEARNED AI PREDICTS TRUST
+# CHART 3 — HOW YOU LEARNED AI IS ASSOCIATED WITH TRUST
 # ══════════════════════════════════════════════════════════════════════════════
 print("\n[3] Learning Method → Trust...")
 
 fig, axes = plt.subplots(1, 2, figsize=(16, 7))
-fig.suptitle("Finding 3: How You Learned AI Predicts How Much You Trust It\n"
+fig.suptitle("Finding 3: How You Learned AI Is Associated With How Much You Trust It\n"
              "Structured learning → higher trust; informal/colleague-led → lower trust",
              fontsize=13, fontweight='bold')
 

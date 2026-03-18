@@ -132,7 +132,7 @@ The Random Forest and Decision Tree classifiers use the following 8 features, al
 
 | Feature | Source | Type | Notes |
 |---|---|---|---|
-| AISentScore | AISent | Ordinal 0–5 | Strongest predictor by both Gini and permutation importance |
+| AISentScore | AISent | Ordinal 0–5 | Strongest model feature by both Gini and permutation importance |
 | AgentScore | AIAgents | Ordinal 0–2 (collapsed) | See recode table above |
 | LearnedAI | LearnCodeAI | Binary 0/1 | |
 | AITrustScore | AIAcc | Ordinal 0–4 | |

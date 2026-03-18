@@ -503,7 +503,7 @@ plt.close()
 print("    Saved: association_rules_v2.png")
 
 # ─── 11. CLASSIFICATION — REFINED ────────────────────────────────────────────
-print("\n[9] Classification (Daily adopter prediction, refined)...")
+print("\n[9] Classification (Daily adopter — features associated with adoption)...")
 
 # Use full clustering sample — median-impute WorkExp, YearsCode, ThreatScore
 df_clf = df_ai.copy()
@@ -600,7 +600,7 @@ print(f"    AISentScore #1 by both: {'YES' if top_gini == top_perm == 'AISentSco
 
 # ─── 12. CLASSIFICATION VISUALIZATION ────────────────────────────────────────
 fig, axes = plt.subplots(1, 2, figsize=(16, 6))
-fig.suptitle("Classification: What Predicts Daily AI Adoption?", fontsize=14, fontweight='bold')
+fig.suptitle("Classification: Features Associated With Daily AI Adoption", fontsize=14, fontweight='bold')
 
 # Feature importance comparison (RF vs DT)
 ax = axes[0]
@@ -613,7 +613,7 @@ bars2 = ax.barh(x - width/2, top_feats['DT'].values, width, label='Decision Tree
 ax.set_yticks(x)
 ax.set_yticklabels(top_feats['Feature'].values, fontsize=9)
 ax.set_xlabel('Feature Importance')
-ax.set_title('Top 10 Predictors of Daily Adoption')
+ax.set_title('Top 8 Features by Importance (Gini)')
 ax.legend()
 ax.invert_yaxis()
 
@@ -686,7 +686,7 @@ label_names = ['Non-Daily','Daily']
 paths = get_tree_rules(dt, [FEATURE_LABELS.get(f,f) for f in feature_cols], label_names)
 print("\n    Top decision paths:")
 for conf, pred, path, n in paths[:6]:
-    print(f"\n    → Predicts: {pred}  (confidence={conf:.2f}, n={n:,})")
+    print(f"\n    → Classifies as: {pred}  (confidence={conf:.2f}, n={n:,})")
     for step in path:
         print(f"       IF {step}")
 
@@ -706,7 +706,7 @@ for name, count in counts.items():
 print(f"\n  CLASSIFICATION:")
 print(f"    Random Forest accuracy: {rf_acc:.4f}")
 print(f"    Decision Tree accuracy: {dt_acc:.4f}")
-print(f"    Top predictor: {importances.iloc[0]['Feature']}")
+print(f"    Top feature: {importances.iloc[0]['Feature']}")
 
 print(f"\n  OUTPUTS:")
 for f in ['cluster_profiles.png','cluster_context.png',
