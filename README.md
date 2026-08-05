@@ -1,130 +1,92 @@
-# Human–AI Work Patterns in Software Development: Archetypes, Paradoxes, and the Decline of Trust
+# Adoption Without Confidence?
 
-**Imagination Applied Research Series**
+**Favorable Stance, Accuracy Trust, and Reported AI-Use Frequency in the 2025 Stack Overflow Survey**
 
-This repository contains the full analysis code, outputs, and documentation for the paper *Human–AI Work Patterns in Software Development: Archetypes, Paradoxes, and the Decline of Trust: A Repeated Cross-Sectional Analysis of the Stack Overflow Developer Survey (2023–2025)*.
-
----
-
-## Study Summary
-
-This report analyzes three consecutive years of the Stack Overflow Developer Survey (2023–2025, combined N=203,812) using clustering, association rule mining, and random forest classification to identify AI adoption archetypes and their behavioral and attitudinal correlates.
-
-**Core finding:** AI adoption among surveyed developers rose from 44.4% (2023) to 78.5% (2025). Over the same period, favorable sentiment fell from 76.3% to 59.7% and "highly distrust" rose from 5.5% to 19.6% — a pattern we term the Adoption Paradox. This is a repeated cross-sectional study; comparisons over time describe population-level shifts across independent annual cohorts, not individual-level change.
+Josh Penzell · Imagination Applied Open Research Series · **v3.1.0 (2026)**
 
 ---
 
-## Repository Structure
-
-```
-├── analysis/
-│   ├── config.py             # Data path configuration (edit DATA_ROOT here)
-│   ├── pipeline_v2.py        # Primary analysis: clustering, RF classification,
-│   │                         #   association rules, + robustness checks A–E:
-│   │                         #   (A) 3-seed stability  (B) 5-fold CV
-│   │                         #   (C) permutation importance  (D) k-modes
-│   │                         #   (E) single-method learner analysis
-│   ├── longitudinal.py       # Year-over-year trend analysis (2023–2025)
-│   ├── deep_dives.py         # Learning methods, frustration, job threat analyses
-│   └── carousel_build.py     # LinkedIn carousel figure generation
-├── outputs/
-│   ├── adoption_paper_v34.docx   # Final manuscript
-│   └── infographic_v2.jsx        # Interactive infographic (React)
-├── docs/
-│   ├── CODEBOOK.md           # Variable recode documentation (all 6 cluster features
-│   │                         #   + 8 classification features, with decision notes)
-│   └── DENOMINATORS.md       # Denominator reconciliation (2023–2025, with 2023
-│                             #   AISelect denominator explained)
-├── requirements.txt          # Python dependencies
-└── data/
-    └── README_data.md        # Data download instructions + SHA-256 checksums
-```
+> ### ⚠️ This repository was substantially revised in 2026
+>
+> Commits before v3.1.0 contained an earlier analysis titled *"Human–AI Work Patterns in Software Development: Archetypes, Paradoxes, and the Decline of Trust,"* built on k-means/k-modes clustering, association rule mining, and random-forest Gini importance.
+>
+> **Several claims from that version have been formally withdrawn.** They are listed under *Withdrawn claims* below and documented in [`docs/CLAIM_LEDGER.md`](docs/CLAIM_LEDGER.md). Please do not cite the earlier manuscripts (`adoption_paper_v34`, `v40`) or the archetype/random-forest findings. The current analysis supersedes them.
 
 ---
 
-## Data Access
+## What this study asks
 
-The Stack Overflow Developer Survey data is publicly available and must be downloaded separately:
+Among developers **already using AI tools**, does a favorable *stance* toward AI carry different information about reported daily-use frequency than *trust in the accuracy* of AI output?
 
-| Year | URL | SHA-256 (first 16 chars) | Rows |
-|------|-----|--------------------------|------|
-| 2025 | https://survey.stackoverflow.co/datasets | `2d1f65308877282e` | 49,191 |
-| 2024 | https://survey.stackoverflow.co/datasets | `7f2c2dbf6989d00b` | 65,437 |
-| 2023 | https://survey.stackoverflow.co/datasets | `828874a3cf0fa1bb` | 89,184 |
+Stack Overflow has already reported the broad headline that AI use rose while trust weakened. This is a narrower question about construct separation — not a causal study, and not a forward-prediction model.
 
-Download the CSV files and place them at:
-```
-data/2025/survey_results_public.csv
-data/2024/survey_results_public.csv
-data/2023/survey_results_public.csv
-```
+## Headline results
 
-This matches the path convention in `analysis/config.py`. If you want to store the data elsewhere, edit the `DATA_ROOT` variable in that file.
+Primary sample: **26,102** current AI users from the 2025 public CSV (49,191 rows → 33,720 answered the AI-use item → 33,231 complete cases on use, stance, and trust). Daily-use prevalence 59.9%.
 
----
+- Daily use rises from **18.8%** among very unfavorable current users to **88.1%** among very favorable.
+- The six stance categories are modeled **categorically and are not monotonic**: unsure respondents report more daily use (34.0%) than indifferent respondents (31.5%). This is disclosed, not smoothed.
+- Five-fold cross-validated **ROC AUC: 0.758 for stance alone, 0.669 for accuracy trust alone.**
+- Adding stance to context + trust raises AUC from **0.704 → 0.793**. Adding trust to context + stance raises it from **0.790 → 0.793** — trust still contributes; it is not irrelevant.
+- The stance advantage holds in all 50 matched repeated splits, in professional-only and country-grouped checks, with held-out AUC 0.789 and calibration slope 0.96.
 
-## Reproducing the Analysis
+## What this does not show
 
-### Requirements
+- **Not causal.** The design cannot determine whether stance precedes use, follows experience with use, reflects usefulness or role fit, or partly rationalizes established behavior.
+- **Criterion proximity is real.** The stance item asks about *using AI tools as part of your development workflow*, and the outcome is *reported use frequency*. The overlap is genuine and unresolvable within this dataset.
+- **Both predictors and outcome are contemporaneous self-reports** from a voluntary survey with no sampling weights. Neither stance nor trust is a validated multi-item scale.
+- **Stack Overflow respondents do not represent all developers.**
+
+## Withdrawn claims
+
+| Withdrawn | Status |
+|---|---|
+| Five stable developer archetypes exist | Not supported by the clustering diagnostics. Removed. |
+| Random-forest Gini share proves stance dominance | Not supported as a standalone inference. Replaced with nested CV and held-out permutation checks. |
+| Structured AI learning drives adoption | Not supported by the available learning-route field. Removed. |
+| Full-sample endpoint separation proves the main claim | Overstated; the stance item is close to current-use status. Current-user comparison is now primary. |
+| Stance causes daily use | Never supported. Do not cite. |
+
+Earlier feature recodes (`AIComplexScore`, `AgentScore`, `LearnedAI`) mixed non-evaluative opt-outs and adoption *intent* into predictors of use. They have been removed from the model in favor of demographic and context controls.
+
+## Reproducing
 
 ```bash
-pip install pandas numpy scikit-learn matplotlib seaborn mlxtend kmodes
+pip install -r requirements.txt
+# place the Stack Overflow public CSVs at data/<year>/survey_results_public.csv
+python analysis/verify_data.py
+python analysis/sentiment_deep_dive.py
 ```
 
-### Run order
+Seeds are fixed (42). Outputs are written to `outputs/sentiment/`.
 
-```bash
-# Run from the repo root directory
-cd ai-adoption-paradox
+**Note:** the country-grouped `GroupKFold` step one-hot encodes 173 countries and is memory-hungry — allow several GB of RAM. The rest of the pipeline runs comfortably on a laptop.
 
-# 1. Verify data files are in place
-python -c "from analysis.config import check_data; check_data()"
+Data must be downloaded separately from <https://survey.stackoverflow.co/datasets>. SHA-256 checksums are in [`data/README_data.md`](data/README_data.md).
 
-# 2. Primary clustering, classification, and association rules (2025)
-python analysis/pipeline_v2.py
+## Documentation
 
-# 3. Year-over-year comparisons across 2023–2025
-python analysis/longitudinal.py
-
-# 4. Deep-dive analyses (learning methods, frustrations, job threat)
-python analysis/deep_dives.py
-```
-
-All random seeds are fixed (seed=42 throughout). Scripts import data paths from `analysis/config.py` — edit `DATA_ROOT` there if your data lives elsewhere.
-
----
-
-## Key Analytical Decisions
-
-See `docs/CODEBOOK.md` for full recode documentation. Three decisions warrant particular attention:
-
-1. **AIComplexScore**: The response "I don't use AI tools for complex tasks / I don't know" was mapped to 2 (same as "Neither good nor bad"). This conflates a non-evaluative opt-out with a neutral rating (n=5,582 affected). Researchers may prefer to treat this as missing.
-
-2. **AgentScore**: "No, but I plan to" (non-user) was grouped with infrequent users at score=1. This treats adoption intent as equivalent to infrequent use.
-
-3. **2025 trust denominator**: The 2025 trust question (AIAcc) was routed to all AISelect respondents including non-users, while 2023/2024 were routed to current users only. The paper reports both the full-denominator figures (32.8% high trust) and the harmonized user-only figure (39.3% high trust, n=26,126). See `docs/DENOMINATORS.md`.
-
----
+- [`docs/METHODS.md`](docs/METHODS.md) — design, samples, specifications, robustness checks
+- [`docs/CLAIM_LEDGER.md`](docs/CLAIM_LEDGER.md) — every claim, its evidence status, and the approved language
+- [`docs/CODEBOOK.md`](docs/CODEBOOK.md) — variable recodes and decision notes
+- [`docs/DENOMINATORS.md`](docs/DENOMINATORS.md) — denominator reconciliation across years
 
 ## Citation
 
-If you use this analysis, please cite:
-
 ```
-Penzell, J. (2025). Human–AI Work Patterns in Software Development: Archetypes, Paradoxes,
-and the Decline of Trust. A Repeated Cross-Sectional Analysis of the Stack Overflow Developer
-Survey, 2023–2025. Imagination Applied Research Series.
+Penzell, J. (2026). Adoption Without Confidence? Favorable Stance, Accuracy Trust,
+and Reported AI-Use Frequency in the 2025 Stack Overflow Survey. Version 3.1.0.
+Imagination Applied Open Research Series.
 https://github.com/jpenzell/ai-adoption-paradox
 ```
 
 Data citation:
+
 ```
-Stack Overflow. (2023, 2024, 2025). Stack Overflow Developer Survey.
+Stack Overflow. (2025). Stack Overflow Developer Survey.
 https://survey.stackoverflow.co/datasets
 ```
 
----
-
 ## Contact
 
-Josh Penzell | Imagination Applied | imaginationapplied.com
+Josh Penzell · Imagination Applied · <https://joshpenzell.com>
