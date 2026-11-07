@@ -1,0 +1,9 @@
+sample,n,share_of_reference
+2026 public CSV rows,30903,1.0
+Answered AI-use item,17290,0.5594926058958677
+Excluded: selected a tool type AND 'I don't use AI tools',96,0.003106494515095622
+"Complete use, stance, and trust",14158,0.45814322234087307
+Current AI users in complete-case sample,14158,1.0
+Professional developers in complete-case sample,11337,0.8007486933182653
+Professional developers among current users,11337,0.8007486933182653
+Excluded after answering AI-use item,3132,0.18114517061885482

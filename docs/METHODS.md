@@ -4,7 +4,10 @@
 
 This is a secondary analysis of repeated cross-sectional Stack Overflow
 Developer Survey public-use CSVs. The 2023-2025 data provide
-denominator-aware context; the main analysis uses 2025 only.
+denominator-aware context; the primary analysis uses 2025 (v3.1.0) and is
+replicated on 2026 (v3.2.0) with the same specification family. The 2026
+survey redesigned the use, stance, and trust items; the mapping and the
+pre-specified replication criteria are in `INTAKE_DECISIONS_2026.md`.
 
 The primary question is: among current AI-tool users, how much classification
 information about daily versus less-frequent reported use is carried by
@@ -22,6 +25,14 @@ current users within those complete cases. Its daily-use prevalence is 59.9%.
 Of the complete cases, 25,698 (77.3%) are professional developers. Of primary
 current users, 20,760 (79.5%) are professional developers. No survey weights
 are available.
+
+The 2026 public CSV contains 30,903 rows; 17,464 answered the AI-use item,
+of whom 96 gave a contradictory answer (a tool type plus "I don't use AI
+tools") and are excluded. Stance and trust were routed only to current
+users, so the complete-case sample on use, stance, and trust is the 2026
+primary sample: 14,158 current users, of whom 11,337 (80.1%) create code as
+a primary part of their job. Daily-use prevalence is 76.2%, where daily
+means daily on at least one of four tool types.
 
 ## Outcome and descriptive analysis
 
@@ -110,12 +121,34 @@ Common-method bias, selection into the voluntary survey, item routing, and
 complete-case selection remain. Neither stance nor trust is a validated
 multi-item scale.
 
+## 2026 replication
+
+The 2026 run uses the same seven specifications, the same five stratified
+folds (seed 42), the same 50 matched splits (seed 719), the same
+country-grouped folds, and the same held-out split. Differences, all forced
+by the instrument: the trust item is the six-option reliance-scope question
+rather than the five-point accuracy Likert (one-hot encoded as before, not
+scored); `AIThreat` is not in the context set because it was not asked;
+`CodeMain`, `Role`, and `WorkSetting` replace `MainBranch`, `DevType`, and
+`RemoteWork`; and the sensitivity set replaces the user-versus-non-user
+contrasts (impossible under 2026 routing) with within-user contrasts
+(weekly-or-more vs monthly, coding-assistant daily, four-plus hours among
+daily users). Two 2026-only descriptive tables are added: daily use by stance
+and organizational AI policy (`AIUse`), and hours per day among daily users
+(`AIDaily`). The 2025 run is unchanged and its outputs are byte-identical to
+the v3.1.0 release.
+
+The four-year context table uses the current-user denominator for stance in
+every year (the v3.1.0 chart used all stance respondents, which 2026 does
+not route). The Likert trust series ends at 2025.
+
 ## Computational notes
 
 Seeds are fixed at 42 throughout. The pipeline has been reproduced
 independently from the raw 2025 CSV on a separate machine: sample counts,
 model AUCs, held-out metrics, and permutation importances match to
-floating-point tolerance.
+floating-point tolerance. pandas 3.x breaks the imputation step; use the
+pinned versions in `requirements.txt` (pandas 2.3.3, scikit-learn 1.6.1).
 
 The country-grouped `GroupKFold` step one-hot encodes 173 countries and is
 memory-intensive; allow several GB of RAM. The remainder of the pipeline runs

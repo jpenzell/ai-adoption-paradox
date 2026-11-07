@@ -12,6 +12,7 @@ not causal estimates or forecasts of behavior in a future survey or workplace.
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -43,12 +44,17 @@ from sklearn.model_selection import (
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-from config import CSV_2023, CSV_2024, CSV_2025, check_data
+from config import CSV_2023, CSV_2024, CSV_2025, CSV_2026, check_data
+from survey_2026 import (
+    TRUST_ORDER_2026,
+    TRUST_SHORT_2026,
+    contradictory_count,
+    prepare_2026,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "outputs" / "sentiment"
-OUT.mkdir(parents=True, exist_ok=True)
+OUT = ROOT / "outputs" / "sentiment"  # reassigned in main() for other years
 RANDOM_STATE = 42
 
 USAGE_MAP = {
@@ -208,6 +214,104 @@ def three_year_context():
                 ),
             }
         )
+    return pd.DataFrame(rows)
+
+
+def four_year_context():
+    """2023-2026 descriptive trend with harmonized (current-user) denominators.
+
+    Differences from three_year_context(): stance share uses the current-user
+    denominator in every year (2026 routes stance only to current users, so
+    the all-respondent denominator used in the v3.1.0 chart is not available);
+    the 2026 trust item is a reliance-scope question and is reported as its
+    own categories rather than forced onto the Likert trust/distrust split.
+    """
+    rows = []
+    for year, path in [
+        (2023, CSV_2023),
+        (2024, CSV_2024),
+        (2025, CSV_2025),
+        (2026, CSV_2026),
+    ]:
+        frame = pd.read_csv(path, low_memory=False)
+        row = {"year": year, "csv_rows": len(frame)}
+        if year == 2026:
+            data = prepare_2026(frame)
+            answered = data["AIUsageScore"].notna()
+            current_user = data["AIUsageScore"].ge(2)
+            stance_col, trust_col = "AISent", "AIAcc"
+            daily = data["AIUsageScore"].eq(4)
+            row["daily_among_current_users"] = 100 * daily.sum() / current_user.sum()
+            row["daily_coding_assistant_among_its_users"] = (
+                100
+                * data["AIFreq_1"].eq("Daily").sum()
+                / data["AIFreq_1"].notna().sum()
+            )
+            trust_answered_current = current_user & data[trust_col].notna()
+            for label in TRUST_ORDER_2026:
+                row[f"trust2026_{TRUST_SHORT_2026[label]}"] = (
+                    100
+                    * (trust_answered_current & data[trust_col].eq(label)).sum()
+                    / trust_answered_current.sum()
+                )
+            row["trust_among_current_users"] = np.nan
+            row["distrust_among_current_users"] = np.nan
+            row["trust_current_user_denominator"] = int(trust_answered_current.sum())
+            row["ai_use_item_wording"] = (
+                "Do you currently use AI tools or AI agents in your role at work? "
+                "(multi-select; frequency per tool type)"
+            )
+        else:
+            data = frame
+            answered = data["AISelect"].notna()
+            if year < 2025:
+                current_user = data["AISelect"].eq("Yes")
+                row["daily_among_current_users"] = np.nan
+            else:
+                current_user = data["AISelect"].str.startswith("Yes", na=False)
+                row["daily_among_current_users"] = (
+                    100
+                    * data["AISelect"].eq("Yes, I use AI tools daily").sum()
+                    / current_user.sum()
+                )
+            row["daily_coding_assistant_among_its_users"] = np.nan
+            stance_col = "AISent"
+            trust_col = "AIBen" if year == 2023 else "AIAcc"
+            trust_answered_current = current_user & data[trust_col].notna()
+            trusting = data[trust_col].isin(["Somewhat trust", "Highly trust"])
+            distrusting = data[trust_col].isin(
+                ["Somewhat distrust", "Highly distrust"]
+            )
+            row["trust_among_current_users"] = (
+                100 * (trusting & trust_answered_current).sum()
+                / trust_answered_current.sum()
+            )
+            row["distrust_among_current_users"] = (
+                100 * (distrusting & trust_answered_current).sum()
+                / trust_answered_current.sum()
+            )
+            row["trust_current_user_denominator"] = int(trust_answered_current.sum())
+            row["ai_use_item_wording"] = (
+                "Do you currently use AI tools in your development process?"
+            )
+        stance_answered_current = current_user & data[stance_col].notna()
+        favorable = data[stance_col].isin(["Favorable", "Very favorable"])
+        unfavorable = data[stance_col].isin(["Unfavorable", "Very unfavorable"])
+        row["answered_ai_use_item"] = int(answered.sum())
+        row["current_users"] = int(current_user.sum())
+        row["current_use_among_ai_respondents"] = (
+            100 * current_user.sum() / answered.sum()
+        )
+        row["favorable_stance_among_current_users"] = (
+            100 * (favorable & stance_answered_current).sum()
+            / stance_answered_current.sum()
+        )
+        row["unfavorable_stance_among_current_users"] = (
+            100 * (unfavorable & stance_answered_current).sum()
+            / stance_answered_current.sum()
+        )
+        row["stance_current_user_denominator"] = int(stance_answered_current.sum())
+        rows.append(row)
     return pd.DataFrame(rows)
 
 
@@ -439,22 +543,57 @@ def paired_repeated_split_comparison(data, y, specs):
 
 
 def main():
-    check_data()
-    raw = pd.read_csv(CSV_2025, low_memory=False)
-    data = raw.copy()
-    data["AIUsageScore"] = data["AISelect"].map(USAGE_MAP)
+    global OUT
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--year",
+        type=int,
+        default=2025,
+        choices=[2025, 2026],
+        help="Survey year to analyze. 2025 reproduces the v3.1.0 release.",
+    )
+    args = parser.parse_args()
+    year = args.year
+    if year == 2025:
+        OUT = ROOT / "outputs" / "sentiment"
+    else:
+        OUT = ROOT / "outputs" / f"sentiment_{year}"
+    OUT.mkdir(parents=True, exist_ok=True)
+
+    check_data(include_2026=(year == 2026))
+    if year == 2025:
+        raw = pd.read_csv(CSV_2025, low_memory=False)
+        data = raw.copy()
+        data["AIUsageScore"] = data["AISelect"].map(USAGE_MAP)
+        data["AITrustScore"] = data["AIAcc"].map(TRUST_MAP)
+        data["Daily"] = data["AIUsageScore"].eq(4).astype(int)
+        data["Professional"] = data["MainBranch"].eq(
+            "I am a developer by profession"
+        )
+        data["WorkMode"] = data["RemoteWork"].apply(work_mode)
+        trust_order = TRUST_ORDER
+        trust_short = {label: label for label in TRUST_ORDER}
+        trust_axis_label = "Trust in AI-output accuracy"
+        context_extras = ["AIThreat"]
+    else:
+        raw = pd.read_csv(CSV_2026, low_memory=False)
+        data = prepare_2026(raw)
+        # The 2026 trust item is nominal (reliance scope); a position score is
+        # used only so the complete-case filter and the high-distrust subgroup
+        # have something to key on. Models one-hot encode the raw labels.
+        data["AITrustScore"] = data["AIAcc"].map(
+            {label: i for i, label in enumerate(TRUST_ORDER_2026)}
+        )
+        trust_order = TRUST_ORDER_2026
+        trust_short = TRUST_SHORT_2026
+        trust_axis_label = "Trust in AI output (reliance scope, 2026 wording)"
+        context_extras = []  # AIThreat was not asked in 2026
     data["AISentScore"] = data["AISent"].map(STANCE_MAP)
-    data["AITrustScore"] = data["AIAcc"].map(TRUST_MAP)
-    data["Daily"] = data["AIUsageScore"].eq(4).astype(int)
     data["WorkExpNum"] = data["WorkExp"].apply(to_num)
     data["YearsCodeNum"] = data["YearsCode"].apply(to_num)
-    data["Professional"] = data["MainBranch"].eq(
-        "I am a developer by profession"
-    )
     data["EmploymentGroup"] = data["Employment"].apply(employment_group)
     data["PrimaryRole"] = data["DevType"].apply(primary_role)
     data["OrgBucket"] = data["OrgSize"].apply(org_bucket)
-    data["WorkMode"] = data["RemoteWork"].apply(work_mode)
 
     answered_use = data[data["AIUsageScore"].notna()].copy()
     analytic = data.dropna(
@@ -471,9 +610,8 @@ def main():
     item_incomplete = answered_use[
         ~answered_use.index.isin(analytic.index)
     ]
-    sample_profile = pd.DataFrame(
-        [
-            ("2025 public CSV rows", len(raw), len(raw) / len(raw)),
+    profile_rows = [
+            (f"{year} public CSV rows", len(raw), len(raw) / len(raw)),
             (
                 "Answered AI-use item",
                 len(answered_use),
@@ -504,8 +642,19 @@ def main():
                 len(item_incomplete),
                 len(item_incomplete) / len(answered_use),
             ),
-        ],
-        columns=["sample", "n", "share_of_reference"],
+    ]
+    if year == 2026:
+        n_contradictory = contradictory_count(raw)
+        profile_rows.insert(
+            2,
+            (
+                "Excluded: selected a tool type AND 'I don't use AI tools'",
+                n_contradictory,
+                n_contradictory / len(raw),
+            ),
+        )
+    sample_profile = pd.DataFrame(
+        profile_rows, columns=["sample", "n", "share_of_reference"]
     )
     sample_profile.to_csv(OUT / "sample_profile.csv", index=False)
 
@@ -535,7 +684,7 @@ def main():
         "PrimaryRole",
         "OrgBucket",
         "WorkMode",
-        "AIThreat",
+        *context_extras,
         "Country",
     ]
     specs = {
@@ -596,44 +745,83 @@ def main():
     # Alternative outcome thresholds quantify both robustness and criterion
     # proximity. Stronger performance for adoption/nonadoption thresholds is
     # not interpreted as evidence that stance causes adoption.
-    outcome_definitions = [
-        (
-            "full_complete_case",
-            analytic,
-            "daily_vs_all_other_answers",
-            analytic["AIUsageScore"].eq(4).astype(int),
-        ),
-        (
-            "full_complete_case",
-            analytic,
-            "weekly_or_more_vs_rest",
-            analytic["AIUsageScore"].ge(3).astype(int),
-        ),
-        (
-            "full_complete_case",
-            analytic,
-            "any_current_use_vs_nonuse",
-            analytic["AIUsageScore"].ge(2).astype(int),
-        ),
-        (
-            "full_complete_case",
-            analytic,
-            "current_or_plan_vs_no_plan",
-            analytic["AIUsageScore"].ge(1).astype(int),
-        ),
-        (
-            "current_users_only",
-            current_users,
-            "daily_vs_less_frequent_use",
-            primary_y,
-        ),
-        (
-            "professional_current_users_only",
-            professional_current_users,
-            "daily_vs_less_frequent_use",
-            professional_current_y,
-        ),
-    ]
+    if year == 2025:
+        outcome_definitions = [
+            (
+                "full_complete_case",
+                analytic,
+                "daily_vs_all_other_answers",
+                analytic["AIUsageScore"].eq(4).astype(int),
+            ),
+            (
+                "full_complete_case",
+                analytic,
+                "weekly_or_more_vs_rest",
+                analytic["AIUsageScore"].ge(3).astype(int),
+            ),
+            (
+                "full_complete_case",
+                analytic,
+                "any_current_use_vs_nonuse",
+                analytic["AIUsageScore"].ge(2).astype(int),
+            ),
+            (
+                "full_complete_case",
+                analytic,
+                "current_or_plan_vs_no_plan",
+                analytic["AIUsageScore"].ge(1).astype(int),
+            ),
+            (
+                "current_users_only",
+                current_users,
+                "daily_vs_less_frequent_use",
+                primary_y,
+            ),
+            (
+                "professional_current_users_only",
+                professional_current_users,
+                "daily_vs_less_frequent_use",
+                professional_current_y,
+            ),
+        ]
+    else:
+        # 2026 routes stance and trust to current users only, so the
+        # user-versus-nonuser contrasts of the 2025 sensitivity set cannot be
+        # formed. Frequency contrasts within current users replace them.
+        coding_users = current_users[current_users["AIFreq_1"].notna()].copy()
+        daily_users = current_users[current_users["AIDaily"].notna()].copy()
+        outcome_definitions = [
+            (
+                "current_users_only",
+                current_users,
+                "daily_vs_less_frequent_use",
+                primary_y,
+            ),
+            (
+                "current_users_only",
+                current_users,
+                "weekly_or_more_vs_monthly",
+                current_users["AIUsageScore"].ge(3).astype(int),
+            ),
+            (
+                "coding_assistant_users_only",
+                coding_users,
+                "coding_assistant_daily_vs_less",
+                coding_users["CodingAssistantDaily"].astype(int),
+            ),
+            (
+                "daily_users_only",
+                daily_users,
+                "heavy_daily_4plus_hours_vs_other_daily",
+                daily_users["HeavyDaily"].astype(int),
+            ),
+            (
+                "professional_current_users_only",
+                professional_current_users,
+                "daily_vs_less_frequent_use",
+                professional_current_y,
+            ),
+        ]
     robustness_rows = []
     selected_specs = [
         "Stance only",
@@ -781,7 +969,7 @@ def main():
             columns="AIAcc",
             aggfunc="mean",
         )
-        .reindex(index=STANCE_ORDER, columns=TRUST_ORDER)
+        .reindex(index=STANCE_ORDER, columns=trust_order)
     )
     count_matrix = (
         current_users.pivot_table(
@@ -790,16 +978,16 @@ def main():
             columns="AIAcc",
             aggfunc="count",
         )
-        .reindex(index=STANCE_ORDER, columns=TRUST_ORDER)
+        .reindex(index=STANCE_ORDER, columns=trust_order)
     )
     matrix_rows = []
     for stance in STANCE_ORDER:
-        for trust in TRUST_ORDER:
+        for trust in trust_order:
             matrix_rows.append(
                 {
                     "favorable_stance": stance,
                     "accuracy_trust": trust,
-                    "n": int(count_matrix.loc[stance, trust]),
+                    "n": int(np.nan_to_num(count_matrix.loc[stance, trust])),
                     "daily_rate": float(rate_matrix.loc[stance, trust]),
                 }
             )
@@ -841,7 +1029,7 @@ def main():
     ax.set_ylabel("Daily AI-tool use among current users (%)")
     ax.set_xlabel("Favorable stance toward using AI")
     ax.set_title(
-        "Among current users, daily use varies sharply by favorable stance"
+        f"Among current users ({year}), daily use varies sharply by favorable stance"
     )
     ax.legend(frameon=False)
     fig.tight_layout()
@@ -876,7 +1064,8 @@ def main():
     ax.set_xlim(0.48, 0.83)
     ax.set_xlabel("Five-fold cross-validated ROC AUC")
     ax.set_title(
-        "Favorable stance carries more frequency information than accuracy trust"
+        "Favorable stance carries more frequency information than "
+        + ("accuracy trust" if year == 2025 else "reliance-scope trust")
     )
     for bar, value in zip(bars, plot_models["roc_auc_mean"]):
         ax.text(
@@ -893,19 +1082,19 @@ def main():
     fig, ax = plt.subplots(figsize=(10, 6.2))
     image = ax.imshow(rate_matrix.to_numpy() * 100, cmap="YlGn", vmin=0, vmax=95)
     ax.set_xticks(
-        range(len(TRUST_ORDER)),
-        TRUST_ORDER,
+        range(len(trust_order)),
+        [trust_short[label] for label in trust_order],
         rotation=20,
         ha="right",
     )
     ax.set_yticks(range(len(STANCE_ORDER)), STANCE_ORDER)
-    ax.set_xlabel("Trust in AI-output accuracy")
+    ax.set_xlabel(trust_axis_label)
     ax.set_ylabel("Favorable stance toward AI use")
     ax.set_title(
         "Among current users, stance separates daily from less-frequent use"
     )
     for row in range(len(STANCE_ORDER)):
-        for col in range(len(TRUST_ORDER)):
+        for col in range(len(trust_order)):
             rate = rate_matrix.iloc[row, col]
             count = count_matrix.iloc[row, col]
             if pd.isna(rate):
@@ -929,47 +1118,238 @@ def main():
     )
     plt.close(fig)
 
-    trend = three_year_context()
-    trend.to_csv(OUT / "three_year_context.csv", index=False)
-    fig, ax = plt.subplots(figsize=(9, 5.2))
-    ax.plot(
-        trend["year"],
-        trend["current_use_among_ai_respondents"],
-        marker="o",
-        linewidth=2.4,
-        label="Current use",
-    )
-    ax.plot(
-        trend["year"],
-        trend["favorable_stance"],
-        marker="o",
-        linewidth=2.4,
-        label="Favorable stance",
-    )
-    ax.plot(
-        trend["year"],
-        trend["trust_among_current_users"],
-        marker="o",
-        linewidth=2.4,
-        label="Trust among current users",
-    )
-    ax.set_xticks([2023, 2024, 2025])
-    ax.set_ylim(30, 85)
-    ax.set_ylabel("Respondents (%)")
-    ax.set_title("Reported use rose while favorability and trust weakened")
-    ax.legend(frameon=False, ncol=3, loc="lower left")
-    ax.text(
-        0,
-        -0.19,
-        "Repeated cross-sections; use wording changed. Trust uses the "
-        "current-user denominator in every year.",
-        transform=ax.transAxes,
-        fontsize=8.5,
-        color="#555555",
-    )
-    fig.tight_layout()
-    fig.savefig(OUT / "three_year_context.png", dpi=220, bbox_inches="tight")
-    plt.close(fig)
+    if year == 2025:
+        trend = three_year_context()
+        trend.to_csv(OUT / "three_year_context.csv", index=False)
+        fig, ax = plt.subplots(figsize=(9, 5.2))
+        ax.plot(
+            trend["year"],
+            trend["current_use_among_ai_respondents"],
+            marker="o",
+            linewidth=2.4,
+            label="Current use",
+        )
+        ax.plot(
+            trend["year"],
+            trend["favorable_stance"],
+            marker="o",
+            linewidth=2.4,
+            label="Favorable stance",
+        )
+        ax.plot(
+            trend["year"],
+            trend["trust_among_current_users"],
+            marker="o",
+            linewidth=2.4,
+            label="Trust among current users",
+        )
+        ax.set_xticks([2023, 2024, 2025])
+        ax.set_ylim(30, 85)
+        ax.set_ylabel("Respondents (%)")
+        ax.set_title("Reported use rose while favorability and trust weakened")
+        ax.legend(frameon=False, ncol=3, loc="lower left")
+        ax.text(
+            0,
+            -0.19,
+            "Repeated cross-sections; use wording changed. Trust uses the "
+            "current-user denominator in every year.",
+            transform=ax.transAxes,
+            fontsize=8.5,
+            color="#555555",
+        )
+        fig.tight_layout()
+        fig.savefig(OUT / "three_year_context.png", dpi=220, bbox_inches="tight")
+        plt.close(fig)
+    else:
+        trend = four_year_context()
+        trend.to_csv(OUT / "four_year_context.csv", index=False)
+        fig, ax = plt.subplots(figsize=(9.5, 5.4))
+        ax.plot(
+            trend["year"],
+            trend["current_use_among_ai_respondents"],
+            marker="o",
+            linewidth=2.4,
+            label="Current use (among AI-item respondents)",
+            color="#235347",
+        )
+        ax.plot(
+            trend["year"],
+            trend["favorable_stance_among_current_users"],
+            marker="o",
+            linewidth=2.4,
+            label="Favorable stance (among current users)",
+            color="#E76F51",
+        )
+        likert = trend[trend["year"] <= 2025]
+        ax.plot(
+            likert["year"],
+            likert["trust_among_current_users"],
+            marker="o",
+            linewidth=2.4,
+            label="Trust accuracy (Likert, 2023-2025 only)",
+            color="#4A6FA5",
+        )
+        daily = trend[trend["year"] >= 2025]
+        ax.plot(
+            daily["year"],
+            daily["daily_among_current_users"],
+            marker="s",
+            linewidth=2.0,
+            linestyle="--",
+            label="Daily use share (among current users, 2025-2026)",
+            color="#8E7CC3",
+        )
+        ax.axvline(2025.5, color="#999999", linewidth=1, linestyle=":")
+        ax.text(
+            2025.53,
+            32,
+            "2026 instrument\nredesign",
+            fontsize=8,
+            color="#666666",
+        )
+        ax.set_xticks([2023, 2024, 2025, 2026])
+        ax.set_ylim(30, 90)
+        ax.set_ylabel("Respondents (%)")
+        ax.set_title(
+            "Use and daily use kept rising while favorable stance kept falling"
+        )
+        ax.legend(frameon=False, fontsize=8.5, loc="lower left")
+        ax.text(
+            0,
+            -0.21,
+            "Repeated cross-sections. Stance uses the current-user denominator "
+            "in every year. 2026 redesigned the use, stance, and trust items; "
+            "the 2026 trust item is not on the Likert scale and is omitted here.",
+            transform=ax.transAxes,
+            fontsize=8,
+            color="#555555",
+        )
+        fig.tight_layout()
+        fig.savefig(OUT / "four_year_context.png", dpi=220, bbox_inches="tight")
+        plt.close(fig)
+
+    if year == 2026:
+        # 2026-only descriptive tables used in the findings write-up.
+        policy_short = {
+            "AI use is mostly optional and left up to individuals": "Optional, individual choice",
+            "Some teams actively encourage AI use, but practices vary across the organization": "Encouraged, varies by team",
+            "My organization provides approved AI tools and guidance for how to use them": "Approved tools and guidance",
+            "My organization expects some employees to use AI tools for certain types of work": "Expected for some work",
+            "My organization measures or evaluates AI use as part of employee or team performance": "Measured in performance",
+            "My organization does not currently use AI tools or agents for work": "Org does not use AI",
+            "Not sure": "Not sure",
+        }
+        policy_rows = []
+        policy_frame = current_users[current_users["AIUse"].notna()].copy()
+        policy_frame["Policy"] = policy_frame["AIUse"].map(policy_short)
+        for stance in STANCE_ORDER + ["All current users"]:
+            subset = (
+                policy_frame
+                if stance == "All current users"
+                else policy_frame[policy_frame["AISent"] == stance]
+            )
+            for policy in policy_short.values():
+                cell = subset[subset["Policy"] == policy]
+                low, high = wilson_interval(int(cell["Daily"].sum()), len(cell))
+                policy_rows.append(
+                    {
+                        "favorable_stance": stance,
+                        "org_ai_policy": policy,
+                        "n": len(cell),
+                        "daily_rate": float(cell["Daily"].mean()) if len(cell) else np.nan,
+                        "ci_low": low,
+                        "ci_high": high,
+                    }
+                )
+        pd.DataFrame(policy_rows).to_csv(
+            OUT / "current_user_daily_by_stance_and_org_policy.csv", index=False
+        )
+
+        def stance_outcome_table(frame, outcome, name):
+            rows = []
+            for score, label in enumerate(STANCE_ORDER):
+                cell = frame[frame["AISentScore"] == score]
+                successes = int(cell[outcome].sum())
+                low, high = wilson_interval(successes, len(cell))
+                rows.append(
+                    {
+                        "favorable_stance": label,
+                        "stance_score": score,
+                        "n": len(cell),
+                        f"{name}_n": successes,
+                        f"{name}_rate": successes / len(cell) if len(cell) else np.nan,
+                        "ci_low": low,
+                        "ci_high": high,
+                    }
+                )
+            return pd.DataFrame(rows)
+
+        stance_outcome_table(
+            current_users[current_users["AIFreq_1"].notna()],
+            "CodingAssistantDaily",
+            "coding_assistant_daily",
+        ).to_csv(OUT / "coding_assistant_daily_by_stance.csv", index=False)
+        stance_outcome_table(
+            current_users[current_users["AIDaily"].notna()],
+            "HeavyDaily",
+            "heavy_daily_4plus_hours",
+        ).to_csv(OUT / "heavy_daily_by_stance.csv", index=False)
+        hours = (
+            current_users[current_users["AIDaily"].notna()]["AIDaily"]
+            .value_counts(normalize=True)
+            .rename_axis("hours_per_day")
+            .reset_index(name="share_of_daily_users")
+        )
+        hours.to_csv(OUT / "daily_users_hours_distribution.csv", index=False)
+
+    if year == 2026:
+        prior_path = ROOT / "outputs" / "sentiment" / "current_user_daily_use_by_stance.csv"
+        if prior_path.exists():
+            prior = pd.read_csv(prior_path)
+            comparison = current_rates.merge(
+                prior,
+                on=["favorable_stance", "stance_score"],
+                suffixes=("_2026", "_2025"),
+            )
+            comparison.to_csv(
+                OUT / "stance_gradient_2025_vs_2026.csv", index=False
+            )
+            fig, ax = plt.subplots(figsize=(9, 5.4))
+            for suffix, color, label in [
+                ("_2025", "#9E9E9E", f"2025 (n={int(prior['n'].sum()):,})"),
+                ("_2026", "#235347", f"2026 (n={int(current_rates['n'].sum()):,})"),
+            ]:
+                ax.errorbar(
+                    comparison["stance_score"],
+                    comparison[f"daily_rate{suffix}"] * 100,
+                    yerr=[
+                        (comparison[f"daily_rate{suffix}"] - comparison[f"ci_low{suffix}"]) * 100,
+                        (comparison[f"ci_high{suffix}"] - comparison[f"daily_rate{suffix}"]) * 100,
+                    ],
+                    marker="o",
+                    linewidth=2.2,
+                    capsize=4,
+                    label=label,
+                    color=color,
+                )
+            ax.set_xticks(range(len(STANCE_ORDER)), STANCE_ORDER, rotation=15, ha="right")
+            ax.set_ylim(0, 100)
+            ax.set_ylabel("Daily AI-tool use among current users (%)")
+            ax.set_xlabel("Favorable stance toward using AI (2026 labels harmonized to 2025)")
+            ax.set_title("The floor rose: daily use among unfavorable users jumped in 2026")
+            ax.legend(frameon=False)
+            ax.text(
+                0,
+                -0.2,
+                "2025: single AI-use item. 2026: daily on any of four tool types; "
+                "stance and use items reworded. Wilson 95% intervals.",
+                transform=ax.transAxes,
+                fontsize=8,
+                color="#555555",
+            )
+            fig.tight_layout()
+            fig.savefig(OUT / "stance_gradient_2025_vs_2026.png", dpi=220, bbox_inches="tight")
+            plt.close(fig)
 
     summary = {
         "sample_profile": sample_profile.to_dict(orient="records"),

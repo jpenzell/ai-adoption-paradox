@@ -5,12 +5,13 @@ Edit the DATA_ROOT variable below to point to the folder where you placed
 the Stack Overflow Developer Survey CSVs.
 
 Expected structure:
+    <DATA_ROOT>/2026/survey_results_public.csv
     <DATA_ROOT>/2025/survey_results_public.csv
     <DATA_ROOT>/2024/survey_results_public.csv
     <DATA_ROOT>/2023/survey_results_public.csv
 
-Download data from: https://survey.stackoverflow.co/datasets
-See data/README_data.md for SHA-256 checksums to verify your files.
+Download data from the StackExchange/Survey archive (see data/README_data.md).
+SHA-256 checksums for every file are in data/README_data.md.
 """
 
 from pathlib import Path
@@ -19,13 +20,18 @@ from pathlib import Path
 DATA_ROOT = Path(__file__).parent.parent / "data"
 # -----------------------------------------------------------------------------
 
+CSV_2026 = DATA_ROOT / "2026" / "survey_results_public.csv"
 CSV_2025 = DATA_ROOT / "2025" / "survey_results_public.csv"
 CSV_2024 = DATA_ROOT / "2024" / "survey_results_public.csv"
 CSV_2023 = DATA_ROOT / "2023" / "survey_results_public.csv"
 
-def check_data():
-    """Verify all three CSVs exist before running analysis."""
-    missing = [p for p in [CSV_2025, CSV_2024, CSV_2023] if not p.exists()]
+
+def check_data(include_2026=False):
+    """Verify the CSVs exist before running analysis."""
+    paths = [CSV_2025, CSV_2024, CSV_2023]
+    if include_2026:
+        paths = [CSV_2026] + paths
+    missing = [p for p in paths if not p.exists()]
     if missing:
         raise FileNotFoundError(
             f"Missing data files:\n" +
@@ -33,6 +39,6 @@ def check_data():
             "\n\nSee data/README_data.md for download instructions."
         )
     print("Data files found:")
-    for p in [CSV_2025, CSV_2024, CSV_2023]:
+    for p in paths:
         size_mb = p.stat().st_size / 1_000_000
         print(f"  {p.name} ({p.parent.name})  {size_mb:.0f} MB")

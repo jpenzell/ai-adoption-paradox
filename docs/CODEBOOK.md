@@ -109,6 +109,23 @@ All recodes below were applied before model fitting and held constant throughout
 
 ---
 
+## 2026 recodes (v3.2.0)
+
+The 2026 survey renamed and redesigned the core items. Mapping is in `analysis/survey_2026.py`; rationale in `INTAKE_DECISIONS_2026.md`.
+
+| v3.2.0 variable | 2026 source | Recode |
+|---|---|---|
+| `AIUsageScore` | `AISelect` (multi-select) + `AIFreq_1..4` | 0 = only "I don't use AI tools"; otherwise max over selected tool types: Daily 4, Weekly 3, Monthly or Infrequent 2. Contradictory rows (tool + "I don't use") = NaN. |
+| `Daily` | `AIUsageScore` | 1 if 4 |
+| `CodingAssistantDaily` | `AIFreq_1` | 1 if "Daily" |
+| `HeavyDaily` | `AIDaily` | 1 if "4+ hours/day" |
+| `AISent` | `AISentiment` | Somewhat favorable -> Favorable; Neutral -> Indifferent; Not sure -> Unsure; Somewhat unfavorable -> Unfavorable; poles unchanged |
+| `AIAcc` | `AITrust` | copied unchanged (six nominal reliance-scope labels); `AITrustScore` is a display position only |
+| `Professional` | `CodeMain` | "I create code as a primary part of my job" |
+| `PrimaryRole` | `Role` | same keyword recode as `DevType` |
+| `WorkMode` | `WorkSetting` | Remote; In-person; "Hybrid ..." -> Hybrid; "Your choice ..." -> Flexible |
+| `AIThreat` | not asked | dropped from context |
+
 ## Clustering Sample Construction
 
 The working sample (n=33,231) was constructed as follows:

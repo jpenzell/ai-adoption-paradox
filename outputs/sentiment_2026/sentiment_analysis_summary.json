@@ -1,0 +1,646 @@
+{
+  "sample_profile": [
+    {
+      "sample": "2026 public CSV rows",
+      "n": 30903,
+      "share_of_reference": 1.0
+    },
+    {
+      "sample": "Answered AI-use item",
+      "n": 17290,
+      "share_of_reference": 0.5594926058958677
+    },
+    {
+      "sample": "Excluded: selected a tool type AND 'I don't use AI tools'",
+      "n": 96,
+      "share_of_reference": 0.003106494515095622
+    },
+    {
+      "sample": "Complete use, stance, and trust",
+      "n": 14158,
+      "share_of_reference": 0.45814322234087307
+    },
+    {
+      "sample": "Current AI users in complete-case sample",
+      "n": 14158,
+      "share_of_reference": 1.0
+    },
+    {
+      "sample": "Professional developers in complete-case sample",
+      "n": 11337,
+      "share_of_reference": 0.8007486933182653
+    },
+    {
+      "sample": "Professional developers among current users",
+      "n": 11337,
+      "share_of_reference": 0.8007486933182653
+    },
+    {
+      "sample": "Excluded after answering AI-use item",
+      "n": 3132,
+      "share_of_reference": 0.18114517061885482
+    }
+  ],
+  "primary_current_user_rates": [
+    {
+      "favorable_stance": "Very unfavorable",
+      "stance_score": 0,
+      "n": 958,
+      "daily_n": 520,
+      "daily_rate": 0.5427974947807933,
+      "ci_low": 0.5111435782209119,
+      "ci_high": 0.5741095570520669
+    },
+    {
+      "favorable_stance": "Unfavorable",
+      "stance_score": 1,
+      "n": 2052,
+      "daily_n": 1143,
+      "daily_rate": 0.5570175438596491,
+      "ci_low": 0.5354383195558863,
+      "ci_high": 0.5783836869981749
+    },
+    {
+      "favorable_stance": "Unsure",
+      "stance_score": 2,
+      "n": 159,
+      "daily_n": 112,
+      "daily_rate": 0.7044025157232704,
+      "ci_low": 0.6293297302082338,
+      "ci_high": 0.7698315182277186
+    },
+    {
+      "favorable_stance": "Indifferent",
+      "stance_score": 3,
+      "n": 2156,
+      "daily_n": 1368,
+      "daily_rate": 0.634508348794063,
+      "ci_low": 0.6139584241338798,
+      "ci_high": 0.65457980473996
+    },
+    {
+      "favorable_stance": "Favorable",
+      "stance_score": 4,
+      "n": 4321,
+      "daily_n": 3451,
+      "daily_rate": 0.7986577181208053,
+      "ci_low": 0.7864383159554713,
+      "ci_high": 0.8103465661205971
+    },
+    {
+      "favorable_stance": "Very favorable",
+      "stance_score": 5,
+      "n": 4512,
+      "daily_n": 4195,
+      "daily_rate": 0.9297429078014184,
+      "ci_low": 0.9219141103331131,
+      "ci_high": 0.9368405725677199
+    }
+  ],
+  "full_sample_rates": [
+    {
+      "favorable_stance": "Very unfavorable",
+      "stance_score": 0,
+      "n": 958,
+      "daily_n": 520,
+      "daily_rate": 0.5427974947807933,
+      "ci_low": 0.5111435782209119,
+      "ci_high": 0.5741095570520669
+    },
+    {
+      "favorable_stance": "Unfavorable",
+      "stance_score": 1,
+      "n": 2052,
+      "daily_n": 1143,
+      "daily_rate": 0.5570175438596491,
+      "ci_low": 0.5354383195558863,
+      "ci_high": 0.5783836869981749
+    },
+    {
+      "favorable_stance": "Unsure",
+      "stance_score": 2,
+      "n": 159,
+      "daily_n": 112,
+      "daily_rate": 0.7044025157232704,
+      "ci_low": 0.6293297302082338,
+      "ci_high": 0.7698315182277186
+    },
+    {
+      "favorable_stance": "Indifferent",
+      "stance_score": 3,
+      "n": 2156,
+      "daily_n": 1368,
+      "daily_rate": 0.634508348794063,
+      "ci_low": 0.6139584241338798,
+      "ci_high": 0.65457980473996
+    },
+    {
+      "favorable_stance": "Favorable",
+      "stance_score": 4,
+      "n": 4321,
+      "daily_n": 3451,
+      "daily_rate": 0.7986577181208053,
+      "ci_low": 0.7864383159554713,
+      "ci_high": 0.8103465661205971
+    },
+    {
+      "favorable_stance": "Very favorable",
+      "stance_score": 5,
+      "n": 4512,
+      "daily_n": 4195,
+      "daily_rate": 0.9297429078014184,
+      "ci_low": 0.9219141103331131,
+      "ci_high": 0.9368405725677199
+    }
+  ],
+  "high_distrust_current_user_rates": [
+    {
+      "favorable_stance": "Very unfavorable",
+      "stance_score": 0,
+      "n": 385,
+      "daily_n": 156,
+      "daily_rate": 0.4051948051948052,
+      "ci_low": 0.35732676930651697,
+      "ci_high": 0.45493604798308085
+    },
+    {
+      "favorable_stance": "Unfavorable",
+      "stance_score": 1,
+      "n": 478,
+      "daily_n": 223,
+      "daily_rate": 0.4665271966527197,
+      "ci_low": 0.4222491120237886,
+      "ci_high": 0.5113390020452665
+    },
+    {
+      "favorable_stance": "Unsure",
+      "stance_score": 2,
+      "n": 23,
+      "daily_n": 12,
+      "daily_rate": 0.5217391304347826,
+      "ci_low": 0.32962737336427406,
+      "ci_high": 0.7076284258335335
+    },
+    {
+      "favorable_stance": "Indifferent",
+      "stance_score": 3,
+      "n": 289,
+      "daily_n": 176,
+      "daily_rate": 0.6089965397923875,
+      "ci_low": 0.5516590404755688,
+      "ci_high": 0.6634744322700874
+    },
+    {
+      "favorable_stance": "Favorable",
+      "stance_score": 4,
+      "n": 328,
+      "daily_n": 249,
+      "daily_rate": 0.7591463414634146,
+      "ci_low": 0.710041899404742,
+      "ci_high": 0.8022509304428301
+    },
+    {
+      "favorable_stance": "Very favorable",
+      "stance_score": 5,
+      "n": 207,
+      "daily_n": 184,
+      "daily_rate": 0.8888888888888888,
+      "ci_low": 0.8387956145723892,
+      "ci_high": 0.9248113197588668
+    }
+  ],
+  "primary_models": [
+    {
+      "model": "Majority baseline",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7620426613928521,
+      "accuracy_sd": 0.0,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_sd": 0.0,
+      "roc_auc_mean": 0.5,
+      "roc_auc_sd": 0.0,
+      "log_loss_mean": 0.5487139341632005,
+      "log_loss_sd": 0.0,
+      "brier_mean": 0.18133364361015106,
+      "brier_sd": 0.0
+    },
+    {
+      "model": "Stance only",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7620426692370785,
+      "accuracy_sd": 0.00013478203244555325,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_sd": 0.0,
+      "roc_auc_mean": 0.7224894780414614,
+      "roc_auc_sd": 0.013392344097894951,
+      "log_loss_mean": 0.48766968483781403,
+      "log_loss_sd": 0.007952708821984405,
+      "brier_mean": 0.1602313702553715,
+      "brier_sd": 0.0025667058393023805
+    },
+    {
+      "model": "Trust only",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7620426692370785,
+      "accuracy_sd": 0.00013478203244555325,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_sd": 0.0,
+      "roc_auc_mean": 0.6568581963054154,
+      "roc_auc_sd": 0.004783032679971211,
+      "log_loss_mean": 0.5151437675727604,
+      "log_loss_sd": 0.0032814665053390985,
+      "brier_mean": 0.17021000653829976,
+      "brier_sd": 0.0006260396746920513
+    },
+    {
+      "model": "Context",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.762960448983909,
+      "accuracy_sd": 0.0037737349149984467,
+      "balanced_accuracy_mean": 0.5200968649081803,
+      "balanced_accuracy_sd": 0.008624112671124768,
+      "roc_auc_mean": 0.6383424060638474,
+      "roc_auc_sd": 0.010079750667646563,
+      "log_loss_mean": 0.5266092099989104,
+      "log_loss_sd": 0.003637241686638179,
+      "brier_mean": 0.17304851129387136,
+      "brier_sd": 0.0014615845832247763
+    },
+    {
+      "model": "Context + trust",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7661392382959447,
+      "accuracy_sd": 0.002379551608966595,
+      "balanced_accuracy_mean": 0.5470889581045592,
+      "balanced_accuracy_sd": 0.005184120218408392,
+      "roc_auc_mean": 0.7131114755525056,
+      "roc_auc_sd": 0.008865301516572104,
+      "log_loss_mean": 0.4954813958626776,
+      "log_loss_sd": 0.004642798649079337,
+      "brier_mean": 0.16290229047275478,
+      "brier_sd": 0.0017194533023387605
+    },
+    {
+      "model": "Context + stance",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7741909588554483,
+      "accuracy_sd": 0.006798870715437198,
+      "balanced_accuracy_mean": 0.5810517292694801,
+      "balanced_accuracy_sd": 0.006123253632630934,
+      "roc_auc_mean": 0.7614177571367341,
+      "roc_auc_sd": 0.01346731776468465,
+      "log_loss_mean": 0.4691068845470264,
+      "log_loss_sd": 0.008989686084369742,
+      "brier_mean": 0.15368646435339256,
+      "brier_sd": 0.003378191729927826
+    },
+    {
+      "model": "Context + trust + stance",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7789943163562415,
+      "accuracy_sd": 0.007259876075162356,
+      "balanced_accuracy_mean": 0.6004341958056241,
+      "balanced_accuracy_sd": 0.008072547999882817,
+      "roc_auc_mean": 0.7739637753366017,
+      "roc_auc_sd": 0.01207992612590631,
+      "log_loss_mean": 0.46052221341744126,
+      "log_loss_sd": 0.008271387607996006,
+      "brier_mean": 0.15047684251437493,
+      "brier_sd": 0.003056659604645246
+    }
+  ],
+  "full_sample_models": [
+    {
+      "model": "Majority baseline",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7620426613928521,
+      "accuracy_sd": 0.0,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_sd": 0.0,
+      "roc_auc_mean": 0.5,
+      "roc_auc_sd": 0.0,
+      "log_loss_mean": 0.5487139341632005,
+      "log_loss_sd": 0.0,
+      "brier_mean": 0.18133364361015106,
+      "brier_sd": 0.0
+    },
+    {
+      "model": "Stance only",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7620426692370785,
+      "accuracy_sd": 0.00013478203244555325,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_sd": 0.0,
+      "roc_auc_mean": 0.7224894780414614,
+      "roc_auc_sd": 0.013392344097894951,
+      "log_loss_mean": 0.48766968483781403,
+      "log_loss_sd": 0.007952708821984405,
+      "brier_mean": 0.1602313702553715,
+      "brier_sd": 0.0025667058393023805
+    },
+    {
+      "model": "Trust only",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7620426692370785,
+      "accuracy_sd": 0.00013478203244555325,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_sd": 0.0,
+      "roc_auc_mean": 0.6568581963054154,
+      "roc_auc_sd": 0.004783032679971211,
+      "log_loss_mean": 0.5151437675727604,
+      "log_loss_sd": 0.0032814665053390985,
+      "brier_mean": 0.17021000653829976,
+      "brier_sd": 0.0006260396746920513
+    },
+    {
+      "model": "Context",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.762960448983909,
+      "accuracy_sd": 0.0037737349149984467,
+      "balanced_accuracy_mean": 0.5200968649081803,
+      "balanced_accuracy_sd": 0.008624112671124768,
+      "roc_auc_mean": 0.6383424060638474,
+      "roc_auc_sd": 0.010079750667646563,
+      "log_loss_mean": 0.5266092099989104,
+      "log_loss_sd": 0.003637241686638179,
+      "brier_mean": 0.17304851129387136,
+      "brier_sd": 0.0014615845832247763
+    },
+    {
+      "model": "Context + trust",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7661392382959447,
+      "accuracy_sd": 0.002379551608966595,
+      "balanced_accuracy_mean": 0.5470889581045592,
+      "balanced_accuracy_sd": 0.005184120218408392,
+      "roc_auc_mean": 0.7131114755525056,
+      "roc_auc_sd": 0.008865301516572104,
+      "log_loss_mean": 0.4954813958626776,
+      "log_loss_sd": 0.004642798649079337,
+      "brier_mean": 0.16290229047275478,
+      "brier_sd": 0.0017194533023387605
+    },
+    {
+      "model": "Context + stance",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7741909588554483,
+      "accuracy_sd": 0.006798870715437198,
+      "balanced_accuracy_mean": 0.5810517292694801,
+      "balanced_accuracy_sd": 0.006123253632630934,
+      "roc_auc_mean": 0.7614177571367341,
+      "roc_auc_sd": 0.01346731776468465,
+      "log_loss_mean": 0.4691068845470264,
+      "log_loss_sd": 0.008989686084369742,
+      "brier_mean": 0.15368646435339256,
+      "brier_sd": 0.003378191729927826
+    },
+    {
+      "model": "Context + trust + stance",
+      "n": 14158,
+      "prevalence": 0.7620426613928521,
+      "accuracy_mean": 0.7789943163562415,
+      "accuracy_sd": 0.007259876075162356,
+      "balanced_accuracy_mean": 0.6004341958056241,
+      "balanced_accuracy_sd": 0.008072547999882817,
+      "roc_auc_mean": 0.7739637753366017,
+      "roc_auc_sd": 0.01207992612590631,
+      "log_loss_mean": 0.46052221341744126,
+      "log_loss_sd": 0.008271387607996006,
+      "brier_mean": 0.15047684251437493,
+      "brier_sd": 0.003056659604645246
+    }
+  ],
+  "professional_current_user_models": [
+    {
+      "model": "Majority baseline",
+      "n": 11337,
+      "prevalence": 0.7892740583928729,
+      "accuracy_mean": 0.7892740583928729,
+      "accuracy_sd": 0.0,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_sd": 0.0,
+      "roc_auc_mean": 0.5,
+      "roc_auc_sd": 0.0,
+      "log_loss_mean": 0.5149169021635086,
+      "log_loss_sd": 0.0,
+      "brier_mean": 0.16632051914091678,
+      "brier_sd": 0.0
+    },
+    {
+      "model": "Stance only",
+      "n": 11337,
+      "prevalence": 0.7892740583928729,
+      "accuracy_mean": 0.7892740641159991,
+      "accuracy_sd": 0.00018250192358367607,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_sd": 0.0,
+      "roc_auc_mean": 0.7403566060558437,
+      "roc_auc_sd": 0.00522711128357139,
+      "log_loss_mean": 0.44911367781683154,
+      "log_loss_sd": 0.0031689213349220613,
+      "brier_mean": 0.14552276413229345,
+      "brier_sd": 0.0009362628828973754
+    },
+    {
+      "model": "Trust only",
+      "n": 11337,
+      "prevalence": 0.7892740583928729,
+      "accuracy_mean": 0.7892740641159991,
+      "accuracy_sd": 0.00018250192358367607,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_sd": 0.0,
+      "roc_auc_mean": 0.6724646291075972,
+      "roc_auc_sd": 0.006002418520530441,
+      "log_loss_mean": 0.47757802947936395,
+      "log_loss_sd": 0.0005320058207859838,
+      "brier_mean": 0.15509712108840878,
+      "brier_sd": 0.0006827524682221906
+    },
+    {
+      "model": "Context",
+      "n": 11337,
+      "prevalence": 0.7892740583928729,
+      "accuracy_mean": 0.7884801799299668,
+      "accuracy_sd": 0.0006739690533872416,
+      "balanced_accuracy_mean": 0.5008769775489866,
+      "balanced_accuracy_sd": 0.0010416424336427365,
+      "roc_auc_mean": 0.6155965189362327,
+      "roc_auc_sd": 0.017233774837963158,
+      "log_loss_mean": 0.5023891939066621,
+      "log_loss_sd": 0.005295563277912412,
+      "brier_mean": 0.16211833883796406,
+      "brier_sd": 0.0018944392304222951
+    },
+    {
+      "model": "Context + trust",
+      "n": 11337,
+      "prevalence": 0.7892740583928729,
+      "accuracy_mean": 0.7886573247476056,
+      "accuracy_sd": 0.005944674445085737,
+      "balanced_accuracy_mean": 0.5212372442989773,
+      "balanced_accuracy_sd": 0.00788881101195054,
+      "roc_auc_mean": 0.7073434745829414,
+      "roc_auc_sd": 0.010259742006910884,
+      "log_loss_mean": 0.46875709216344175,
+      "log_loss_sd": 0.004671586442919924,
+      "brier_mean": 0.1517869629691078,
+      "brier_sd": 0.0025696204716933475
+    },
+    {
+      "model": "Context + stance",
+      "n": 11337,
+      "prevalence": 0.7892740583928729,
+      "accuracy_mean": 0.7920974117562855,
+      "accuracy_sd": 0.008844965832971315,
+      "balanced_accuracy_mean": 0.5521085094545436,
+      "balanced_accuracy_sd": 0.011277224349233433,
+      "roc_auc_mean": 0.759716912411426,
+      "roc_auc_sd": 0.007733507905942584,
+      "log_loss_mean": 0.4423204987391488,
+      "log_loss_sd": 0.005780824838877592,
+      "brier_mean": 0.14311518424162042,
+      "brier_sd": 0.002320892215664355
+    },
+    {
+      "model": "Context + trust + stance",
+      "n": 11337,
+      "prevalence": 0.7892740583928729,
+      "accuracy_mean": 0.7968603278851771,
+      "accuracy_sd": 0.005715902711717345,
+      "balanced_accuracy_mean": 0.5781361633015484,
+      "balanced_accuracy_sd": 0.006985095366845525,
+      "roc_auc_mean": 0.7746799183211667,
+      "roc_auc_sd": 0.0073284724645351525,
+      "log_loss_mean": 0.4330409661945822,
+      "log_loss_sd": 0.005323247552994236,
+      "brier_mean": 0.1396486096198467,
+      "brier_sd": 0.0023927639755646772
+    }
+  ],
+  "paired_repeated_split_comparisons": [
+    {
+      "comparison": "Context + stance minus Context + trust",
+      "splits": 50,
+      "auc_delta_mean": 0.048340164021433304,
+      "auc_delta_sd": 0.008051319026120326,
+      "auc_delta_2_5pct": 0.030950257321194996,
+      "auc_delta_97_5pct": 0.06335398372765205,
+      "auc_delta_positive_splits": 50,
+      "log_loss_improvement_mean": 0.02657832693988519,
+      "log_loss_improvement_positive_splits": 50
+    },
+    {
+      "comparison": "Context + trust + stance minus Context + stance",
+      "splits": 50,
+      "auc_delta_mean": 0.012349197033545372,
+      "auc_delta_sd": 0.0030049595599745686,
+      "auc_delta_2_5pct": 0.005626295879942869,
+      "auc_delta_97_5pct": 0.01715766570046439,
+      "auc_delta_positive_splits": 50,
+      "log_loss_improvement_mean": 0.00874850410777587,
+      "log_loss_improvement_positive_splits": 50
+    }
+  ],
+  "heldout": {
+    "sample": "current_users_only",
+    "n_train": 11326,
+    "n_test": 2832,
+    "accuracy": 0.7768361581920904,
+    "balanced_accuracy": 0.5954353822502977,
+    "roc_auc": 0.7720128402218782,
+    "log_loss": 0.46279513857220456,
+    "brier": 0.15171854547752522,
+    "calibration_intercept": 0.07404493537257373,
+    "calibration_slope": 0.9103245451319294,
+    "mean_absolute_decile_gap": 0.017911168514031753
+  },
+  "top_permutation_features": [
+    {
+      "feature": "AISent",
+      "mean_auc_decrease": 0.14885939558278777,
+      "sd_auc_decrease": 0.010016681503937665
+    },
+    {
+      "feature": "AIAcc",
+      "mean_auc_decrease": 0.038078672828726505,
+      "sd_auc_decrease": 0.004913623612883938
+    },
+    {
+      "feature": "Professional",
+      "mean_auc_decrease": 0.016247047078980215,
+      "sd_auc_decrease": 0.0020257754858510457
+    },
+    {
+      "feature": "Country",
+      "mean_auc_decrease": 0.012528257288455403,
+      "sd_auc_decrease": 0.0032260277888077372
+    },
+    {
+      "feature": "PrimaryRole",
+      "mean_auc_decrease": 0.007964653638521274,
+      "sd_auc_decrease": 0.0019537775904854165
+    },
+    {
+      "feature": "WorkMode",
+      "mean_auc_decrease": 0.0025541391771148336,
+      "sd_auc_decrease": 0.0009879413418803099
+    },
+    {
+      "feature": "YearsCodeNum",
+      "mean_auc_decrease": 0.002258022044810193,
+      "sd_auc_decrease": 0.0011305779419071662
+    },
+    {
+      "feature": "OrgBucket",
+      "mean_auc_decrease": 0.0018068851530294416,
+      "sd_auc_decrease": 0.001260125600609
+    }
+  ],
+  "adjusted_probabilities": [
+    {
+      "favorable_stance": "Very unfavorable",
+      "stance_score": 0,
+      "adjusted_mean_daily_probability": 0.6058444664753417
+    },
+    {
+      "favorable_stance": "Unfavorable",
+      "stance_score": 1,
+      "adjusted_mean_daily_probability": 0.5980525171312782
+    },
+    {
+      "favorable_stance": "Unsure",
+      "stance_score": 2,
+      "adjusted_mean_daily_probability": 0.7736470068308823
+    },
+    {
+      "favorable_stance": "Indifferent",
+      "stance_score": 3,
+      "adjusted_mean_daily_probability": 0.6720117469082371
+    },
+    {
+      "favorable_stance": "Favorable",
+      "stance_score": 4,
+      "adjusted_mean_daily_probability": 0.8020462361526918
+    },
+    {
+      "favorable_stance": "Very favorable",
+      "stance_score": 5,
+      "adjusted_mean_daily_probability": 0.9156099453873623
+    }
+  ],
+  "daily_rate_complete_case": 0.7620426613928521,
+  "daily_rate_item_incomplete_after_use_answer": 0.0561941251596424
+}

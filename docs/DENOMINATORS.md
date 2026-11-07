@@ -1,6 +1,6 @@
 # Denominator Reconciliation
 
-This file documents every key count used in the paper alongside the corresponding Stack Overflow published figure and the downloaded CSV count. All three CSV files were downloaded from https://survey.stackoverflow.co/datasets.
+This file documents every key count used in the paper alongside the corresponding Stack Overflow published figure and the downloaded CSV count. The 2023-2025 files were originally downloaded from survey.stackoverflow.co/datasets; all four files are now served from the StackExchange/Survey GitHub archive (Git LFS) and the hashes match.
 
 ---
 
@@ -8,6 +8,7 @@ This file documents every key count used in the paper alongside the correspondin
 
 | Year | SHA-256 (first 16 chars) | File Size | Rows |
 |---|---|---|---|
+| 2026 | `ad520b4d5d71f240` | 122,407,316 bytes | 30,903 |
 | 2025 | `2d1f65308877282e` | 140,893,245 bytes | 49,191 |
 | 2024 | `7f2c2dbf6989d00b` | 159,525,875 bytes | 65,437 |
 | 2023 | `828874a3cf0fa1bb` | 158,626,799 bytes | 89,184 |
@@ -23,6 +24,10 @@ This file documents every key count used in the paper alongside the correspondin
 | **2025 professional developers (total)** | 37,356 (results page) | 37,467 | 37,467 (noted) | Difference of 111. Same versioning gap. |
 | **2025 professional developers who answered AISelect** | 26,004 (AI page) | 26,045 | 26,045 | Used to compute 50.6% daily rate, consistent with SO's published 51%. |
 | **2025 AIAgents respondents** | 31,877 (AI page) | 31,919 | Not used directly | AgentScore imputed for 1,312 respondents in clustering sample. |
+| **2026 total responses** | 30,903 (methodology) | 30,903 | 30,903 | ✓ Match. Stack Overflow's blog rounds to "more than 30,000". |
+| **2026 AISelect respondents** | 17,464 (AI page) | 17,464 | 17,290 after excluding 96 contradictory and 78 no-frequency rows | ✓ Match on the raw count |
+| **2026 AISentiment / AITrust respondents** | 14,428 / 14,304 | 14,428 / 14,304 | 14,158 complete on all three | ✓ Match. Routed to current users only. |
+| **2026 countries** | 169 (methodology) | 169 distinct | 157 in the primary sample | ✓ Match |
 | **2024 total responses** | 65,437 | 65,437 | 65,437 | ✓ Match |
 | **2023 total responses** | 89,184 | 89,184 | 89,184 | ✓ Match |
 | **2025 countries** | 177 (methodology page) | 177 distinct | 177 | ✓ Match |
@@ -37,11 +42,16 @@ The trust question routing changed between survey years, creating a comparabilit
 
 | Year | Trust Column | Routed To | n | High Trust | High Distrust |
 |---|---|---|---|---|---|
-| 2023 | AIBen | Current AI users only | 61,396 | 42.2% | 27.2% |
+| 2023 | AIBen | All AIBen respondents (includes planners) | 61,396 | 42.2% | 27.2% |
+| 2023 (harmonized) | AIBen | **Current users only** | **38,888** | **48.2%** | **24.2%** |
 | 2024 | AIAcc | Current AI users only | 37,302 | 43.0% | 30.4% |
 | 2025 (paper figures) | AIAcc | All AISelect respondents | 33,297 | 32.8% | 45.7% |
 | **2025 (harmonized)** | AIAcc | **Current users only** | **26,126** | **39.3%** | **37.3%** |
 | 2025 (non-users only) | AIAcc | Non-users only | 7,171 | 8.9% | 76.5% |
+
+| 2026 | AITrust | Current users only | 14,179 | n/a (nominal reliance-scope item) | n/a |
+
+The 2023 "current users only" row above corrects an earlier table that labeled the full AIBen denominator as current users; the harmonized series used in the charts is 48.2% (2023), 43.0% (2024), 39.3% (2025).
 
 **Conclusion:** The trust decline from 2024 to 2025 is directionally robust on both denominators, but the magnitude differs substantially. The harmonized user-only figures show a smaller — though still meaningful — decline. Non-users show dramatically lower trust, which depresses the 2025 full-denominator figures relative to prior years.
 
@@ -56,5 +66,15 @@ Both the full-denominator and user-only 2025 figures are reported in the paper (
 | 2023 | 89,184 | 87,973 | 98.6% |
 | 2024 | 65,437 | 60,907 | 93.1% |
 | 2025 | 49,191 | 33,720 | 68.5% |
+| 2026 | 30,903 | 17,464 | 56.5% |
 
-The 2025 drop likely reflects a survey redesign routing non-developers away from the AI module. This is an inference from the data pattern; it is not explicitly documented on the 2025 Stack Overflow methodology page.
+The 2025 drop likely reflects a survey redesign routing non-developers away from the AI module. This is an inference from the data pattern; it is not explicitly documented on the 2025 Stack Overflow methodology page. The 2026 AI module is routed more narrowly still, and within it stance and trust go only to current users.
+
+## 2026 daily-use denominators
+
+| Outcome | Denominator | n | Daily |
+|---|---|---|---|
+| Daily on any tool type (primary) | current users, complete case | 14,158 | 76.2% |
+| Daily on AI coding assistants | current users who selected that type | 11,246 | 73.6% |
+| Daily on general chat tools | current users who selected that type | 10,622 | 66.3% |
+| Four-plus hours per day | daily users who answered `AIDaily` | 10,727 | 31.2% |

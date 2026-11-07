@@ -1,0 +1,3 @@
+comparison,splits,auc_delta_mean,auc_delta_sd,auc_delta_2_5pct,auc_delta_97_5pct,auc_delta_positive_splits,log_loss_improvement_mean,log_loss_improvement_positive_splits
+Context + stance minus Context + trust,50,0.048340164021433304,0.008051319026120326,0.030950257321194996,0.06335398372765205,50,0.02657832693988519,50
+Context + trust + stance minus Context + stance,50,0.012349197033545372,0.0030049595599745686,0.005626295879942869,0.01715766570046439,50,0.00874850410777587,50

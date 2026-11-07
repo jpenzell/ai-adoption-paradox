@@ -19,8 +19,23 @@ Every substantive claim in this project, its evidence status, and the language a
 | Random-forest Gini share proves stance dominance. | Not supported as a standalone inference. | Replaced with nested CV and held-out permutation checks. |
 | Stack Overflow respondents represent all developers. | Not supported. | Name the voluntary sample; avoid population-prevalence claims. |
 
+## 2026 claims (v3.2.0)
+
+| Claim | Evidence status | Publication language |
+|---|---|---|
+| The stance-over-trust ordering replicated in 2026. | Supported: all six pre-specified criteria met on the redesigned instrument (INTAKE_DECISIONS_2026.md). | "Replicated on a redesigned instrument"; never "the same result" or "unchanged." |
+| Among 2026 current users, daily use is 54.3% at very unfavorable and 93.0% at very favorable. | Supported in the primary n=14,158 sample; coding-assistant-only and chat-only outcomes give 58.5%/87.9% and 47.7%/81.5%. | Report endpoints, denominators, and that "daily" is daily on any of four tool types. |
+| Daily use among unfavorable users rose sharply from 2025 to 2026. | Supported in direction; the magnitude crosses an instrument change (single item to per-tool maximum; "development process" to "role at work"). | "The floor rose"; give both years' wording; do not report the 35-point gap as a measured change in behavior. |
+| Daily use among current users rose from 60% to 76%. | Supported in direction; partly measurement. Coding assistants alone 73.6%. | Always pair with the single-tool figure. |
+| Favorable stance among users fell for a fourth year. | Supported in direction with a current-user denominator in every year; 2026 added "somewhat" qualifiers. | "Kept falling"; flag the label change. |
+| The redesigned reliance-scope trust item carries more incremental information than the accuracy item did. | Supported (+0.012 vs +0.003 AUC over context + stance; permutation importance 0.038 vs 0.006), but it is a different question on a different sample. | "Carries more information in 2026 than the accuracy item did in 2025"; not "trust matters more now." |
+| The 2023-2025 trust decline continued in 2026. | Not testable: the 2026 item is not on the Likert scale. | Do not claim. Stop the trust trend line at 2025. |
+| Stance does not separate heavy (4+ h/day) from light daily use. | Supported descriptively (AUC 0.653 vs trust 0.644; non-monotone pattern). | Observation only; name the U-shape and both readings. |
+| Organizational measurement of AI use is associated with higher daily use, including among unfavorable users. | Supported descriptively (69.7% optional vs 88.1% measured; 45.8% vs 67.6% among very unfavorable). 2026-only item. | Association; do not say measurement causes use or resentment. |
+| Developers use AI daily whether or not they like it. | Supported as a summary of the 2026 cross-section. | Acceptable headline; pair with "self-reported" and "Stack Overflow respondents." |
+
 ## Note on presentation assets
 
 Any slide, carousel, or talk asset reporting a random-forest Gini importance share — including a "4.6x" ratio between stance and accuracy trust — reflects the withdrawn analysis and should be rebuilt from the current outputs in `outputs/sentiment/`.
 
-Impurity-based importance is unreliable when predictors are correlated, and stance and accuracy trust are correlated here. The defensible figures are the descriptive gradient (18.8% to 88.1%) and the cross-validated AUC comparison (0.758 stance alone versus 0.669 accuracy trust alone).
+Impurity-based importance is unreliable when predictors are correlated, and stance and accuracy trust are correlated here. The defensible figures are the descriptive gradient (18.8% to 88.1% in 2025; 54.3% to 93.0% in 2026) and the cross-validated AUC comparison (0.758 versus 0.669 in 2025; 0.722 versus 0.657 in 2026). Assets built from v3.1.0 that show only 2025 are not wrong; they are dated.

@@ -4,32 +4,37 @@ The Stack Overflow Developer Survey data is publicly available but not included 
 
 ## Download Instructions
 
-1. Go to https://survey.stackoverflow.co/datasets
-2. Download the annual survey results for 2023, 2024, and 2025
-3. Extract the CSV files and place them inside the repo at:
+Stack Overflow now distributes the public CSVs from the GitHub archive at
+https://github.com/StackExchange/Survey under `packages/archive/<year>/`
+(Git LFS). The older survey.stackoverflow.co/datasets zips are no longer served.
+
+File names differ by year:
+
+| Year | Results file in the archive | Schema file |
+|---|---|---|
+| 2026 | `survey_results_public.csv` | `survey_results_schema.csv` |
+| 2023, 2024, 2025 | `results.csv` | `schema.csv` |
+
+Place them inside the repo as:
 
 ```
-data/2023/survey_results_public.csv
-data/2024/survey_results_public.csv
+data/2026/survey_results_public.csv
 data/2025/survey_results_public.csv
+data/2024/survey_results_public.csv
+data/2023/survey_results_public.csv
 ```
 
 These paths match what `analysis/config.py` expects. Run from the repo root.
 
 ## Verify Your Downloads
 
-After downloading, verify your files match the CSVs used in this analysis using the SHA-256 checksums in `docs/DENOMINATORS.md`.
+`python analysis/verify_data.py` checks every file. Expected SHA-256:
 
-On macOS/Linux:
-```bash
-shasum -a 256 data/2025/survey_results_public.csv | cut -c1-16
-# Should output: 2d1f65308877282e
-```
+| Year | SHA-256 | Rows |
+|---|---|---|
+| 2026 | `ad520b4d5d71f240141e63f0d6f81a3b1898cbdc69efe9ea985496533b15fc2c` | 30,903 |
+| 2025 | `2d1f65308877282edfb4470520eabbc08cb499118432a3dcec6a66c086aa2baa` | 49,191 |
+| 2024 | `7f2c2dbf6989d00b80a7351de4bb3af4b52b21cc52d5c947891bbc4f4e5cbe49` | 65,437 |
+| 2023 | `828874a3cf0fa1bbb4c3da6a87e5822b8563bbc04b21f9869479480dbcff410c` | 89,184 |
 
-On Windows (PowerShell):
-```powershell
-(Get-FileHash data\2025\survey_results_public.csv -Algorithm SHA256).Hash.Substring(0,16).ToLower()
-# Should output: 2d1f65308877282e
-```
-
-If your hashes don't match, Stack Overflow may have released an updated version of the CSV. The analysis should still run correctly, but minor count differences are expected.
+If your hashes don't match, Stack Overflow may have released an updated version of the CSV. The analysis should still run, but minor count differences are expected.
