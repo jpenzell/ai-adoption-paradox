@@ -1,0 +1,265 @@
+{
+  "source": "work/verified-data/2026.csv",
+  "sha256": "ad520b4d5d71f240141e63f0d6f81a3b1898cbdc69efe9ea985496533b15fc2c",
+  "counts": {
+    "rows": 30903,
+    "answered_AISelect": 17464,
+    "current_users": 14461,
+    "current_users_with_frequency": 14383,
+    "primary_current_users": 14158,
+    "primary_daily": 10789,
+    "nonusers": 2907,
+    "daily_among_current_with_frequency": 10965,
+    "current_users_no_valid_frequency": 78,
+    "contradictory_selection": 96
+  },
+  "stance_primary": {
+    "Neutral": {
+      "n": 2156,
+      "daily_n": 1368,
+      "daily_pct": 63.45083487940631
+    },
+    "Somewhat favorable": {
+      "n": 4321,
+      "daily_n": 3451,
+      "daily_pct": 79.86577181208054
+    },
+    "Somewhat unfavorable": {
+      "n": 2052,
+      "daily_n": 1143,
+      "daily_pct": 55.70175438596491
+    },
+    "Very unfavorable": {
+      "n": 958,
+      "daily_n": 520,
+      "daily_pct": 54.27974947807933
+    },
+    "Very favorable": {
+      "n": 4512,
+      "daily_n": 4195,
+      "daily_pct": 92.97429078014184
+    },
+    "Not sure": {
+      "n": 159,
+      "daily_n": 112,
+      "daily_pct": 70.44025157232704
+    }
+  },
+  "trust_selfidentified_users_including_missing_frequency_denominator": 14209,
+  "stance_selfidentified_users_including_missing_frequency_denominator": 14332,
+  "current_user_distribution_definition": "Selected >=1 recognized tool, did not also select non-use, and answered at least1 recognized frequency item.",
+  "trust_current_user_denominator": 14179,
+  "trust_current_user_distribution": {
+    "I trust it when I can easily verify the output": {
+      "n": 6838,
+      "pct": 48.226250088158544
+    },
+    "I trust it for many tasks, but not important work decisions": {
+      "n": 2325,
+      "pct": 16.397489244657592
+    },
+    "I do not trust it for most work tasks": {
+      "n": 1712,
+      "pct": 12.07419423090486
+    },
+    "I trust it for low-risk work tasks only": {
+      "n": 2292,
+      "pct": 16.164750687636644
+    },
+    "I trust it for many tasks, including important work decisions": {
+      "n": 943,
+      "pct": 6.650680583962197
+    },
+    "Not sure / I do not use AI tools": {
+      "n": 69,
+      "pct": 0.4866351646801608
+    }
+  },
+  "stance_current_user_denominator": 14298,
+  "stance_current_user_distribution": {
+    "Neutral": {
+      "n": 2186,
+      "pct": 15.288851587634634
+    },
+    "Somewhat favorable": {
+      "n": 4362,
+      "pct": 30.507763323541756
+    },
+    "Somewhat unfavorable": {
+      "n": 2072,
+      "pct": 14.49153727794097
+    },
+    "Very unfavorable": {
+      "n": 962,
+      "pct": 6.72821373618688
+    },
+    "Very favorable": {
+      "n": 4552,
+      "pct": 31.836620506364525
+    },
+    "Not sure": {
+      "n": 164,
+      "pct": 1.1470135683312352
+    }
+  },
+  "policy": [
+    {
+      "stance": "All current users",
+      "policy": "AI use is mostly optional and left up to individuals",
+      "n": 3261,
+      "daily_n": 2272,
+      "daily_pct": 69.671879791475
+    },
+    {
+      "stance": "All current users",
+      "policy": "My organization provides approved AI tools and guidance for how to use them",
+      "n": 2881,
+      "daily_n": 2306,
+      "daily_pct": 80.0416522040958
+    },
+    {
+      "stance": "All current users",
+      "policy": "My organization does not currently use AI tools or agents for work",
+      "n": 168,
+      "daily_n": 85,
+      "daily_pct": 50.595238095238095
+    },
+    {
+      "stance": "All current users",
+      "policy": "Some teams actively encourage AI use, but practices vary across the organization",
+      "n": 1842,
+      "daily_n": 1437,
+      "daily_pct": 78.0130293159609
+    },
+    {
+      "stance": "Very unfavorable",
+      "policy": "Some teams actively encourage AI use, but practices vary across the organization",
+      "n": 120,
+      "daily_n": 59,
+      "daily_pct": 49.166666666666664
+    },
+    {
+      "stance": "All current users",
+      "policy": "My organization measures or evaluates AI use as part of employee or team performance",
+      "n": 1259,
+      "daily_n": 1109,
+      "daily_pct": 88.0857823669579
+    },
+    {
+      "stance": "All current users",
+      "policy": "My organization expects some employees to use AI tools for certain types of work",
+      "n": 1405,
+      "daily_n": 1159,
+      "daily_pct": 82.49110320284697
+    },
+    {
+      "stance": "Very unfavorable",
+      "policy": "My organization expects some employees to use AI tools for certain types of work",
+      "n": 126,
+      "daily_n": 71,
+      "daily_pct": 56.34920634920635
+    },
+    {
+      "stance": "Very unfavorable",
+      "policy": "My organization provides approved AI tools and guidance for how to use them",
+      "n": 131,
+      "daily_n": 66,
+      "daily_pct": 50.38167938931298
+    },
+    {
+      "stance": "Very unfavorable",
+      "policy": "AI use is mostly optional and left up to individuals",
+      "n": 203,
+      "daily_n": 93,
+      "daily_pct": 45.8128078817734
+    },
+    {
+      "stance": "Very unfavorable",
+      "policy": "My organization measures or evaluates AI use as part of employee or team performance",
+      "n": 142,
+      "daily_n": 96,
+      "daily_pct": 67.6056338028169
+    },
+    {
+      "stance": "All current users",
+      "policy": "Not sure",
+      "n": 205,
+      "daily_n": 139,
+      "daily_pct": 67.8048780487805
+    },
+    {
+      "stance": "Very unfavorable",
+      "policy": "Not sure",
+      "n": 11,
+      "daily_n": 7,
+      "daily_pct": 63.63636363636363
+    },
+    {
+      "stance": "Very unfavorable",
+      "policy": "My organization does not currently use AI tools or agents for work",
+      "n": 18,
+      "daily_n": 7,
+      "daily_pct": 38.888888888888886
+    }
+  ],
+  "source_table_cells_verified": 55,
+  "source_table_check_list": [
+    "stance Very unfavorable",
+    "stance Unfavorable",
+    "stance Unsure",
+    "stance Indifferent",
+    "stance Favorable",
+    "stance Very favorable",
+    "policy Very unfavorable / Optional, individual choice",
+    "policy Very unfavorable / Encouraged, varies by team",
+    "policy Very unfavorable / Approved tools and guidance",
+    "policy Very unfavorable / Expected for some work",
+    "policy Very unfavorable / Measured in performance",
+    "policy Very unfavorable / Org does not use AI",
+    "policy Very unfavorable / Not sure",
+    "policy Unfavorable / Optional, individual choice",
+    "policy Unfavorable / Encouraged, varies by team",
+    "policy Unfavorable / Approved tools and guidance",
+    "policy Unfavorable / Expected for some work",
+    "policy Unfavorable / Measured in performance",
+    "policy Unfavorable / Org does not use AI",
+    "policy Unfavorable / Not sure",
+    "policy Unsure / Optional, individual choice",
+    "policy Unsure / Encouraged, varies by team",
+    "policy Unsure / Approved tools and guidance",
+    "policy Unsure / Expected for some work",
+    "policy Unsure / Measured in performance",
+    "policy Unsure / Org does not use AI",
+    "policy Unsure / Not sure",
+    "policy Indifferent / Optional, individual choice",
+    "policy Indifferent / Encouraged, varies by team",
+    "policy Indifferent / Approved tools and guidance",
+    "policy Indifferent / Expected for some work",
+    "policy Indifferent / Measured in performance",
+    "policy Indifferent / Org does not use AI",
+    "policy Indifferent / Not sure",
+    "policy Favorable / Optional, individual choice",
+    "policy Favorable / Encouraged, varies by team",
+    "policy Favorable / Approved tools and guidance",
+    "policy Favorable / Expected for some work",
+    "policy Favorable / Measured in performance",
+    "policy Favorable / Org does not use AI",
+    "policy Favorable / Not sure",
+    "policy Very favorable / Optional, individual choice",
+    "policy Very favorable / Encouraged, varies by team",
+    "policy Very favorable / Approved tools and guidance",
+    "policy Very favorable / Expected for some work",
+    "policy Very favorable / Measured in performance",
+    "policy Very favorable / Org does not use AI",
+    "policy Very favorable / Not sure",
+    "policy All current users / Optional, individual choice",
+    "policy All current users / Encouraged, varies by team",
+    "policy All current users / Approved tools and guidance",
+    "policy All current users / Expected for some work",
+    "policy All current users / Measured in performance",
+    "policy All current users / Org does not use AI",
+    "policy All current users / Not sure"
+  ],
+  "trust_distribution_cells_verified": 6,
+  "four_year_context_2026_denominators_verified": true
+}

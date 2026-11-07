@@ -4,6 +4,9 @@ The Stack Overflow Developer Survey data is publicly available but not included 
 
 ## Download Instructions
 
+From the research root, run `python3 analysis/fetch_data.py`. This uses the Python standard library and verifies package-specified hashes before installing files. URLs and hashes below are inherited from the package; current source availability and provenance must be checked separately.
+
+
 Stack Overflow now distributes the public CSVs from the GitHub archive at
 https://github.com/StackExchange/Survey under `packages/archive/<year>/`
 (Git LFS). The older survey.stackoverflow.co/datasets zips are no longer served.
@@ -37,4 +40,4 @@ These paths match what `analysis/config.py` expects. Run from the repo root.
 | 2024 | `7f2c2dbf6989d00b80a7351de4bb3af4b52b21cc52d5c947891bbc4f4e5cbe49` | 65,437 |
 | 2023 | `828874a3cf0fa1bbb4c3da6a87e5822b8563bbc04b21f9869479480dbcff410c` | 89,184 |
 
-If your hashes don't match, Stack Overflow may have released an updated version of the CSV. The analysis should still run, but minor count differences are expected.
+If a hash does not match, stop and resolve the discrepancy. Do not silently substitute changed data or presume differences will be minor. The downloader preserves existing mismatched files by default.

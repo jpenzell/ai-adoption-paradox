@@ -1,0 +1,24 @@
+You can use AI every day and still dislike it.
+
+In the 2026 Stack Overflow survey, 54% of current AI users who described their attitude as very unfavorable reported daily use on at least one of four AI tool types. Among the very favorable, it was 93%.
+
+That's the finding I keep coming back to in my analysis of the 2025 and 2026 survey data. A usage number doesn't tell you how someone feels about the work they're doing with the tool.
+
+There is still a substantial relationship between attitude and frequency. In the models I compared, attitude distinguished daily from less frequent use better than the survey's trust question did.
+
+And trust had conditions. Nearly half of respondents in the trust analysis said they trust AI when they can easily verify the output.
+
+For anyone running an AI rollout, I'd put three questions next to the adoption number:
+
+How do people feel about using it?
+Which tasks are they comfortable using it for?
+How do they check the result?
+
+Then look at the quality of the work. Frequency alone can't answer that.
+
+One important limit: Stack Overflow changed the use, attitude, and trust questions in 2026. These are different voluntary survey samples, so the year-to-year differences aren't a clean measure of change, and they don't establish cause and effect. The headline percentages are among current users with complete answers, not all developers.
+
+The carousel walks through the findings and what they can reasonably tell us.
+
+Data: https://survey.stackoverflow.co/2026/ai
+Analysis: https://github.com/jpenzell/ai-adoption-paradox

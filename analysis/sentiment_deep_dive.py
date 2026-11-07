@@ -616,7 +616,7 @@ def main():
     profile_rows = [
             (f"{year} public CSV rows", len(raw), len(raw) / len(raw)),
             (
-                "Answered AI-use item",
+                ("Answered AI-use item" if year == 2025 else "Classifiable AI-use/frequency answer"),
                 len(answered_use),
                 len(answered_use) / len(raw),
             ),
@@ -641,7 +641,7 @@ def main():
                 len(professional_current_users) / len(current_users),
             ),
             (
-                "Excluded after answering AI-use item",
+                ("Excluded after answering AI-use item" if year == 2025 else "Excluded after classifiable AI-use/frequency answer"),
                 len(item_incomplete),
                 len(item_incomplete) / len(answered_use),
             ),
@@ -1172,7 +1172,7 @@ def main():
             trend["current_use_among_ai_respondents"],
             marker="o",
             linewidth=2.4,
-            label="Current use (among AI-item respondents)",
+            label="Current use (among classified AI-use responses)",
             color="#235347",
         )
         ax.plot(
@@ -1214,15 +1214,16 @@ def main():
         ax.set_ylim(30, 90)
         ax.set_ylabel("Respondents (%)")
         ax.set_title(
-            "Use and daily use kept rising while favorable stance kept falling"
+            "AI use, attitude, and trust in separate survey samples\n"
+            "2026 measures differ from earlier years"
         )
         ax.legend(frameon=False, fontsize=8.5, loc="lower left")
         ax.text(
             0,
             -0.21,
-            "Repeated cross-sections. Stance uses the current-user denominator "
-            "in every year. 2026 redesigned the use, stance, and trust items; "
-            "the 2026 trust item is not on the Likert scale and is omitted here.",
+            "Separate cross-sections; sample and measurement changes limit trend interpretation.\n"
+            "Stance and trust use current-user, item-specific denominators. In 2026, use, stance, and trust\n"
+            "were redesigned; the new trust item is not comparable to the earlier scale and is omitted.",
             transform=ax.transAxes,
             fontsize=8,
             color="#555555",
@@ -1359,18 +1360,19 @@ def main():
             ax.set_ylim(0, 100)
             ax.set_ylabel("Daily AI-tool use among current users (%)")
             ax.set_xlabel("Favorable stance toward using AI (2026 labels harmonized to 2025)")
-            ax.set_title("The floor rose: daily use among unfavorable users jumped in 2026")
+            ax.set_title("Daily AI use by attitude in two survey samples\n"
+                         "2025 and 2026 use different questions")
             ax.legend(frameon=False)
-            ax.text(
-                0,
-                -0.2,
-                "2025: single AI-use item. 2026: daily on any of four tool types; "
-                "stance and use items reworded. Wilson 95% intervals.",
-                transform=ax.transAxes,
+            fig.text(
+                0.10,
+                0.01,
+                "Separate cross-sections; differences combine sample and measurement changes.\n"
+                "2025: single AI-use item. 2026: daily on any of four tool types; stance and trust also changed.\n"
+                "Wilson 95% intervals describe the observed sample; they do not correct selection bias.",
                 fontsize=8,
                 color="#555555",
             )
-            fig.tight_layout()
+            fig.tight_layout(rect=(0, 0.12, 1, 1))
             fig.savefig(OUT / "stance_gradient_2025_vs_2026.png", dpi=220, bbox_inches="tight")
             plt.close(fig)
 

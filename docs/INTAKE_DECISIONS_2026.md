@@ -1,4 +1,6 @@
-# 2026 intake decisions
+# 2026 intake decisions supplied with the review package
+
+**Provenance note for this revision:** The mappings and numbers below are inherited from the supplied package. The package reports that criteria were fixed before analysis; this revision has not independently verified that chronology or public preregistration. See `METHODS.md` and `RELEASE_AUDIT.md` for current interpretation and verification scope.
 
 How the 2026 Stack Overflow Developer Survey public CSV was mapped onto the
 2025 data contract (repository version 3.1.0), what was decided before the 2026 analysis was run, and
@@ -19,8 +21,7 @@ study treats 2026 as a **conceptual replication** of the 2025 design with a
 options considered in October 2026 were: (a) conceptual replication with
 pre-specified criteria, (b) trend-only with a wording break, (c) hold at
 the 2025-only analysis. The study does (a) and reports (b) as context.
-Nothing in the 2025 analysis is withdrawn; 2025 remains the same-instrument
-anchor.
+The current logistic 2025 results remain a separate within-year analysis. Earlier clustering/random-forest claims are withdrawn. No cross-year measurement-invariance claim is made.
 
 ## Item mapping
 
@@ -29,14 +30,14 @@ anchor.
 | Current AI use | `AISelect`: "Do you currently use AI tools in your development process?" (single select, frequency built in) | `AISelect`: "Do you currently use AI tools or AI agents in your role at work?" (multi-select across four tool types, plus "I don't use AI tools") | Current user = selected at least one tool type and not "I don't use AI tools". | Scope widened from "development process" to "role at work". |
 | Use frequency | Built into `AISelect` (daily / weekly / monthly or infrequently) | `AIFreq_1..4`: frequency per selected tool type (Daily / Weekly / Monthly or Infrequent) | `AIUsageScore` = maximum frequency across the respondent's tool types (4 daily, 3 weekly, 2 monthly). **Daily = daily on any tool type.** | A maximum across up to four items is not the same as one item. Sensitivity: daily on coding assistants alone (`AIFreq_1`). |
 | Favorable stance | `AISent`: "How favorable is your stance on using AI tools as part of your development workflow?" Very favorable / Favorable / Indifferent / Unsure / Unfavorable / Very unfavorable | `AISentiment`: "How would you describe your attitude toward using AI tools or agents as part of your work?" Very favorable / Somewhat favorable / Neutral / Not sure / Somewhat unfavorable / Very unfavorable | Position-based: Somewhat favorable to Favorable, Neutral to Indifferent, Not sure to Unsure, Somewhat unfavorable to Unfavorable. Modeled categorically as in 2025. | Same six-point shape; "somewhat" qualifiers and "attitude" wording may shift the distribution. Routed to current users only in 2026. |
-| Trust | `AIAcc`: "How much do you trust the accuracy of the output from AI tools as part of your development workflow?" five-point Likert | `AITrust`: "How much do you trust the output from AI tools or AI agents as part of your workflow?" six nominal reliance-scope options (trust when I can verify / many tasks, not important decisions / low-risk tasks only / not for most tasks / including important decisions / not sure) | Kept as its own nominal variable, one-hot encoded as in 2025. The display order in figures is low-to-high reliance and is not a scale. | **Not comparable.** The 2023-2025 Likert trust trend stops at 2025. "Trust vs stance" in 2026 means reliance-scope trust vs stance. |
+| Trust | `AIAcc`: "How much do you trust the accuracy of the output from AI tools as part of your development workflow?" five-point Likert | `AITrust`: "How much do you trust the output from AI tools or AI agents as part of your workflow?" six nominal reliance-scope options (trust when I can verify / many tasks, not important decisions / low-risk tasks only / not for most tasks / including important decisions / not sure) | Kept as its own nominal variable, one-hot encoded as in 2025. The display order in figures is an arrangement of nominal categories, without an ordinal interpretation. | **Not comparable.** The 2023-2025 Likert trust trend stops at 2025. "Trust vs stance" in 2026 means reliance-scope trust vs stance. |
 | Professional | `MainBranch` = "I am a developer by profession" | `CodeMain` = "I create code as a primary part of my job" | Direct substitute. | Close but not identical wording. |
-| Role | `DevType` | `Role` | Same `primary_role()` keyword recode. | Response list changed; recode is keyword-based and collapses 24% of 2026 answers to "Other" (21% in 2025), including "AI/ML engineer", "Developer, desktop or enterprise applications", "Academic researcher" and "Cloud infrastructure engineer". Kept unchanged so the context set is the same specification in both years; this is a limitation of the context controls, not of the stance-versus-trust comparison, which does not use it. |
+| Role | `DevType` | `Role` | Same `primary_role()` keyword recode. | Response list changed; recode is keyword-based and collapses 24% of 2026 answers to "Other" (21% in 2025), including "AI/ML engineer", "Developer, desktop or enterprise applications", "Academic researcher" and "Cloud infrastructure engineer". Kept unchanged to preserve this part of the specification across years; this is a limitation of the context controls, not of the standalone stance-only versus trust-only comparison, which does not use role. Context-adjusted comparisons do use role. |
 | Work setting | `RemoteWork` (Remote / In-person / Hybrid) | `WorkSetting` (Remote / In-person / two Hybrid variants / "Your choice") | Hybrid variants collapsed to Hybrid; "Your choice" kept as a fourth category, Flexible. | New category. |
 | Threat | `AIThreat` | not asked | Dropped from the context set for 2026. | Context set has one fewer variable in 2026. |
 | Age, Employment, OrgSize, WorkExp, YearsCode, Country | same names | same names | unchanged recodes | Country missing for 30.8% of 2026 rows (28.0% in 2025); handled by in-fold most-frequent imputation as before. |
 
-## Routing and sample construction (pre-specified)
+## Routing and sample construction
 
 1. Rows: 30,903.
 2. Answered the AI-use item: 17,464. Of these, 2,907 selected only "I don't
@@ -56,9 +57,9 @@ anchor.
    formed in 2026. They are replaced by within-user contrasts (weekly-or-more
    vs monthly; coding-assistant daily vs less; four-plus hours vs other daily).
 
-## Pre-specified replication criteria
+## Package-reported replication criteria
 
-Set before the 2026 run, mirroring the 2025 claims:
+Reported in the supplied package as set before the 2026 run, mirroring the 2025 claims; that chronology has not been independently established:
 
 | Criterion | Threshold | 2026 result |
 |---|---|---|
@@ -69,8 +70,7 @@ Set before the 2026 run, mirroring the 2025 claims:
 | Country-grouped folds preserve the stance-over-trust ordering | met if ordering holds | 0.721 vs 0.656: met |
 | Professional-only subsample preserves the ordering | met if ordering holds | 0.740 vs 0.672: met |
 
-All six criteria were met. The approved language is "replicated on a
-redesigned instrument", not "the same result".
+The supplied outputs meet all six stated criteria. The within-year ordering recurs on a redesigned instrument; this does not establish cross-year measurement equivalence.
 
 ## What is new in 2026 and reported as 2026-only
 

@@ -1,0 +1,115 @@
+--- supplied/analysis/sentiment_deep_dive.py
++++ isolated-rerun/analysis/sentiment_deep_dive.py
+@@ -404,7 +404,7 @@
+             "log_loss": "neg_log_loss",
+             "brier": "neg_brier_score",
+         },
+-        n_jobs=-1,
++        n_jobs=2,
+     )
+     return {
+         "model": name,
+@@ -563,7 +563,10 @@
+         OUT = ROOT / "outputs" / f"sentiment_{year}"
+     OUT.mkdir(parents=True, exist_ok=True)
+ 
+-    check_data(include_2026=(year == 2026))
++    if year != 2026:
++        raise ValueError("This isolated reproduction is restricted to 2026")
++    if not CSV_2026.exists():
++        raise FileNotFoundError(CSV_2026)
+     if year == 2025:
+         raw = pd.read_csv(CSV_2025, low_memory=False)
+         data = raw.copy()
+@@ -872,7 +875,7 @@
+             groups=groups,
+             cv=GroupKFold(5),
+             scoring={"roc_auc": "roc_auc", "log_loss": "neg_log_loss"},
+-            n_jobs=-1,
++            n_jobs=2,
+         )
+         grouped_rows.append(
+             {
+@@ -931,7 +934,7 @@
+         scoring="roc_auc",
+         n_repeats=20,
+         random_state=RANDOM_STATE,
+-        n_jobs=-1,
++        n_jobs=2,
+     )
+     permutation_results = pd.DataFrame(
+         {
+@@ -1164,72 +1167,7 @@
+         fig.savefig(OUT / "three_year_context.png", dpi=220, bbox_inches="tight")
+         plt.close(fig)
+     else:
+-        trend = four_year_context()
+-        trend.to_csv(OUT / "four_year_context.csv", index=False)
+-        fig, ax = plt.subplots(figsize=(9.5, 5.4))
+-        ax.plot(
+-            trend["year"],
+-            trend["current_use_among_ai_respondents"],
+-            marker="o",
+-            linewidth=2.4,
+-            label="Current use (among AI-item respondents)",
+-            color="#235347",
+-        )
+-        ax.plot(
+-            trend["year"],
+-            trend["favorable_stance_among_current_users"],
+-            marker="o",
+-            linewidth=2.4,
+-            label="Favorable stance (among current users)",
+-            color="#E76F51",
+-        )
+-        likert = trend[trend["year"] <= 2025]
+-        ax.plot(
+-            likert["year"],
+-            likert["trust_among_current_users"],
+-            marker="o",
+-            linewidth=2.4,
+-            label="Trust accuracy (Likert, 2023-2025 only)",
+-            color="#4A6FA5",
+-        )
+-        daily = trend[trend["year"] >= 2025]
+-        ax.plot(
+-            daily["year"],
+-            daily["daily_among_current_users"],
+-            marker="s",
+-            linewidth=2.0,
+-            linestyle="--",
+-            label="Daily use share (among current users, 2025-2026)",
+-            color="#8E7CC3",
+-        )
+-        ax.axvline(2025.5, color="#999999", linewidth=1, linestyle=":")
+-        ax.text(
+-            2025.53,
+-            32,
+-            "2026 instrument\nredesign",
+-            fontsize=8,
+-            color="#666666",
+-        )
+-        ax.set_xticks([2023, 2024, 2025, 2026])
+-        ax.set_ylim(30, 90)
+-        ax.set_ylabel("Respondents (%)")
+-        ax.set_title(
+-            "Use and daily use kept rising while favorable stance kept falling"
+-        )
+-        ax.legend(frameon=False, fontsize=8.5, loc="lower left")
+-        ax.text(
+-            0,
+-            -0.21,
+-            "Repeated cross-sections. Stance uses the current-user denominator "
+-            "in every year. 2026 redesigned the use, stance, and trust items; "
+-            "the 2026 trust item is not on the Likert scale and is omitted here.",
+-            transform=ax.transAxes,
+-            fontsize=8,
+-            color="#555555",
+-        )
+-        fig.tight_layout()
+-        fig.savefig(OUT / "four_year_context.png", dpi=220, bbox_inches="tight")
+-        plt.close(fig)
++        print("SKIPPED: historical four_year_context CSV/figure rebuild; historical raw inputs not downloaded for this scoped run.")
+ 
+     if year == 2026:
+         # 2026-only descriptive tables used in the findings write-up.

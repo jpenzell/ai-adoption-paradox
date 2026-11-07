@@ -1,0 +1,296 @@
+{
+  "absolute_tolerance": 1e-09,
+  "relative_tolerance": 1e-07,
+  "files": [
+    {
+      "file": "alternative_outcomes_and_samples.csv",
+      "status": "pass",
+      "numeric_cells": 300,
+      "max_abs_delta": 4.9960036108132044e-14,
+      "issues": []
+    },
+    {
+      "file": "chat_tool_daily_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 36,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "coding_assistant_daily_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 36,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "current_user_daily_by_stance_and_org_policy.csv",
+      "status": "pass",
+      "numeric_cells": 196,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "current_user_daily_use_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 36,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "current_user_high_distrust_daily_use_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 36,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "daily_by_tool_type.csv",
+      "status": "pass",
+      "numeric_cells": 8,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "daily_users_hours_distribution.csv",
+      "status": "pass",
+      "numeric_cells": 5,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "exploratory_complacency_driver_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 36,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "exploratory_daily_users_expect_less_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 24,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "exploratory_information_control_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 36,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "exploratory_job_satisfaction_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 24,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "exploratory_next_year_expectations_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 42,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "exploratory_verification_behavior_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 48,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "exploratory_verification_behavior_n.csv",
+      "status": "pass",
+      "numeric_cells": 6,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "four_year_context.csv",
+      "status": "skipped_historical_context",
+      "issues": []
+    },
+    {
+      "file": "full_sample_daily_use_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 36,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "full_sample_model_comparison.csv",
+      "status": "pass",
+      "numeric_cells": 84,
+      "max_abs_delta": 3.186340080674199e-14,
+      "issues": []
+    },
+    {
+      "file": "heavy_daily_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 36,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "primary_adjusted_probability_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 12,
+      "max_abs_delta": 2.7200464103316335e-14,
+      "issues": []
+    },
+    {
+      "file": "primary_country_grouped_cv.csv",
+      "status": "difference",
+      "numeric_cells": 15,
+      "max_abs_delta": 0.000924662245846408,
+      "issues": [
+        {
+          "path": "/0/grouped_auc_sd",
+          "kind": "number",
+          "expected": 0.006921807783936086,
+          "actual": 0.007846470029782494,
+          "abs_delta": 0.000924662245846408
+        },
+        {
+          "path": "/0/grouped_auc_mean",
+          "kind": "number",
+          "expected": 0.7205880824644446,
+          "actual": 0.7206860730450475,
+          "abs_delta": 9.799058060289134e-05
+        },
+        {
+          "path": "/0/grouped_log_loss_mean",
+          "kind": "number",
+          "expected": 0.48759168603511416,
+          "actual": 0.4876641316148581,
+          "abs_delta": 7.24455797439516e-05
+        },
+        {
+          "path": "/1/grouped_auc_sd",
+          "kind": "number",
+          "expected": 0.027202427528658986,
+          "actual": 0.026290113763228134,
+          "abs_delta": 0.000912313765430852
+        },
+        {
+          "path": "/1/grouped_auc_mean",
+          "kind": "number",
+          "expected": 0.6557626922339177,
+          "actual": 0.6558800554937341,
+          "abs_delta": 0.00011736325981637208
+        },
+        {
+          "path": "/1/grouped_log_loss_mean",
+          "kind": "number",
+          "expected": 0.5160034162340545,
+          "actual": 0.5160095088693091,
+          "abs_delta": 6.092635254528744e-06
+        },
+        {
+          "path": "/2/grouped_auc_sd",
+          "kind": "number",
+          "expected": 0.014079029971182992,
+          "actual": 0.014026916339532408,
+          "abs_delta": 5.211363165058373e-05
+        },
+        {
+          "path": "/2/grouped_auc_mean",
+          "kind": "number",
+          "expected": 0.7691685753387334,
+          "actual": 0.7691664483294276,
+          "abs_delta": 2.12700930579679e-06
+        },
+        {
+          "path": "/2/grouped_log_loss_mean",
+          "kind": "number",
+          "expected": 0.46369408581580734,
+          "actual": 0.4637615910802232,
+          "abs_delta": 6.750526441584581e-05
+        }
+      ]
+    },
+    {
+      "file": "primary_current_user_model_comparison.csv",
+      "status": "pass",
+      "numeric_cells": 84,
+      "max_abs_delta": 3.186340080674199e-14,
+      "issues": []
+    },
+    {
+      "file": "primary_current_user_stance_by_trust.csv",
+      "status": "pass",
+      "numeric_cells": 72,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "primary_heldout_metrics.json",
+      "status": "pass",
+      "numeric_cells": 10,
+      "max_abs_delta": 2.5590640717609858e-14,
+      "issues": []
+    },
+    {
+      "file": "primary_heldout_permutation_importance.csv",
+      "status": "pass",
+      "numeric_cells": 22,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "primary_repeated_cv_comparisons.csv",
+      "status": "pass",
+      "numeric_cells": 16,
+      "max_abs_delta": 1.2524703496552547e-15,
+      "issues": []
+    },
+    {
+      "file": "primary_repeated_cv_scores.csv",
+      "status": "pass",
+      "numeric_cells": 350,
+      "max_abs_delta": 1.0164091790443308e-13,
+      "issues": []
+    },
+    {
+      "file": "professional_current_user_daily_use_by_stance.csv",
+      "status": "pass",
+      "numeric_cells": 36,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "professional_current_user_model_comparison.csv",
+      "status": "pass",
+      "numeric_cells": 84,
+      "max_abs_delta": 9.769962616701378e-15,
+      "issues": []
+    },
+    {
+      "file": "sample_profile.csv",
+      "status": "pass",
+      "numeric_cells": 16,
+      "max_abs_delta": 0.0,
+      "issues": []
+    },
+    {
+      "file": "sentiment_analysis_summary.json",
+      "status": "pass",
+      "numeric_cells": 432,
+      "max_abs_delta": 3.186340080674199e-14,
+      "issues": []
+    },
+    {
+      "file": "stance_gradient_2025_vs_2026.csv",
+      "status": "pass",
+      "numeric_cells": 66,
+      "max_abs_delta": 0.0,
+      "issues": []
+    }
+  ],
+  "pass_count": 30,
+  "difference_count": 1,
+  "skipped_count": 1,
+  "missing_count": 0
+}

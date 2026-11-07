@@ -2,158 +2,46 @@
 
 ## Design and question
 
-This is a secondary analysis of repeated cross-sectional Stack Overflow
-Developer Survey public-use CSVs. The 2023-2025 data provide
-denominator-aware context; the primary analysis uses 2025 (repository
-version 3.1.0, internal) and is replicated on 2026 (version 3.2.0, the first
-release) with the same specification family. The 2026
-survey redesigned the use, stance, and trust items; the mapping and the
-pre-specified replication criteria are in `INTAKE_DECISIONS_2026.md`.
+A secondary analysis of repeated cross-sectional Stack Overflow Developer Survey public-use CSVs. The supplied package analyzes 2025 and 2026 separately and uses 2023–2025 for descriptive context. The question is whether favorable stance and the survey trust item carry different information about contemporaneously reported daily versus less-frequent AI use among current users. This is neither causal estimation nor forecasting.
 
-The primary question is: among current AI-tool users, how much classification
-information about daily versus less-frequent reported use is carried by
-favorable stance, accuracy trust, and respondent context?
+All three core questions changed in 2026. Use broadened from development process to role at work and became a four-tool frequency maximum. Stance labels/wording changed. Trust changed from an accuracy scale to nominal reliance-scope options. Consequently, within-year comparisons are primary. Across-year percentages describe different samples/instruments; they do not identify either the size or direction of underlying behavioral change independently of measurement and sample changes.
 
-The goal is construct separation and contemporaneous classification, not
-causal estimation or forward prediction.
+The original package calls its six 2026 criteria pre-specified. This local revision has not independently established when the criteria were fixed; no claim of public preregistration is made. See `INTAKE_DECISIONS_2026.md` and `RELEASE_AUDIT.md`.
 
-## Samples
+## Samples and denominators
 
-The 2025 public CSV contains 49,191 rows; 33,720 answered `AISelect`, and
-33,231 also answered `AISent` and `AIAcc`. The primary sample is the 26,102
-current users within those complete cases. Its daily-use prevalence is 59.9%.
+2025 supplied counts:49,191 raw rows;33,720 AI-use answers;33,231 complete cases on use, stance and trust;26,102 current users in the primary sample, including 20,760 professional developers. Daily prevalence is 15,648/26,102=59.95%.
 
-Of the complete cases, 25,698 (77.3%) are professional developers. Of primary
-current users, 20,760 (79.5%) are professional developers. No survey weights
-are available.
+2026 supplied counts:30,903 raw rows;17,464 AI-use answers;96 contradictory tool+nonuse answers excluded;78 otherwise classified users lacking frequency excluded. This leaves 17,290 classifiable use/frequency answers. Stance/trust are routed to current users, producing 14,158 primary complete cases, including 11,337 people creating code as a primary job activity. Daily prevalence is 10,789/14,158=76.20%.
 
-The 2026 public CSV contains 30,903 rows; 17,464 answered the AI-use item,
-of whom 96 gave a contradictory answer (a tool type plus "I don't use AI
-tools") and are excluded. Stance and trust were routed only to current
-users, so the complete-case sample on use, stance, and trust is the 2026
-primary sample: 14,158 current users, of whom 11,337 (80.1%) create code as
-a primary part of their job. Daily-use prevalence is 76.2%, where daily
-means daily on at least one of four tool types.
+The single-tool sensitivity subsets have different denominators:11,246 primary-sample respondents answering coding-assistant frequency, and 10,622 answering chat-tool frequency. Their daily rates cannot be compared with any-tool percentages as though denominators were identical. Heavy daily-use analysis uses 10,727 respondents answering the daily-hours item. No survey weights are available.
 
-## Outcome and descriptive analysis
+## Descriptive analysis
 
-The primary outcome is daily versus weekly, monthly, or infrequent current
-use. Non-users and respondents who only plan to use AI are excluded from the
-primary analysis.
+Report daily-use proportions and 95% Wilson intervals across six stance categories, without forcing a monotone relationship. In both years, Unsure reports more daily use than Indifferent/Neutral. Stance-by-trust matrices report rates and cell sizes. Wilson intervals summarize binomial variation conditional on the observed sample and do not correct voluntary-survey selection.
 
-Daily-use proportions are reported across all six stance categories with 95%
-Wilson intervals. The categories are not forced to be linear: unsure current
-users report slightly more daily use than indifferent current users. A
-stance-by-trust matrix reports rates and cell sizes.
+## Models and validation
 
-## Predictive comparisons
+Six logistic models use categorical stance/trust and the context variables in `CODEBOOK.md`: stance only, trust only, context, context+trust, context+stance, context+trust+stance. A seventh reported row is a constant-prevalence majority baseline, not a fitted logistic model.
 
-Seven logistic specifications use one-hot categorical representations for the
-stance and trust items:
+The main comparison uses the same five stratified folds (`shuffle=True`, seed 42). Metrics are accuracy, balanced accuracy, ROC AUC, log loss and Brier score. ROC AUC describes ranking discrimination; it is not classification accuracy or the fraction of behavior explained. Numeric median imputation/scaling and categorical most-frequent imputation/one-hot encoding are fitted inside each training fold.
 
-1. majority baseline;
-2. stance only;
-3. trust only;
-4. demographic/context variables;
-5. context + trust;
-6. context + stance;
-7. context + trust + stance.
+Repeated validation covers **three context models only**: context+trust, context+stance and context+trust+stance. `RepeatedStratifiedKFold(n_splits=5,n_repeats=10,random_state=719)` yields 50 matched 80/20 train/test folds. These folds overlap and are not 50 independent replications. Report the number of positive paired AUC differences and their empirical 2.5 th/97.5 th percentiles as split variability, not population confidence intervals.
 
-The main table uses the same five stratified folds (shuffle seed 42). Reported
-metrics are accuracy, balanced accuracy, ROC AUC, log loss, and Brier score.
-Preprocessing occurs within each fold: median imputation and standardization
-for numeric variables; most-frequent imputation and one-hot encoding for
-categorical variables.
+Fivefold `GroupKFold` uses observed country as the grouping variable and excludes missing-country records. Supplied country-grouped outputs contain 173 countries in 2025 and 157 in 2026. Countries do not cross train/test within a fold. Raw country encoding, including infrequent categories, is learned inside training folds. Professional-only subsets use the same model specifications. These checks do not establish representativeness or measurement invariance.
 
-## Repeated-split comparison
+An additional stratified 80/20 split (seed 42) evaluates the complete context+trust+stance model. Report held-out metrics, logistic recalibration intercept/slope and the weighted mean absolute calibration gap across prediction deciles. Raw-column permutation importance uses 20 test-set permutations, seed 42. Interpret correlated-predictor importance alongside nested-model comparisons. It is not a causal effect.
 
-The six non-baseline models are evaluated on 50 matched stratified 80/20
-splits. Comparisons use the same held-out respondents within each repetition.
-The empirical 2.5th and 97.5th percentiles summarize split-to-split
-variability; they are not a population-confidence interval for the survey
-sampling process.
+## Sensitivity analyses
 
-## Grouped and subgroup checks
+2025: daily versus all other answers, weekly-or-more versus the remainder, any use versus nonuse, use-or-plan versus no plan, and professional current users. Broader contrasts are secondary because the stance question is close to use/nonuse status.
 
-To probe geographic memorization, five-fold `GroupKFold` validation uses
-country as the grouping variable across the 173 countries represented in the
-primary complete-case sample. Each country appears in only one test fold.
-Country is passed to the preprocessing pipeline as a raw categorical field;
-infrequent-category handling is therefore learned inside each training fold.
-Professional current users are analyzed separately with identical model
-definitions. These are robustness checks, not claims of population
-representativeness or formal measurement invariance.
+2026: daily versus less frequent, weekly-or-more versus monthly, daily coding-assistant use among respondents answering that item, four-plus hours among daily-hours respondents, and professional current users. Nonuser contrasts cannot be formed with complete stance/trust under 2026 routing.
 
-## Held-out calibration and importance
+2026 organizational policy and additional workflow/verification/job-satisfaction tables are descriptive. Exploratory analyses were not part of the stated replication criteria. The heavy-use relationship is nonmonotone; this does not mean stance has no classification information.
 
-An 80/20 stratified split (seed 42) evaluates the complete model. The
-analysis reports ROC AUC, accuracy, log loss, Brier score, calibration intercept,
-calibration slope, and mean absolute predicted-versus-observed gap across
-deciles. Raw-column permutation importance repeats 20 permutations. Because
-predictors are correlated, importance is interpreted jointly with nested-model
-comparisons.
+## Interpretation and computational status
 
-Impurity-based (Gini) importance is not used. It is unreliable under
-correlated predictors, and stance and accuracy trust are correlated in this
-sample. Earlier versions of this project reported a random-forest Gini share;
-that result has been withdrawn.
+The same-wave voluntary self-reports cannot establish whether stance precedes use, follows experience, reflects usefulness/job fit, or rationalizes behavior. Selection, routing, complete-case exclusions and common-method bias remain. Stance/trust are individual items, not validated multi-item scales. Role keyword recoding is coarse. All conclusions are conditional on the sampled respondents.
 
-## Alternative outcomes and samples
-
-Sensitivity analyses include:
-
-- the full complete-case sample with daily use versus all other answers;
-- weekly-or-more versus less use or non-use;
-- any current use versus non-use;
-- current use or plans versus no plans; and
-- professional current users only.
-
-Broader outcomes produce stronger discrimination by stance. This supports
-robustness but also raises criterion proximity because the stance item asks
-about using AI tools in the development workflow. The current-user frequency
-comparison is therefore primary.
-
-## Interpretation
-
-The analysis cannot determine whether stance precedes use, follows experience
-with use, reflects usefulness or role fit, or partly rationalizes established
-behavior. Both predictors and outcome are contemporaneous self-reports.
-Common-method bias, selection into the voluntary survey, item routing, and
-complete-case selection remain. Neither stance nor trust is a validated
-multi-item scale.
-
-## 2026 replication
-
-The 2026 run uses the same seven specifications, the same five stratified
-folds (seed 42), the same 50 matched splits (seed 719), the same
-country-grouped folds, and the same held-out split. Differences, all forced
-by the instrument: the trust item is the six-option reliance-scope question
-rather than the five-point accuracy Likert (one-hot encoded as before, not
-scored); `AIThreat` is not in the context set because it was not asked;
-`CodeMain`, `Role`, and `WorkSetting` replace `MainBranch`, `DevType`, and
-`RemoteWork`; and the sensitivity set replaces the user-versus-non-user
-contrasts (impossible under 2026 routing) with within-user contrasts
-(weekly-or-more vs monthly, coding-assistant daily, four-plus hours among
-daily users). Two 2026-only descriptive tables are added: daily use by stance
-and organizational AI policy (`AIUse`), and hours per day among daily users
-(`AIDaily`). The role control uses the same keyword recode in both years;
-it collapses about 21% of 2025 and 24% of 2026 role answers to "Other",
-which limits the context models (not the stance-only or trust-only
-comparisons). The 2025 run is unchanged and its outputs are byte-identical to
-the internal version 3.1.0 outputs.
-
-The four-year context table uses the current-user denominator for stance in
-every year (the earlier three-year chart used all stance respondents, which 2026 does
-not route). The Likert trust series ends at 2025.
-
-## Computational notes
-
-Seeds are fixed at 42 throughout. The pipeline has been reproduced
-independently from the raw 2025 CSV on a separate machine: sample counts,
-model AUCs, held-out metrics, and permutation importances match to
-floating-point tolerance. pandas 3.x breaks the imputation step; use the
-pinned versions in `requirements.txt` (pandas 2.3.3, scikit-learn 1.6.1).
-
-The country-grouped `GroupKFold` step one-hot encodes 173 countries and is
-memory-intensive; allow several GB of RAM. The remainder of the pipeline runs
-comfortably on a laptop.
+Seed 42 controls main CV, held-out split and permutation importance; repeated CV uses 719. `requirements.txt` pins pandas 2.3.3 and scikit-learn 1.6.1; other libraries have version ranges, so numerical comparisons should allow floating-point tolerance. The original package reports independent reproduction; this revision's actual checks are recorded separately in `RELEASE_AUDIT.md`. Existing output files are preserved source artifacts, not represented as newly recomputed here.

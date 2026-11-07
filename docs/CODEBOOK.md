@@ -1,163 +1,60 @@
-# Codebook: Variable Recode Documentation
+# Codebook for the current logistic analysis
 
-All recodes below were applied before model fitting and held constant throughout. This file documents every collapsed mapping decision so the analysis can be exactly reproduced.
+Source code: `analysis/sentiment_deep_dive.py` and `analysis/survey_2026.py`. This replaces documentation of the withdrawn clustering/random-forest analysis. Numeric stance/trust positions support ordering, filters and plots; the logistic models use the original categorical labels, not ordinal scores.
 
----
+## Outcomes and eligibility
 
-## AIUsageScore (0–4)
-**Source column:** `AISelect`  
-**Official question:** "Do you currently use AI tools in your development process?"
-
-| Survey Response | Score |
-|---|---|
-| Yes, I use AI tools daily | 4 |
-| Yes, I use AI tools weekly | 3 |
-| Yes, I use AI tools monthly or infrequently | 2 |
-| No, but I plan to soon | 1 |
-| No, and I don't plan to | 0 |
-
-**Missing:** Excluded from clustering sample (used as required feature).
-
----
-
-## AITrustScore (0–4)
-**Source column:** `AIAcc` (2024–2025), `AIBen` (2023)  
-**Official question:** "How much do you trust the accuracy of the output from AI tools as part of your development workflow?"
-
-| Survey Response | Score |
-|---|---|
-| Highly trust | 4 |
-| Somewhat trust | 3 |
-| Neither trust nor distrust | 2 |
-| Somewhat distrust | 1 |
-| Highly distrust | 0 |
-
-**Missing:** Excluded from clustering sample (used as required feature).
-
-**⚠ Denominator note (2025):** In 2023 and 2024, this question was routed to current AI users only. In 2025, it was routed to all AISelect respondents including non-users. Non-users show substantially lower trust (8.9% high trust vs. 39.3% for current users). Both the full-denominator and user-only figures are reported in the write-up. See DENOMINATORS.md.
-
----
-
-## AISentScore (0–5)
-**Source column:** `AISent`  
-**Official question:** "How favorable is your stance on using AI tools as part of your development workflow?"
-
-| Survey Response | Score |
-|---|---|
-| Very favorable | 5 |
-| Favorable | 4 |
-| Indifferent | 3 |
-| Unsure | 2 |
-| Unfavorable | 1 |
-| Very unfavorable | 0 |
-
-**Missing:** Excluded from clustering sample (used as required feature).
-
----
-
-## AIComplexScore (0–5)
-**Source column:** `AIComplex`  
-**Official question:** "How well do the AI tools you use handle complex tasks?"
-
-| Survey Response | Score | Note |
+| Variable | 2025 | 2026 |
 |---|---|---|
-| Very well at handling complex tasks | 5 | |
-| Good, but not great at handling complex tasks | 4 | |
-| Neither good or bad at handling complex tasks | 3 | |
-| I don't use AI tools for complex tasks / I don't know | 2 | ⚠ See note below |
-| Bad at handling complex tasks | 1 | |
-| Very poor at handling complex tasks | 0 | |
+| `AIUsageScore` | `AISelect`: daily=4, weekly=3, monthly/infrequently=2, plan soon=1, no plan=0 | `AISelect` must select a recognized tool without selecting “I don’t use AI tools”; maximum of available `AIFreq_1..4`: Daily=4, Weekly=3, Monthly or Infrequent=2. Nonuser-only=0; contradictory/unclassified/no-frequency users=missing. |
+| `Daily` | 1 when score=4 | 1 when score=4: daily on at least one of four tool types |
+| Primary sample | Score≥2 and nonmissing recognized stance/trust | Same rule; stance/trust routing makes all complete cases current users |
+| `CodingAssistantDaily` | Not used | `AIFreq_1` equals Daily; single-tool analyses restrict to respondents with nonmissing `AIFreq_1` |
+| `HeavyDaily` | Not used | `AIDaily` equals “4+ hours/day”; analyses restrict to respondents who answered the daily-hours item |
 
-**⚠ Important:** "I don't use AI tools for complex tasks / I don't know" is a non-evaluative opt-out, not a rating. It was mapped to 2 (same numeric value as "Neither good nor bad") in this analysis. This affects n=5,582 respondents (16.8% of AIComplex respondents). Researchers replicating this work may prefer to recode these as NaN and impute separately.
+Tool types in 2026: AI coding assistants/coding agents, general-purpose AI chat tools, AI agents/automated workflows, and internal company AI tools. Frequency calculations use available responses in all four frequency columns. Routing consistency should be checked against the actual raw data.
 
-**Missing (after above recode):** Imputed with column median (3). Affected n ≈ 1,609 in clustering sample.
+## Stance and trust
 
----
+2025 `AISent` categories: Very unfavorable, Unfavorable, Unsure, Indifferent, Favorable, Very favorable. The display scores are 0–5 in that order. This is not a validated linear scale, and Unsure need not lie between Unfavorable and Indifferent empirically.
 
-## AgentScore (0–2)
-**Source column:** `AIAgents`  
-**Official question:** "Are you using AI agents in your work (development or otherwise)? AI agents refer to autonomous software entities that can operate with minimal to no direct human intervention using artificial intelligence techniques."
+2026 `AISentiment` is harmonized for display: Somewhat favorable→Favorable, Neutral→Indifferent, Not sure→Unsure, Somewhat unfavorable→Unfavorable; endpoints unchanged. These position-based labels do not establish measurement equivalence across years.
 
-| Survey Response | Score | Note |
-|---|---|---|
-| Yes, I use AI agents at work daily | 2 | |
-| Yes, I use AI agents at work weekly | 2 | |
-| Yes, I use AI agents at work monthly or infrequently | 1 | |
-| No, but I plan to | 1 | ⚠ See note below |
-| No, I use AI exclusively in copilot/autocomplete mode | 0 | |
-| No, and I don't plan to | 0 | |
+2025 `AIAcc` categories: Highly distrust, Somewhat distrust, Neither trust nor distrust, Somewhat trust, Highly trust. Display positions are 0–4. The high-distrust subgroup uses Highly distrust.
 
-**⚠ Note:** "No, but I plan to" (non-user) is grouped with "monthly or infrequently" (actual user) at score=1. This treats adoption intent as equivalent to infrequent use, which is a debatable conflation.
+2026 `AITrust` is copied into `AIAcc` for the shared model code and remains nominal:
 
-**Missing:** Imputed with column median (0). Affected n ≈ 1,312 in clustering sample.
+- I do not trust it for most work tasks
+- I trust it for low-risk work tasks only
+- I trust it when I can easily verify the output
+- I trust it for many tasks, but not important work decisions
+- I trust it for many tasks, including important work decisions
+- Not sure / I do not use AI tools
 
----
+The 2026 subgroup file named `high_distrust` selects “I do not trust it for most work tasks.” Its historical filename does not make that category equivalent to 2025 Highly distrust. The mixed Not sure/nonuse label is retained as a category among otherwise eligible current users.
 
-## LearnedAI (0/1)
-**Source column:** `LearnCodeAI`  
-**Official question:** "Did you spend time in the last year learning AI programming or AI-enabled tooling on your own or at work?"
+## Context features
 
-| Survey Response | Code |
+| Feature | Source and recode |
 |---|---|
-| Yes, I learned how to use AI-enabled tools for my personal curiosity and/or hobbies | 1 |
-| Yes, I learned how to use AI-enabled tools required for my job or to benefit my career | 1 |
-| No, I learned something that was not related to AI or AI enablement for my personal curiosity and/or hobbies | 0 |
-| No, I learned something that was not related to AI or AI enablement as required for my job or to benefit my career | 0 |
-| No, I didn't spend time learning in the past year | 0 |
+| `WorkExpNum`, `YearsCodeNum` | `WorkExp`, `YearsCode`; commas removed, first semicolon-separated token parsed as float; Less than 1 year→0.5; More than 50 years→51; unparseable→missing |
+| `Age` | Raw categorical answer |
+| `Professional` | 2025 `MainBranch` is “I am a developer by profession”; 2026 `CodeMain` is “I create code as a primary part of my job” |
+| `EmploymentGroup` | First matching rule, in order: Student; Independent contractor/freelancer; Employed; Retired; Not employed; otherwise Other/unknown |
+| `PrimaryRole` | Lowercase `DevType` (2025) or `Role` (2026), first keyword match as listed below |
+| `OrgBucket` | Just me/Less than 20→Solo/micro;20–99→Small;100–999→Mid-market;1,000–9,999→Large;10,000/More than→Enterprise; otherwise Unknown |
+| `WorkMode` | Remote, In-person, Hybrid;2026 Your choice→Flexible; otherwise Unknown |
+| `AIThreat` | Raw categorical answer, 2025 only; absent in 2026 |
+| `Country` | Raw categorical answer |
 
-**Missing:** Coded as 0. Affected n ≈ 489 in clustering sample.
+Role keyword order: full-stack→Full-stack; back-end→Back-end; front-end→Front-end; data scientist/machine learning→Data/ML; data engineer→Data engineer; devops/platform→DevOps/platform; manager/executive→Management; architect→Architect; security→Security; mobile→Mobile; embedded→Embedded; qa/test→QA/test; student→Student; otherwise Other. First match wins; multiple-role responses are therefore collapsed. The original package reports about 21% of 2025 and 24% of 2026 role answers fall into Other. This affects context models; stance-only and trust-only models do not use this recode.
 
----
+## Model preprocessing
 
-## 2026 recodes
+Within each training fold: numeric median imputation then standardization; categorical most-frequent imputation then one-hot encoding (`handle_unknown="ignore"`, `min_frequency=50`). Explicit recode categories such as Unknown/Other remain categories rather than missing values. Logistic regression uses `lbfgs`, default L 2 regularization (`C=1`), and `max_iter=3000`.
 
-The 2026 survey renamed and redesigned the core items. Mapping is in `analysis/survey_2026.py`; rationale in `INTAKE_DECISIONS_2026.md`.
+Six fitted specifications: stance only; trust only; context; context+trust; context+stance; context+trust+stance. The reported majority baseline is an analytic constant-prevalence comparator, not a fitted logistic model.
 
-| Variable | 2026 source | Recode |
-|---|---|---|
-| `AIUsageScore` | `AISelect` (multi-select) + `AIFreq_1..4` | 0 = only "I don't use AI tools"; otherwise max over selected tool types: Daily 4, Weekly 3, Monthly or Infrequent 2. Contradictory rows (tool + "I don't use") = NaN. |
-| `Daily` | `AIUsageScore` | 1 if 4 |
-| `CodingAssistantDaily` | `AIFreq_1` | 1 if "Daily" |
-| `HeavyDaily` | `AIDaily` | 1 if "4+ hours/day" |
-| `AISent` | `AISentiment` | Somewhat favorable -> Favorable; Neutral -> Indifferent; Not sure -> Unsure; Somewhat unfavorable -> Unfavorable; poles unchanged |
-| `AIAcc` | `AITrust` | copied unchanged (six nominal reliance-scope labels); `AITrustScore` is a display position only |
-| `Professional` | `CodeMain` | "I create code as a primary part of my job" |
-| `PrimaryRole` | `Role` | same keyword recode as `DevType` |
-| `WorkMode` | `WorkSetting` | Remote; In-person; "Hybrid ..." -> Hybrid; "Your choice ..." -> Flexible |
-| `AIThreat` | not asked | dropped from context |
+## Historical exclusions
 
-## Clustering Sample Construction
-
-The working sample (n=33,231) was constructed as follows:
-
-1. Start with all AISelect respondents in 2025 CSV: **n=33,720**
-2. Require non-missing AIUsageScore, AITrustScore, AISentScore: **n=33,231** (489 excluded)
-3. Impute AgentScore NAs with column median (0): **1,312 respondents imputed**
-4. Impute AIComplexScore NAs with column median (3): **1,609 respondents imputed**
-5. Code LearnedAI NAs as 0: **489 respondents recoded**
-
-This sample is **not** "complete AI module data." Other AI module questions have lower response counts:
-- AIAgents: 31,919 non-missing in CSV (vs. 31,877 on SO public page)
-- AI Frustrations (AIFrustration): 31,476 non-missing
-- AILearnHow (learning method): 28,172 non-missing
-
----
-
-## Classification Features (8 core features)
-
-The Random Forest and Decision Tree classifiers use the following 8 features, all drawn from the 2025 survey. The full clustering sample (n=33,231) is used; missing values in all features are median-imputed before fitting.
-
-| Feature | Source | Type | Notes |
-|---|---|---|---|
-| AISentScore | AISent | Ordinal 0–5 | Strongest model feature by both Gini and permutation importance |
-| AgentScore | AIAgents | Ordinal 0–2 (collapsed) | See recode table above |
-| LearnedAI | LearnCodeAI | Binary 0/1 | |
-| AITrustScore | AIAcc | Ordinal 0–4 | |
-| AIComplexScore | AIComplex | Ordinal 0–5 (collapsed) | See recode note above |
-| ThreatScore | AIThreat | Binary 0/1 | Yes=1; No=0; "I'm not sure"=0. Note: "unsure" is deliberately collapsed into 0 (not threatened). This treats ambivalence as non-threatening. Researchers preferring a 3-category encoding should recode before fitting. |
-| WorkExp | WorkExp | Numeric (years) | Median-imputed where missing |
-| YearsCode | YearsCode | Numeric (years) | Median-imputed where missing |
-
-Target: `daily_adopter` = 1 if AIUsageScore == 4, else 0 (47.1% positive class).
-
-**Note on earlier manuscript versions:** A 13-feature setup including OrgSize, DevType, Country, and YearsCodePro was explored in development but the released pipeline uses the 8 features above.
+`AIComplexScore`, `AgentScore`, `LearnedAI`, clustering, decision trees, random forests and Gini importance are not part of the current analysis. Historical claims from those models are withdrawn; see `CLAIM_LEDGER.md`.
