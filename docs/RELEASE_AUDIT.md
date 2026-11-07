@@ -1,6 +1,6 @@
 # Release audit — November 2026
 
-This revision was prepared from the user-supplied review package. Fresh public GitHub API and git reads confirmed that its base commit is `365e808137a4746be2548d374a6f75d4af357ddf` on `v3.2.0-2026-update`. At that check, default branch `main` was `67d1b11019d7b1add44a7dba1a1baf74cd55c65e` and still presented the 2025 analysis. No remote push, merge, website publication, or LinkedIn post was performed in this revision. The 2025 publication remains a historical version; this review concerns the 2026 revision.
+This revision was prepared from the user-supplied review package. Fresh public GitHub API and git reads confirmed that its base commit is `365e808137a4746be2548d374a6f75d4af357ddf` on `v3.2.0-2026-update`. At that check, default branch `main` was `67d1b11019d7b1add44a7dba1a1baf74cd55c65e` and still presented the 2025 analysis. The verification reported here is distinct from subsequent repository, website and LinkedIn release actions, which require separate confirmation. The 2025 publication remains a historical version; this review concerns the 2026 revision.
 
 ## Verified results and scope
 
