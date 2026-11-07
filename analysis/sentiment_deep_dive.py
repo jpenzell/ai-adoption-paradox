@@ -1294,6 +1294,26 @@ def main():
             "HeavyDaily",
             "heavy_daily_4plus_hours",
         ).to_csv(OUT / "heavy_daily_by_stance.csv", index=False)
+        chat_users = current_users[current_users["AIFreq_2"].notna()].copy()
+        chat_users["ChatDaily"] = chat_users["AIFreq_2"].eq("Daily").astype(int)
+        stance_outcome_table(chat_users, "ChatDaily", "chat_tool_daily").to_csv(
+            OUT / "chat_tool_daily_by_stance.csv", index=False
+        )
+        pd.DataFrame(
+            [
+                {
+                    "tool_type": label,
+                    "n_users_of_type": int(current_users[col].notna().sum()),
+                    "daily_rate": float(current_users[col].eq("Daily").sum() / current_users[col].notna().sum()),
+                }
+                for col, label in [
+                    ("AIFreq_1", "AI coding assistants or coding agents"),
+                    ("AIFreq_2", "General-purpose AI chat tools"),
+                    ("AIFreq_3", "AI agents or automated workflows"),
+                    ("AIFreq_4", "Internal AI tools built by my company"),
+                ]
+            ]
+        ).to_csv(OUT / "daily_by_tool_type.csv", index=False)
         hours = (
             current_users[current_users["AIDaily"].notna()]["AIDaily"]
             .value_counts(normalize=True)

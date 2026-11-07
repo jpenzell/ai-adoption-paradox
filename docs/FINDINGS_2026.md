@@ -38,7 +38,7 @@ AI use has become something developers do whether or not they like it.
 | Daily use, indifferent / neutral | 31.5% (n=4,353) | 63.5% (n=2,156) | unsure > indifferent reversal persists |
 | Daily use, favorable / somewhat favorable | 62.0% (n=11,540) | 79.9% (n=4,321) | |
 | Daily use, very favorable | 88.1% (n=7,408) | 93.0% (n=4,512) | +4.9 points |
-| Gradient (very favorable minus very unfavorable) | 69.3 points | 38.7 points | compressed by 30 points |
+| Gradient (very favorable minus very unfavorable) | 69.3 points | 38.7 points | compressed by 31 points |
 | Stance-only CV AUC | 0.758 | 0.722 | |
 | Trust-only CV AUC | 0.669 | 0.657 | different trust item |
 | Context-only CV AUC | 0.627 | 0.638 | 2026 drops AIThreat |
@@ -50,7 +50,7 @@ AI use has become something developers do whether or not they like it.
 | Held-out AUC / calibration slope | 0.789 / 0.96 | 0.772 / 0.91 | |
 | Country-grouped AUC, stance / trust / full | 0.756 / 0.665 / 0.789 (173 countries) | 0.721 / 0.656 / 0.769 (157 countries) | ordering holds |
 | Professional-only, stance / trust | 0.763 / 0.675 | 0.740 / 0.672 | ordering holds |
-| Permutation importance, held-out: stance / trust | 0.219 / 0.006 | 0.149 / 0.038 | trust's share rose sixfold |
+| Permutation importance, held-out: stance / trust | 0.219 / 0.006 | 0.149 / 0.038 | trust's share rose nearly sevenfold |
 
 ## What the data show
 
@@ -88,8 +88,8 @@ most work tasks; 6.7% trust it including important decisions; 0.5% not sure.
 The reliance item is still a weaker separator of daily use than stance
 (0.657 vs 0.722), but it carries more incremental information once stance
 and context are in the model (+0.012 AUC vs +0.003 for the old item), and its
-held-out permutation importance is six times what the accuracy item had in
-2025. The old question asked whether people believed the output; the new one
+held-out permutation importance is nearly seven times what the accuracy item
+had in 2025. The old question asked whether people believed the output; the new one
 asks what they are willing to hand to it. The second is closer to behavior.
 
 The 2023-2025 Likert trust trend (48.2% trusting among users in 2023, 43.0%
@@ -148,8 +148,8 @@ where they expect more, and they name twice as many "more" parts as "less"
 parts (3.6 vs 1.8). Resistance shows up as scope limitation (6.5 workflow
 parts they do not plan to use, against 1.5 for the very favorable), not
 withdrawal. Among daily users specifically, the very unfavorable are no more
-likely to expect less (43%) than the favorable (44%); the group most likely to
-expect less is the mildly unfavorable and indifferent (53%).
+likely to expect less (43%) than the favorable (44%); the groups most likely to
+expect less are the mildly unfavorable (53%) and the indifferent (52%).
 
 **Control over what the AI sees.** Very unfavorable users are less likely to
 say they decide exactly what information the tool gets (47% vs 53% of very
