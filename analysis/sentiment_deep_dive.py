@@ -242,10 +242,13 @@ def four_year_context():
             stance_col, trust_col = "AISent", "AIAcc"
             daily = data["AIUsageScore"].eq(4)
             row["daily_among_current_users"] = 100 * daily.sum() / current_user.sum()
+            complete = data[
+                current_user & data["AISent"].notna() & data["AIAcc"].notna()
+            ]
             row["daily_coding_assistant_among_its_users"] = (
                 100
-                * data["AIFreq_1"].eq("Daily").sum()
-                / data["AIFreq_1"].notna().sum()
+                * complete["AIFreq_1"].eq("Daily").sum()
+                / complete["AIFreq_1"].notna().sum()
             )
             trust_answered_current = current_user & data[trust_col].notna()
             for label in TRUST_ORDER_2026:

@@ -136,7 +136,10 @@ contrasts (impossible under 2026 routing) with within-user contrasts
 (weekly-or-more vs monthly, coding-assistant daily, four-plus hours among
 daily users). Two 2026-only descriptive tables are added: daily use by stance
 and organizational AI policy (`AIUse`), and hours per day among daily users
-(`AIDaily`). The 2025 run is unchanged and its outputs are byte-identical to
+(`AIDaily`). The role control uses the same keyword recode in both years;
+it collapses about 21% of 2025 and 24% of 2026 role answers to "Other",
+which limits the context models (not the stance-only or trust-only
+comparisons). The 2025 run is unchanged and its outputs are byte-identical to
 the internal version 3.1.0 outputs.
 
 The four-year context table uses the current-user denominator for stance in

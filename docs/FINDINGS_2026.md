@@ -28,7 +28,7 @@ AI use has become something developers do whether or not they like it.
 | | 2025 | 2026 | Note |
 |---|---|---|---|
 | Public CSV rows | 49,191 | 30,903 | New validity rules in 2026 |
-| Answered the AI-use item | 33,720 | 17,290 | 2026 routes far fewer respondents to the AI module |
+| Answered the AI-use item and classifiable | 33,720 | 17,290 | 2026 raw count 17,464, less 96 contradictory and 78 no-frequency rows; 2026 routes far fewer respondents to the AI module |
 | Current users, complete case (primary sample) | 26,102 | 14,158 | 2026 stance and trust routed to users only |
 | Professional share of primary sample | 79.5% | 80.1% | `MainBranch` vs `CodeMain` |
 | Daily use among current users | 60.0% | 76.2% | 2026 = daily on any of four tool types; coding assistants alone 73.6%, chat tools alone 66.3% |
