@@ -1,0 +1,37 @@
+favorable_stance,accuracy_trust,n,daily_rate
+Very unfavorable,I do not trust it for most work tasks,385,0.4051948051948052
+Very unfavorable,I trust it for low-risk work tasks only,176,0.4375
+Very unfavorable,I trust it when I can easily verify the output,292,0.660958904109589
+Very unfavorable,"I trust it for many tasks, but not important work decisions",62,0.9193548387096774
+Very unfavorable,"I trust it for many tasks, including important work decisions",29,0.9655172413793104
+Very unfavorable,Not sure / I do not use AI tools,14,0.6428571428571429
+Unfavorable,I do not trust it for most work tasks,478,0.4665271966527197
+Unfavorable,I trust it for low-risk work tasks only,515,0.5223300970873787
+Unfavorable,I trust it when I can easily verify the output,920,0.591304347826087
+Unfavorable,"I trust it for many tasks, but not important work decisions",106,0.8018867924528302
+Unfavorable,"I trust it for many tasks, including important work decisions",21,0.8571428571428571
+Unfavorable,Not sure / I do not use AI tools,12,0.3333333333333333
+Unsure,I do not trust it for most work tasks,23,0.5217391304347826
+Unsure,I trust it for low-risk work tasks only,22,0.6363636363636364
+Unsure,I trust it when I can easily verify the output,71,0.7323943661971831
+Unsure,"I trust it for many tasks, but not important work decisions",23,0.8695652173913043
+Unsure,"I trust it for many tasks, including important work decisions",9,0.7777777777777778
+Unsure,Not sure / I do not use AI tools,11,0.6363636363636364
+Indifferent,I do not trust it for most work tasks,289,0.6089965397923875
+Indifferent,I trust it for low-risk work tasks only,499,0.5991983967935872
+Indifferent,I trust it when I can easily verify the output,1132,0.6254416961130742
+Indifferent,"I trust it for many tasks, but not important work decisions",202,0.806930693069307
+Indifferent,"I trust it for many tasks, including important work decisions",22,0.7727272727272727
+Indifferent,Not sure / I do not use AI tools,12,0.4166666666666667
+Favorable,I do not trust it for most work tasks,328,0.7591463414634146
+Favorable,I trust it for low-risk work tasks only,693,0.772005772005772
+Favorable,I trust it when I can easily verify the output,2502,0.7853717026378897
+Favorable,"I trust it for many tasks, but not important work decisions",686,0.8833819241982507
+Favorable,"I trust it for many tasks, including important work decisions",99,0.9090909090909091
+Favorable,Not sure / I do not use AI tools,13,0.46153846153846156
+Very favorable,I do not trust it for most work tasks,207,0.8888888888888888
+Very favorable,I trust it for low-risk work tasks only,384,0.9010416666666666
+Very favorable,I trust it when I can easily verify the output,1911,0.912611198325484
+Very favorable,"I trust it for many tasks, but not important work decisions",1243,0.9493161705551086
+Very favorable,"I trust it for many tasks, including important work decisions",760,0.9671052631578947
+Very favorable,Not sure / I do not use AI tools,7,0.8571428571428571

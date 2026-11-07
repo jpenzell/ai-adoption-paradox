@@ -1,0 +1,7 @@
+favorable_stance,stance_score,adjusted_mean_daily_probability
+Very unfavorable,0,0.23967677130533932
+Unfavorable,1,0.2426630904801928
+Unsure,2,0.3930428446703631
+Indifferent,3,0.3470412834036111
+Favorable,4,0.6123878699956531
+Very favorable,5,0.8661133036970031

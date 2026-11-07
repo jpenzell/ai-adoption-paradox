@@ -1,26 +1,28 @@
 # Claim ledger
 
-Every substantive claim in this project, its evidence status, and the language approved for publication. Claims marked *Removed* or *Not supported* appeared in earlier versions of this work and must not be cited.
+Claims refer to the supplied analysis outputs. `RELEASE_AUDIT.md` distinguishes table/code checks from raw-data verification. All proportions concern this voluntary sample, not all developers.
 
-| Claim | Evidence status | Publication language |
-|---|---|---|
-| AI use rose while trust weakened from 2023 to 2025. | Descriptive context only; survey wording, routing, and samples differ. | "Reported use rose while harmonized trust weakened across repeated cross-sections." |
-| Stance and accuracy trust are distinct survey items. | Supported by item wording and different incremental classification value. This does not prove clean latent-construct separation. | "The two items are analytically distinct and non-interchangeable here." |
-| Among current users, daily use is 18.8% at very unfavorable and 88.1% at very favorable. | Supported in the primary n=26,102 sample. | Report endpoints, denominators, and the unsure/indifferent reversal. |
-| Stance contains more classification information than trust for current-use frequency. | Supported by common-fold CV, 50 matched splits, professional-only and country-grouped checks. | "Stance carries substantially more information about reported daily use in this sample." |
-| Adding trust to context + stance still helps slightly. | Supported; mean five-fold AUC rises from 0.790 to 0.793 and all 50 repeated comparisons are positive. | Keep "slightly"; do not call trust irrelevant. |
-| The finding is novel. | The exact current-user, stance-versus-accuracy-trust comparison appears narrower than the broad published adoption/trust narrative, but no systematic-review claim is made. | "A distinct secondary analysis" or "a narrower contribution," not "the first." |
-| Stance causes daily use. | Not supported. | Do not claim. |
-| Increasing employee sentiment will increase adoption. | Not supported; needs longitudinal or experimental evidence. | At most a testable hypothesis. |
-| High trust is desirable. | Not established without reliability and calibration evidence. | Recommend calibrated reliance, not maximum trust. |
-| Full-sample endpoint separation proves the main claim. | Overstated because the stance item is close to current-use status. | Use the current-user comparison as primary; label full-sample results sensitivity only. |
-| Structured AI learning drives adoption. | Not supported by the available learning-route field. | Removed. |
-| Five stable developer archetypes exist. | Not supported by the earlier clustering diagnostics. | Removed. |
-| Random-forest Gini share proves stance dominance. | Not supported as a standalone inference. | Replaced with nested CV and held-out permutation checks. |
-| Stack Overflow respondents represent all developers. | Not supported. | Name the voluntary sample; avoid population-prevalence claims. |
+| Claim | Status and permitted framing |
+|---|---|
+| Daily use varies with stance among current users | Supported by supplied tables: 2025 18.8% very unfavorable versus 88.1% very favorable;2026 54.3% versus 93.0%. Report year, current-user population and outcome definition. |
+| Stance and trust are different survey items | Supported by wording and different model performance; this is not proof of validated latent-construct separation. |
+| Stance-only discrimination exceeds trust-only discrimination | Supported by supplied within-year fivefold AUCs:2025 0.758/0.669;2026 0.722/0.657. Describe ranking information, not causal influence or classification accuracy. |
+| Context+stance beats context+trust in 50/50 folds | Supported by the two supplied repeated-validation tables. Name these context models; standalone stance/trust models were not included in this repeated-fold step. Folds are dependent. |
+| Adding trust helps beyond context+stance | Supported: mean repeated-fold AUC increment about 0.003 in 2025 and 0.012 in 2026;50/50 positive in each. Do not call trust irrelevant. |
+| The 2026 trust item has a larger increment in this sample | Report the two increments descriptively. Different questions, samples and context sets prevent attribution to trust becoming more important or to superior item design. Avoid a ratio framed as “four times as much information”; AUC increments are not an information scale. |
+| Daily percentages differ across 2025 and 2026 | Supported as a comparison of reported percentages. The redesigned outcome, stance wording, sample and routing prevent a clean behavioral trend claim. Neither size nor direction of underlying change is separately identified. |
+| Favorable shares are 84.8%,76.8%,72.6%,62.3% across 2023–2026 | Supported by supplied current-user context table. Four observations contain three decreases. State wording/routing changes; use “lower reported shares in successive surveys,” not four years of measured attitude decline. |
+| Single-tool outcomes confirm the same-denominator increase | Not established: coding/chat analyses condition on answering their tool-frequency item. Report tool-specific denominators; these do not isolate the effect of the any-tool maximum. |
+| 2026 daily use differs by organizational policy | Supported descriptively: optional 69.7% versus measured-in-performance 88.1%; very unfavorable 45.8% versus 67.6%. No causal attribution or claim that other outcomes were comprehensively tested. |
+| Stance has no relationship to heavy use | Not supported. Heavy-use pattern is nonmonotone, and stance-only AUC is 0.653. Report the U-shaped pattern rather than absence of information. |
+| Usage alone cannot stand in for attitude | Supported practical interpretation: daily use appears in every stance category, while rates still differ markedly. Do not claim usage became completely uninformative or that dashboards previously measured belief. |
+| Stance predicts better than every other survey variable | Not tested. Limit claims to the compared specifications. |
+| Stance causes use or raising sentiment raises adoption | Not established; needs longitudinal/experimental evidence. |
+| Mandates cause use or resentment | Not established; policy table is cross-sectional and potentially confounded. |
+| High trust is desirable | Not established without reliability and calibration evidence. A proposed practice is to measure calibrated reliance directly. |
+| The 2023–2025 accuracy-trust trend continued in 2026 | Not testable because 2026 uses a different trust item. |
+| The study is first/novel or publicly preregistered | Not established by this package. No systematic literature review or independently verified preregistration was checked. The package reports prior specification of six criteria. |
 
-## Note on presentation assets
+## Withdrawn historical claims
 
-Any slide, carousel, or talk asset reporting a random-forest Gini importance share — including a "4.6x" ratio between stance and accuracy trust — reflects the withdrawn analysis and should be rebuilt from the current outputs in `outputs/sentiment/`.
-
-Impurity-based importance is unreliable when predictors are correlated, and stance and accuracy trust are correlated here. The defensible figures are the descriptive gradient (18.8% to 88.1%) and the cross-validated AUC comparison (0.758 stance alone versus 0.669 accuracy trust alone).
+Five stable developer archetypes, random-forest Gini shares (including a 4.6 x ratio), structured AI learning as an adoption driver, and full-sample separation as proof of the current-user claim are not supported by the current analysis. Do not reuse associated historical assets.

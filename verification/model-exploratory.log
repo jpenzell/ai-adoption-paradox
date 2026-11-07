@@ -1,0 +1,15 @@
+   favorable_stance     n  any_expect_less  any_expect_more  mean_parts_expect_less  mean_parts_expect_more  mean_parts_currently_use  mean_parts_do_not_plan
+0  Very unfavorable   847            0.502            0.681                   1.802                   3.638                     5.089                   6.516
+1       Unfavorable  1790            0.508            0.793                   1.614                   4.430                     5.148                   6.036
+2            Unsure   133            0.429            0.707                   1.624                   5.135                     6.654                   2.835
+3       Indifferent  1837            0.517            0.810                   1.729                   4.927                     5.728                   4.230
+4         Favorable  3765            0.433            0.874                   1.262                   6.195                     7.394                   3.130
+5    Very favorable  4044            0.310            0.798                   0.867                   5.988                    10.689                   1.532
+   favorable_stance     n  mean_job_satisfaction  low_satisfaction_0_to_4  high_satisfaction_9_to_10
+0  Very unfavorable   830                  6.095                    0.239                      0.143
+1       Unfavorable  1765                  6.544                    0.172                      0.162
+2            Unsure   104                  6.490                    0.192                      0.183
+3       Indifferent  1798                  6.829                    0.127                      0.177
+4         Favorable  3760                  6.987                    0.112                      0.197
+5    Very favorable  4058                  7.495                    0.073                      0.316
+Outputs written to: <workspace>/work/rerun2026/outputs/sentiment_2026

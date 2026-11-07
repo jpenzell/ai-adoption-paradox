@@ -4,10 +4,14 @@ from hashlib import sha256
 
 import pandas as pd
 
-from config import CSV_2023, CSV_2024, CSV_2025, check_data
+from config import CSV_2023, CSV_2024, CSV_2025, CSV_2026, check_data
 
 
 EXPECTED = {
+    CSV_2026: (
+        30_903,
+        "ad520b4d5d71f240141e63f0d6f81a3b1898cbdc69efe9ea985496533b15fc2c",
+    ),
     CSV_2025: (
         49_191,
         "2d1f65308877282edfb4470520eabbc08cb499118432a3dcec6a66c086aa2baa",
@@ -32,9 +36,12 @@ def file_hash(path):
 
 
 def main():
-    check_data()
+    check_data(include_2026=CSV_2026.exists())
     failures = []
     for path, (expected_rows, expected_hash) in EXPECTED.items():
+        if path == CSV_2026 and not path.exists():
+            print("2026: not present (optional; needed only for --year 2026)")
+            continue
         actual_hash = file_hash(path)
         actual_rows = len(pd.read_csv(path, usecols=["ResponseId"]))
         status = "OK" if (actual_hash, actual_rows) == (expected_hash, expected_rows) else "FAIL"
@@ -43,7 +50,7 @@ def main():
             failures.append(path)
     if failures:
         raise SystemExit("Data verification failed. Re-download the listed file(s).")
-    print("All three survey files match the publication inputs.")
+    print("All present survey files match the publication inputs.")
 
 
 if __name__ == "__main__":
