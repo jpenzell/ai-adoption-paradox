@@ -1,7 +1,7 @@
 # 2026 intake decisions
 
 How the 2026 Stack Overflow Developer Survey public CSV was mapped onto the
-v3.1.0 data contract, what was decided before the 2026 analysis was run, and
+2025 data contract (repository version 3.1.0), what was decided before the 2026 analysis was run, and
 what cannot be compared across years. Code: `analysis/survey_2026.py`.
 
 Data file: `packages/archive/2026/survey_results_public.csv` in
@@ -13,17 +13,18 @@ employment plus not bot-flagged, or all ten core questions answered).
 
 ## Comparability decision
 
-All three core items of the v3.1.0 analysis were redesigned in 2026. The
-release treats 2026 as a **conceptual replication** of the 2025 design with a
+All three core items of the 2025 analysis were redesigned in 2026. This
+study treats 2026 as a **conceptual replication** of the 2025 design with a
 **disclosed wording break**, not as a same-instrument trend. The three
 options considered in October 2026 were: (a) conceptual replication with
 pre-specified criteria, (b) trend-only with a wording break, (c) hold at
-v3.1.0. The release does (a) and reports (b) as context. Nothing in v3.1.0 is
-withdrawn; 2025 remains the same-instrument anchor.
+the 2025-only analysis. The study does (a) and reports (b) as context.
+Nothing in the 2025 analysis is withdrawn; 2025 remains the same-instrument
+anchor.
 
 ## Item mapping
 
-| v3.1.0 construct | 2025 item | 2026 item | Mapping | Comparability |
+| 2025 construct | 2025 item | 2026 item | Mapping | Comparability |
 |---|---|---|---|---|
 | Current AI use | `AISelect`: "Do you currently use AI tools in your development process?" (single select, frequency built in) | `AISelect`: "Do you currently use AI tools or AI agents in your role at work?" (multi-select across four tool types, plus "I don't use AI tools") | Current user = selected at least one tool type and not "I don't use AI tools". | Scope widened from "development process" to "role at work". |
 | Use frequency | Built into `AISelect` (daily / weekly / monthly or infrequently) | `AIFreq_1..4`: frequency per selected tool type (Daily / Weekly / Monthly or Infrequent) | `AIUsageScore` = maximum frequency across the respondent's tool types (4 daily, 3 weekly, 2 monthly). **Daily = daily on any tool type.** | A maximum across up to four items is not the same as one item. Sensitivity: daily on coding assistants alone (`AIFreq_1`). |
@@ -57,7 +58,7 @@ withdrawn; 2025 remains the same-instrument anchor.
 
 ## Pre-specified replication criteria
 
-Set before the 2026 run, mirroring the v3.1.0 claims:
+Set before the 2026 run, mirroring the 2025 claims:
 
 | Criterion | Threshold | 2026 result |
 |---|---|---|
@@ -68,7 +69,7 @@ Set before the 2026 run, mirroring the v3.1.0 claims:
 | Country-grouped folds preserve the stance-over-trust ordering | met if ordering holds | 0.721 vs 0.656: met |
 | Professional-only subsample preserves the ordering | met if ordering holds | 0.740 vs 0.672: met |
 
-All six criteria were met. The release language is "replicated on a
+All six criteria were met. The approved language is "replicated on a
 redesigned instrument", not "the same result".
 
 ## What is new in 2026 and reported as 2026-only

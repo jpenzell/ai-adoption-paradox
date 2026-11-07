@@ -34,7 +34,7 @@ All recodes below were applied before model fitting and held constant throughout
 
 **Missing:** Excluded from clustering sample (used as required feature).
 
-**⚠ Denominator note (2025):** In 2023 and 2024, this question was routed to current AI users only. In 2025, it was routed to all AISelect respondents including non-users. Non-users show substantially lower trust (8.9% high trust vs. 39.3% for current users). Both the full-denominator and user-only figures are reported in the paper. See DENOMINATORS.md.
+**⚠ Denominator note (2025):** In 2023 and 2024, this question was routed to current AI users only. In 2025, it was routed to all AISelect respondents including non-users. Non-users show substantially lower trust (8.9% high trust vs. 39.3% for current users). Both the full-denominator and user-only figures are reported in the write-up. See DENOMINATORS.md.
 
 ---
 
@@ -109,11 +109,11 @@ All recodes below were applied before model fitting and held constant throughout
 
 ---
 
-## 2026 recodes (v3.2.0)
+## 2026 recodes
 
 The 2026 survey renamed and redesigned the core items. Mapping is in `analysis/survey_2026.py`; rationale in `INTAKE_DECISIONS_2026.md`.
 
-| v3.2.0 variable | 2026 source | Recode |
+| Variable | 2026 source | Recode |
 |---|---|---|
 | `AIUsageScore` | `AISelect` (multi-select) + `AIFreq_1..4` | 0 = only "I don't use AI tools"; otherwise max over selected tool types: Daily 4, Weekly 3, Monthly or Infrequent 2. Contradictory rows (tool + "I don't use") = NaN. |
 | `Daily` | `AIUsageScore` | 1 if 4 |

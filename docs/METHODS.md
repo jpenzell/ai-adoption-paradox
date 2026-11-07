@@ -4,8 +4,9 @@
 
 This is a secondary analysis of repeated cross-sectional Stack Overflow
 Developer Survey public-use CSVs. The 2023-2025 data provide
-denominator-aware context; the primary analysis uses 2025 (v3.1.0) and is
-replicated on 2026 (v3.2.0) with the same specification family. The 2026
+denominator-aware context; the primary analysis uses 2025 (repository
+version 3.1.0, internal) and is replicated on 2026 (version 3.2.0, the first
+release) with the same specification family. The 2026
 survey redesigned the use, stance, and trust items; the mapping and the
 pre-specified replication criteria are in `INTAKE_DECISIONS_2026.md`.
 
@@ -85,8 +86,8 @@ representativeness or formal measurement invariance.
 
 ## Held-out calibration and importance
 
-An 80/20 stratified split (seed 42) evaluates the complete model. The release
-reports ROC AUC, accuracy, log loss, Brier score, calibration intercept,
+An 80/20 stratified split (seed 42) evaluates the complete model. The
+analysis reports ROC AUC, accuracy, log loss, Brier score, calibration intercept,
 calibration slope, and mean absolute predicted-versus-observed gap across
 deciles. Raw-column permutation importance repeats 20 permutations. Because
 predictors are correlated, importance is interpreted jointly with nested-model
@@ -136,10 +137,10 @@ contrasts (impossible under 2026 routing) with within-user contrasts
 daily users). Two 2026-only descriptive tables are added: daily use by stance
 and organizational AI policy (`AIUse`), and hours per day among daily users
 (`AIDaily`). The 2025 run is unchanged and its outputs are byte-identical to
-the v3.1.0 release.
+the internal version 3.1.0 outputs.
 
 The four-year context table uses the current-user denominator for stance in
-every year (the v3.1.0 chart used all stance respondents, which 2026 does
+every year (the earlier three-year chart used all stance respondents, which 2026 does
 not route). The Likert trust series ends at 2025.
 
 ## Computational notes

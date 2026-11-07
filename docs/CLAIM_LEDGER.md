@@ -19,7 +19,7 @@ Every substantive claim in this project, its evidence status, and the language a
 | Random-forest Gini share proves stance dominance. | Not supported as a standalone inference. | Replaced with nested CV and held-out permutation checks. |
 | Stack Overflow respondents represent all developers. | Not supported. | Name the voluntary sample; avoid population-prevalence claims. |
 
-## 2026 claims (v3.2.0)
+## 2026 claims
 
 | Claim | Evidence status | Publication language |
 |---|---|---|
@@ -38,4 +38,4 @@ Every substantive claim in this project, its evidence status, and the language a
 
 Any slide, carousel, or talk asset reporting a random-forest Gini importance share — including a "4.6x" ratio between stance and accuracy trust — reflects the withdrawn analysis and should be rebuilt from the current outputs in `outputs/sentiment/`.
 
-Impurity-based importance is unreliable when predictors are correlated, and stance and accuracy trust are correlated here. The defensible figures are the descriptive gradient (18.8% to 88.1% in 2025; 54.3% to 93.0% in 2026) and the cross-validated AUC comparison (0.758 versus 0.669 in 2025; 0.722 versus 0.657 in 2026). Assets built from v3.1.0 that show only 2025 are not wrong; they are dated.
+Impurity-based importance is unreliable when predictors are correlated, and stance and accuracy trust are correlated here. The defensible figures are the descriptive gradient (18.8% to 88.1% in 2025; 54.3% to 93.0% in 2026) and the cross-validated AUC comparison (0.758 versus 0.669 in 2025; 0.722 versus 0.657 in 2026). Any draft asset that shows only 2025 predates the 2026 data and should not be used; the released assets cover both years.

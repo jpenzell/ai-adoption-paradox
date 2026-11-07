@@ -55,7 +55,7 @@ The 2023 "current users only" row above corrects an earlier table that labeled t
 
 **Conclusion:** The trust decline from 2024 to 2025 is directionally robust on both denominators, but the magnitude differs substantially. The harmonized user-only figures show a smaller — though still meaningful — decline. Non-users show dramatically lower trust, which depresses the 2025 full-denominator figures relative to prior years.
 
-Both the full-denominator and user-only 2025 figures are reported in the paper (Table 3).
+Both the full-denominator and user-only 2025 figures are reported in the write-up.
 
 ---
 

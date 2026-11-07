@@ -2,15 +2,15 @@
 
 **Favorable Stance, Trust, and Reported AI-Use Frequency in the 2025 and 2026 Stack Overflow Surveys**
 
-Josh Penzell · Imagination Applied Open Research Series · **v3.2.0 (November 2026)**
+Josh Penzell · Imagination Applied Open Research Series · **First release, November 2026** (repository version 3.2.0)
 
-> **v3.2.0 adds the 2026 survey.** Stack Overflow redesigned the use, stance, and trust items in 2026, so 2026 is run as a conceptual replication of the 2025 design with the wording break disclosed. The 2025 results below are unchanged. The 2026 results and what changed are in [`docs/FINDINGS_2026.md`](docs/FINDINGS_2026.md); the mapping and pre-specified criteria are in [`docs/INTAKE_DECISIONS_2026.md`](docs/INTAKE_DECISIONS_2026.md).
+> **This is the first public write-up of this work, and it covers two survey years.** The 2025 analysis was completed and independently reproduced before the 2026 data were released; the 2026 survey was then run as a conceptual replication of the 2025 design, with pre-specified criteria and the wording break disclosed, because Stack Overflow redesigned the use, stance, and trust items in 2026. The 2026 results and what changed are in [`docs/FINDINGS_2026.md`](docs/FINDINGS_2026.md); the mapping and pre-specified criteria are in [`docs/INTAKE_DECISIONS_2026.md`](docs/INTAKE_DECISIONS_2026.md).
 
 ---
 
-> ### ⚠️ This repository was substantially revised in 2026
+> ### ⚠️ Repository history
 >
-> Commits before v3.1.0 contained an earlier analysis titled *"Human–AI Work Patterns in Software Development: Archetypes, Paradoxes, and the Decline of Trust,"* built on k-means/k-modes clustering, association rule mining, and random-forest Gini importance.
+> Earlier commits in this repository (before internal version 3.1.0, never released) contained an earlier analysis titled *"Human–AI Work Patterns in Software Development: Archetypes, Paradoxes, and the Decline of Trust,"* built on k-means/k-modes clustering, association rule mining, and random-forest Gini importance.
 >
 > **Several claims from that version have been formally withdrawn.** They are listed under *Withdrawn claims* below and documented in [`docs/CLAIM_LEDGER.md`](docs/CLAIM_LEDGER.md). Please do not cite the earlier manuscripts (`adoption_paper_v34`, `v40`) or the archetype/random-forest findings. The current analysis supersedes them.
 
@@ -69,7 +69,7 @@ Earlier feature recodes (`AIComplexScore`, `AgentScore`, `LearnedAI`) mixed non-
 pip install -r requirements.txt
 # place the Stack Overflow public CSVs at data/<year>/survey_results_public.csv
 python analysis/verify_data.py
-python analysis/sentiment_deep_dive.py              # 2025 release (outputs/sentiment/)
+python analysis/sentiment_deep_dive.py              # 2025 analysis (outputs/sentiment/)
 python analysis/sentiment_deep_dive.py --year 2026  # 2026 replication (outputs/sentiment_2026/)
 ```
 

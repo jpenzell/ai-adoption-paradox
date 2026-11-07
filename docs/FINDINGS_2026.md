@@ -1,6 +1,6 @@
 # Findings: the 2026 update
 
-**Adoption Without Confidence?** v3.2.0 (November 2026). Companion to
+**Adoption Without Confidence?** First release, November 2026 (repository version 3.2.0). The 2025 analysis was completed before the 2026 data existed and has not been published separately; this document reports both years together. Companion to
 [`INTAKE_DECISIONS_2026.md`](INTAKE_DECISIONS_2026.md) (what was mapped and
 why) and [`METHODS.md`](METHODS.md). All numbers below are in
 `outputs/sentiment_2026/` and `outputs/sentiment/` and were produced by
@@ -64,7 +64,7 @@ every sensitivity version of the 2026 outcome lands far above the 2025
 figure. Among the favorable the change is small because there was little
 headroom: 88.1% to 93.0%.
 
-The paper's title question was whether adoption was happening without
+This study's title question is whether adoption is happening without
 confidence. In 2025 it was happening mostly among people who at least said
 they were favorable. In 2026 it is happening among the unfavorable too.
 
@@ -172,7 +172,7 @@ say nothing about direction.
 
 ## What this does not show
 
-Unchanged from v3.1.0, with two additions.
+The limits of the 2025 analysis, with two additions for 2026.
 
 - Not causal. The design cannot say whether stance precedes use or follows
   it, in either year.
